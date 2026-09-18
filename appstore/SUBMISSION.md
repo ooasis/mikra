@@ -10,7 +10,7 @@
 
 ## One-time prerequisites
 - [ ] Paid Apple Developer Program membership ($99/yr) on team 263U684LP7 — required for App Store distribution; a free account can only run on device. Check at developer.apple.com/account.
-- [ ] Fill in your contact email in privacy-policy.md, then host it at a public URL (`gh gist create --public appstore/privacy-policy.md` is the quickest; GitHub Pages also works).
+- [x] Privacy/support page live at https://mikra.pages.dev/ (docs/index.html, Cloudflare Pages project "mikra"; deploy updates with `wrangler pages deploy docs --project-name mikra --branch main`).
 
 ## App Store Connect (appstoreconnect.apple.com)
 - [ ] Apps → "+" → New App: iOS, name from metadata.md, primary language English, bundle ID com.ooasis.mikra (register it at developer.apple.com/account → Identifiers if it's not in the dropdown), SKU e.g. `mikra-001`.

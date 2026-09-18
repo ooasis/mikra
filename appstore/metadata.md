@@ -40,10 +40,10 @@ hebrew,biblical,bible,jonah,alphabet,flashcards,spaced repetition,torah,read,lea
 Ten minutes a day from alef to reading the Book of Jonah in the original Hebrew. Listen, read aloud, tap words you don't know. Offline, no account, no ads.
 
 ## Support URL
-Use your GitHub profile or wherever you host the privacy policy.
+https://mikra.pages.dev/ (or https://mikra.chaandme.com/ once the custom domain is attached)
 
 ## Privacy policy URL
-Host appstore/privacy-policy.md publicly first — see SUBMISSION.md.
+https://mikra.pages.dev/#privacy
 
 ## App Privacy questionnaire
 "Do you collect data from this app?" → **No** → label shows "Data Not Collected". That's it.
