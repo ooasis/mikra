@@ -7,13 +7,31 @@ struct SessionView: View {
     @State private var queue: [Card] = []
     @State private var revealed = false
     @State private var done = 0
+    @State private var history: [Card] = []
+    @State private var browse: Int? = nil // index into history; nil = live card
 
-    private var card: Card? { queue.first }
+    private var card: Card? { browse.map { history[$0] } ?? queue.first }
+    private var isRevealed: Bool { browse != nil || revealed }
 
     var body: some View {
         VStack {
             HStack {
                 Button("Done") { dismiss() }
+                Spacer()
+                Button {
+                    browse = (browse ?? history.count) - 1
+                } label: {
+                    Image(systemName: "chevron.backward")
+                }
+                .disabled((browse ?? history.count) == 0)
+                Button {
+                    let next = browse! + 1
+                    browse = next == history.count ? nil : next
+                } label: {
+                    Image(systemName: "chevron.forward")
+                }
+                .disabled(browse == nil)
+                .padding(.horizontal, 8)
                 Spacer()
                 Text("\(queue.count) left").foregroundStyle(.secondary)
             }
@@ -32,7 +50,7 @@ struct SessionView: View {
                         .padding(.horizontal)
                 }
 
-                if revealed {
+                if isRevealed {
                     VStack(spacing: 8) {
                         Text(card.name).font(.title).bold()
                         if !card.sound.isEmpty {
@@ -67,7 +85,12 @@ struct SessionView: View {
 
             Spacer()
 
-            if let card {
+            if browse != nil {
+                Text("Reviewing an earlier card")
+                    .font(.footnote)
+                    .foregroundStyle(.tertiary)
+                    .padding()
+            } else if let card {
                 if revealed {
                     HStack(spacing: 12) {
                         gradeButton("Again", .red) { finish(card, .again) }
@@ -101,6 +124,7 @@ struct SessionView: View {
         store.grade(card, grade)
         queue.removeFirst()
         if grade == .again { queue.append(card) } // recycle within session
+        history.append(card)
         done += 1
         revealed = false
     }

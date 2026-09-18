@@ -14,6 +14,8 @@ struct HomeView: View {
 
     private let letters = curriculum.filter { $0.kind == .letter }
     private let vowels = curriculum.filter { $0.kind == .vowel }
+    private var vowelGroups: [LetterGroup] { vowels.map { LetterGroup(id: $0.id, cards: [$0]) } }
+    private var allGroups: [LetterGroup] { letterGroups + vowelGroups }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -31,7 +33,7 @@ struct HomeView: View {
                 section("Letters — \(learnedIn(letters))/\(letters.count)",
                         letterGroups, columns: 3)
                 section("Vowels — \(learnedIn(vowels))/\(vowels.count)",
-                        vowels.map { LetterGroup(id: $0.id, cards: [$0]) }, columns: 4)
+                        vowelGroups, columns: 4)
             }
 
             Button {
@@ -54,18 +56,25 @@ struct HomeView: View {
             VerseView(verse: p.verse, mode: p.mode)
         }
         .sheet(item: $selected) { group in
-            FlashCardView(cards: group.cards)
+            if let i = allGroups.firstIndex(where: { $0.id == group.id }) {
+                FlashCardView(groups: allGroups, index: i)
+            } else {
+                FlashCardView(groups: [group], index: 0) // ad-hoc group (DEBUG hook)
+            }
         }
         #if DEBUG
         .onAppear { // UI smoke-test hooks: -openVerse / -openWave
             let args = ProcessInfo.processInfo.arguments
-            if args.contains("-openVerse") {
-                openVerse = VersePresentation(verse: jonahVerses[0], mode: .passive)
-            } else if args.contains("-openWave") {
-                openVerse = VersePresentation(verse: jonahVerses[0], mode: .wave)
-            } else if args.contains("-openVowel") {
-                selected = LetterGroup(id: "qamats",
-                                       cards: ["qamats", "cholam", "kubuts", "segol"].compactMap { cardsByID[$0] })
+            // delay: presenting during the first onAppear races the cold launch and silently no-ops
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                if args.contains("-openVerse") {
+                    openVerse = VersePresentation(verse: jonahVerses[0], mode: .passive)
+                } else if args.contains("-openWave") {
+                    openVerse = VersePresentation(verse: jonahVerses[0], mode: .wave)
+                } else if args.contains("-openVowel") {
+                    selected = LetterGroup(id: "qamats",
+                                           cards: ["qamats", "cholam", "kubuts", "segol"].compactMap { cardsByID[$0] })
+                }
             }
         }
         #endif
