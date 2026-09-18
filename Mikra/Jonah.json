@@ -1,0 +1,3108 @@
+[
+{
+"c": 1,
+"v": 1,
+"en": "Now Yahweh’s word came to Jonah the son of Amittai, saying,",
+"words": [
+{
+"h": "וַיְהִי",
+"g": "and + to be, become",
+"n": "va-y'hi — the vav prefix glues onto the verb and chains the story forward: 'and it was'. Biblical narrative links nearly every sentence with va-/vay-. You'll stop noticing it within a week."
+},
+{
+"h": "דְּבַר־",
+"g": "word, thing",
+"n": "d'var = 'word of' — davar squeezed into its construct form. Two nouns back to back mean 'X of Y': d'var-YHWH, 'the word of the LORD'. No word for 'of' needed."
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "יוֹנָה",
+"g": "Jonah"
+},
+{
+"h": "בֶן־",
+"g": "son"
+},
+{
+"h": "אֲמִתַּי",
+"g": "Amittai"
+},
+{
+"h": "לֵאמֹר",
+"g": "to + to say"
+}
+]
+},
+{
+"c": 1,
+"v": 2,
+"en": "“Arise, go to Nineveh, that great city, and preach against it, for their wickedness has come up before me.”",
+"words": [
+{
+"h": "קוּם",
+"g": "to arise",
+"n": "qum lekh — 'get up, go!' Two bare imperatives, no politeness. Commands are just the verb stripped to its core."
+},
+{
+"h": "לֵךְ",
+"g": "to go, walk"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "נִינְוֵה",
+"g": "Nineveh"
+},
+{
+"h": "הָעִיר",
+"g": "the + city",
+"n": "ha- = 'the'. The adjective follows its noun and takes ha- again: ha-ir ha-g'dola — literally 'the city, the great'."
+},
+{
+"h": "הַגְּדוֹלָה",
+"g": "the + great, big"
+},
+{
+"h": "וּקְרָא",
+"g": "and + to call, cry out"
+},
+{
+"h": "עָלֶיהָ",
+"g": "on, over, against + +her/its"
+},
+{
+"h": "כִּי־",
+"g": "for, because, that"
+},
+{
+"h": "עָלְתָה",
+"g": "to go up"
+},
+{
+"h": "רָעָתָם",
+"g": "evil, wickedness + +them/their"
+},
+{
+"h": "לְפָנָי",
+"g": "to + face, presence + +me/my"
+}
+]
+},
+{
+"c": 1,
+"v": 3,
+"en": "But Jonah rose up to flee to Tarshish from the presence of Yahweh. He went down to Joppa, and found a ship going to Tarshish; so he paid its fare, and went down into it, to go with them to Tarshish from the presence of Yahweh.",
+"words": [
+{
+"h": "וַיָּקָם",
+"g": "and + to arise"
+},
+{
+"h": "יוֹנָה",
+"g": "Jonah"
+},
+{
+"h": "לִבְרֹחַ",
+"g": "to + to flee",
+"n": "li-vroach: the prefix l- ('to') + verb makes the infinitive — 'to flee'. Same l- you saw in lemor ('saying')."
+},
+{
+"h": "תַּרְשִׁישָׁה",
+"g": "Tarshish"
+},
+{
+"h": "מִלִּפְנֵי",
+"g": "from + to + face, presence"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "וַיֵּרֶד",
+"g": "and + to go down"
+},
+{
+"h": "יָפוֹ",
+"g": "Joppa"
+},
+{
+"h": "וַיִּמְצָא",
+"g": "and + to find"
+},
+{
+"h": "אָנִיָּה",
+"g": "ship"
+},
+{
+"h": "בָּאָה",
+"g": "to come, go in"
+},
+{
+"h": "תַרְשִׁישׁ",
+"g": "Tarshish"
+},
+{
+"h": "וַיִּתֵּן",
+"g": "and + to give"
+},
+{
+"h": "שְׂכָרָהּ",
+"g": "payment of contract + +her/its"
+},
+{
+"h": "וַיֵּרֶד",
+"g": "and + to go down"
+},
+{
+"h": "בָּהּ",
+"g": "in + +her/its"
+},
+{
+"h": "לָבוֹא",
+"g": "to + to come, go in"
+},
+{
+"h": "עִמָּהֶם",
+"g": "adverb or preposition, with + +them/their"
+},
+{
+"h": "תַּרְשִׁישָׁה",
+"g": "Tarshish"
+},
+{
+"h": "מִלִּפְנֵי",
+"g": "from + to + face, presence"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+}
+]
+},
+{
+"c": 1,
+"v": 4,
+"en": "But Yahweh sent out a great wind on the sea, and there was a mighty storm on the sea, so that the ship was likely to break up.",
+"words": [
+{
+"h": "וַיהוָה",
+"g": "and + the LORD (YHWH)"
+},
+{
+"h": "הֵטִיל",
+"g": "to hurl, throw",
+"n": "hetil — 'hurled'. Watch this verb: the LORD hurls a wind, the sailors hurl cargo, then hurl Jonah. It's the thread stitching chapter 1 together."
+},
+{
+"h": "רוּחַ־",
+"g": "wind, spirit"
+},
+{
+"h": "גְּדוֹלָה",
+"g": "great, big"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "הַיָּם",
+"g": "the + sea"
+},
+{
+"h": "וַיְהִי",
+"g": "and + to be, become"
+},
+{
+"h": "סַעַר־",
+"g": "storm, tempest"
+},
+{
+"h": "גָּדוֹל",
+"g": "great, big"
+},
+{
+"h": "בַּיָּם",
+"g": "in + sea"
+},
+{
+"h": "וְהָאֳנִיָּה",
+"g": "and + the + ship"
+},
+{
+"h": "חִשְּׁבָה",
+"g": "to think, reckon"
+},
+{
+"h": "לְהִשָּׁבֵר",
+"g": "to + to break up"
+}
+]
+},
+{
+"c": 1,
+"v": 5,
+"en": "Then the mariners were afraid, and every man cried to his god. They threw the cargo that was in the ship into the sea to lighten the ship. But Jonah had gone down into the innermost parts of the ship, and he was laying down, and was fast asleep.",
+"words": [
+{
+"h": "וַיִּירְאוּ",
+"g": "and + to fear"
+},
+{
+"h": "הַמַּלָּחִים",
+"g": "the + a sailor"
+},
+{
+"h": "וַיִּזְעֲקוּ",
+"g": "and + to cry out"
+},
+{
+"h": "אִישׁ",
+"g": "man, each one"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "אֱלֹהָיו",
+"g": "God, gods + +him/his/it",
+"n": "elohav = elohim + -av, 'his god(s)'. Ownership lives in the word ending: -i my, -kha your, -av his, -ah her."
+},
+{
+"h": "וַיָּטִלוּ",
+"g": "and + to hurl, throw"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "הַכֵּלִים",
+"g": "the + vessel, cargo"
+},
+{
+"h": "אֲשֶׁר",
+"g": "which, who"
+},
+{
+"h": "בָּאֳנִיָּה",
+"g": "in + ship"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "הַיָּם",
+"g": "the + sea"
+},
+{
+"h": "לְהָקֵל",
+"g": "to + to lighten"
+},
+{
+"h": "מֵעֲלֵיהֶם",
+"g": "from + on, over, against + +them/their"
+},
+{
+"h": "וְיוֹנָה",
+"g": "and + Jonah"
+},
+{
+"h": "יָרַד",
+"g": "to go down"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "יַרְכְּתֵי",
+"g": "the flank"
+},
+{
+"h": "הַסְּפִינָה",
+"g": "the + ship"
+},
+{
+"h": "וַיִּשְׁכַּב",
+"g": "and + to lie down"
+},
+{
+"h": "וַיֵּרָדַם",
+"g": "and + to sleep deeply"
+}
+]
+},
+{
+"c": 1,
+"v": 6,
+"en": "So the ship master came to him, and said to him, “What do you mean, sleeper? Arise, call on your God! Maybe your God will notice us, so that we won’t perish.”",
+"words": [
+{
+"h": "וַיִּקְרַב",
+"g": "and + to draw near"
+},
+{
+"h": "אֵלָיו",
+"g": "to, toward + +him/his/it"
+},
+{
+"h": "רַב",
+"g": "great, many"
+},
+{
+"h": "הַחֹבֵל",
+"g": "the + captain, pilot"
+},
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "לוֹ",
+"g": "to + +him/his/it"
+},
+{
+"h": "מַה־",
+"g": "what?"
+},
+{
+"h": "לְּךָ",
+"g": "to + +you/your"
+},
+{
+"h": "נִרְדָּם",
+"g": "to sleep deeply"
+},
+{
+"h": "קוּם",
+"g": "to arise"
+},
+{
+"h": "קְרָא",
+"g": "to call, cry out"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "אֱלֹהֶיךָ",
+"g": "God, gods + +you/your"
+},
+{
+"h": "אוּלַי",
+"g": "if not"
+},
+{
+"h": "יִתְעַשֵּׁת",
+"g": "probably to be sleek, i.e. glossy",
+"n": "yit'ashet — 'perhaps the god will spare a thought for us'. The captain uses the vague ha-elohim, 'the deity' — he has no idea whose god is angry."
+},
+{
+"h": "הָאֱלֹהִים",
+"g": "the + God, gods"
+},
+{
+"h": "לָנוּ",
+"g": "to + +us/our"
+},
+{
+"h": "וְלֹא",
+"g": "and + not"
+},
+{
+"h": "נֹאבֵד",
+"g": "to perish"
+}
+]
+},
+{
+"c": 1,
+"v": 7,
+"en": "They all said to each other, “Come, let us cast lots, that we may know who is responsible for this evil that is on us.” So they cast lots, and the lot fell on Jonah.",
+"words": [
+{
+"h": "וַיֹּאמְרוּ",
+"g": "and + to say"
+},
+{
+"h": "אִישׁ",
+"g": "man, each one"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "רֵעֵהוּ",
+"g": "fellow, companion + +him/his/it"
+},
+{
+"h": "לְכוּ",
+"g": "to go, walk"
+},
+{
+"h": "וְנַפִּילָה",
+"g": "and + to fall"
+},
+{
+"h": "גוֹרָלוֹת",
+"g": "lot (casting lots)"
+},
+{
+"h": "וְנֵדְעָה",
+"g": "and + to know"
+},
+{
+"h": "בְּשֶׁלְּמִי",
+"g": "on whose account?"
+},
+{
+"h": "הָרָעָה",
+"g": "the + evil, wickedness"
+},
+{
+"h": "הַזֹּאת",
+"g": "the + this"
+},
+{
+"h": "לָנוּ",
+"g": "to + +us/our"
+},
+{
+"h": "וַיַּפִּלוּ",
+"g": "and + to fall"
+},
+{
+"h": "גּוֹרָלוֹת",
+"g": "lot (casting lots)"
+},
+{
+"h": "וַיִּפֹּל",
+"g": "and + to fall"
+},
+{
+"h": "הַגּוֹרָל",
+"g": "the + lot (casting lots)"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "יוֹנָה",
+"g": "Jonah"
+}
+]
+},
+{
+"c": 1,
+"v": 8,
+"en": "Then they asked him, “Tell us, please, for whose cause this evil is on us. What is your occupation? Where do you come from? What is your country? Of what people are you?”",
+"words": [
+{
+"h": "וַיֹּאמְרוּ",
+"g": "and + to say"
+},
+{
+"h": "אֵלָיו",
+"g": "to, toward + +him/his/it"
+},
+{
+"h": "הַגִּידָה־",
+"g": "to tell"
+},
+{
+"h": "נָּא",
+"g": "please, now"
+},
+{
+"h": "לָנוּ",
+"g": "to + +us/our"
+},
+{
+"h": "בַּאֲשֶׁר",
+"g": "in + which, who"
+},
+{
+"h": "לְמִי־",
+"g": "to + who?"
+},
+{
+"h": "הָרָעָה",
+"g": "the + evil, wickedness"
+},
+{
+"h": "הַזֹּאת",
+"g": "the + this"
+},
+{
+"h": "לָנוּ",
+"g": "to + +us/our"
+},
+{
+"h": "מַה־",
+"g": "what?"
+},
+{
+"h": "מְּלַאכְתְּךָ",
+"g": "work, occupation + +you/your"
+},
+{
+"h": "וּמֵאַיִן",
+"g": "and + from + where?"
+},
+{
+"h": "תָּבוֹא",
+"g": "to come, go in"
+},
+{
+"h": "מָה",
+"g": "what?"
+},
+{
+"h": "אַרְצֶךָ",
+"g": "land, earth + +you/your"
+},
+{
+"h": "וְאֵי־",
+"g": "and + where?"
+},
+{
+"h": "מִזֶּה",
+"g": "from + the masculine demonstrative pronoun, this or that"
+},
+{
+"h": "עַם",
+"g": "people"
+},
+{
+"h": "אָתָּה",
+"g": "thou and thee, or  ye and you"
+}
+]
+},
+{
+"c": 1,
+"v": 9,
+"en": "He said to them, “I am a Hebrew, and I fear Yahweh, the God of heaven, who has made the sea and the dry land.”",
+"words": [
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "אֲלֵיהֶם",
+"g": "to, toward + +them/their"
+},
+{
+"h": "עִבְרִי",
+"g": "an Eberite  or descendant of Eber",
+"n": "ivri — 'a Hebrew'. This is the word the language is named after. Jonah's whole self-introduction is two words: ivri anokhi."
+},
+{
+"h": "אָנֹכִי",
+"g": "I"
+},
+{
+"h": "וְאֶת־",
+"g": "and + (object marker)"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "אֱלֹהֵי",
+"g": "God, gods"
+},
+{
+"h": "הַשָּׁמַיִם",
+"g": "the + heavens, sky"
+},
+{
+"h": "אֲנִי",
+"g": "I"
+},
+{
+"h": "יָרֵא",
+"g": "fearing"
+},
+{
+"h": "אֲשֶׁר־",
+"g": "which, who"
+},
+{
+"h": "עָשָׂה",
+"g": "to do, make"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "הַיָּם",
+"g": "the + sea"
+},
+{
+"h": "וְאֶת־",
+"g": "and + (object marker)"
+},
+{
+"h": "הַיַּבָּשָׁה",
+"g": "the + dry land"
+}
+]
+},
+{
+"c": 1,
+"v": 10,
+"en": "Then the men were exceedingly afraid, and said to him, “What have you done?” For the men knew that he was fleeing from the presence of Yahweh, because he had told them.",
+"words": [
+{
+"h": "וַיִּירְאוּ",
+"g": "and + to fear"
+},
+{
+"h": "הָאֲנָשִׁים",
+"g": "the + man, each one"
+},
+{
+"h": "יִרְאָה",
+"g": "fearing"
+},
+{
+"h": "גְדוֹלָה",
+"g": "great, big"
+},
+{
+"h": "וַיֹּאמְרוּ",
+"g": "and + to say"
+},
+{
+"h": "אֵלָיו",
+"g": "to, toward + +him/his/it"
+},
+{
+"h": "מַה־",
+"g": "what?"
+},
+{
+"h": "זֹּאת",
+"g": "this"
+},
+{
+"h": "עָשִׂיתָ",
+"g": "to do, make"
+},
+{
+"h": "כִּי־",
+"g": "for, because, that"
+},
+{
+"h": "יָדְעוּ",
+"g": "to know"
+},
+{
+"h": "הָאֲנָשִׁים",
+"g": "the + man, each one"
+},
+{
+"h": "כִּי־",
+"g": "for, because, that"
+},
+{
+"h": "מִלִּפְנֵי",
+"g": "from + to + face, presence"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "הוּא",
+"g": "he"
+},
+{
+"h": "בֹרֵחַ",
+"g": "to flee"
+},
+{
+"h": "כִּי",
+"g": "for, because, that"
+},
+{
+"h": "הִגִּיד",
+"g": "to tell"
+},
+{
+"h": "לָהֶם",
+"g": "to + +them/their"
+}
+]
+},
+{
+"c": 1,
+"v": 11,
+"en": "Then they said to him, “What shall we do to you, that the sea may be calm to us?” For the sea grew more and more stormy.",
+"words": [
+{
+"h": "וַיֹּאמְרוּ",
+"g": "and + to say"
+},
+{
+"h": "אֵלָיו",
+"g": "to, toward + +him/his/it"
+},
+{
+"h": "מַה־",
+"g": "what?"
+},
+{
+"h": "נַּעֲשֶׂה",
+"g": "to do, make"
+},
+{
+"h": "לָּךְ",
+"g": "to + +you/your"
+},
+{
+"h": "וְיִשְׁתֹּק",
+"g": "and + to subside"
+},
+{
+"h": "הַיָּם",
+"g": "the + sea"
+},
+{
+"h": "מֵעָלֵינוּ",
+"g": "from + on, over, against + +us/our"
+},
+{
+"h": "כִּי",
+"g": "for, because, that"
+},
+{
+"h": "הַיָּם",
+"g": "the + sea"
+},
+{
+"h": "הוֹלֵךְ",
+"g": "to go, walk"
+},
+{
+"h": "וְסֹעֵר",
+"g": "and + to rush upon"
+}
+]
+},
+{
+"c": 1,
+"v": 12,
+"en": "He said to them, “Take me up, and throw me into the sea. Then the sea will be calm for you; for I know that because of me this great storm is on you.”",
+"words": [
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "אֲלֵיהֶם",
+"g": "to, toward + +them/their"
+},
+{
+"h": "שָׂאוּנִי",
+"g": "to lift, in a great variety of applications + +me/my"
+},
+{
+"h": "וַהֲטִילֻנִי",
+"g": "and + to hurl, throw + +me/my"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "הַיָּם",
+"g": "the + sea"
+},
+{
+"h": "וְיִשְׁתֹּק",
+"g": "and + to subside"
+},
+{
+"h": "הַיָּם",
+"g": "the + sea"
+},
+{
+"h": "מֵעֲלֵיכֶם",
+"g": "from + on, over, against + +you/your"
+},
+{
+"h": "כִּי",
+"g": "for, because, that"
+},
+{
+"h": "יוֹדֵעַ",
+"g": "to know"
+},
+{
+"h": "אָנִי",
+"g": "I"
+},
+{
+"h": "כִּי",
+"g": "for, because, that"
+},
+{
+"h": "בְשֶׁלִּי",
+"g": "on my account",
+"n": "beshelli — 'on my account'. Jonah admits it: b- (because) + shel (of) + -i (me)."
+},
+{
+"h": "הַסַּעַר",
+"g": "the + storm, tempest"
+},
+{
+"h": "הַגָּדוֹל",
+"g": "the + great, big"
+},
+{
+"h": "הַזֶּה",
+"g": "the + the masculine demonstrative pronoun, this or that"
+},
+{
+"h": "עֲלֵיכֶם",
+"g": "on, over, against + +you/your"
+}
+]
+},
+{
+"c": 1,
+"v": 13,
+"en": "Nevertheless the men rowed hard to get them back to the land; but they could not, for the sea grew more and more stormy against them.",
+"words": [
+{
+"h": "וַיַּחְתְּרוּ",
+"g": "and + to force a passage, as by burglary"
+},
+{
+"h": "הָאֲנָשִׁים",
+"g": "the + man, each one"
+},
+{
+"h": "לְהָשִׁיב",
+"g": "to + to turn back, return"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "הַיַּבָּשָׁה",
+"g": "the + dry land"
+},
+{
+"h": "וְלֹא",
+"g": "and + not"
+},
+{
+"h": "יָכֹלוּ",
+"g": "to be able, literally  or morally"
+},
+{
+"h": "כִּי",
+"g": "for, because, that"
+},
+{
+"h": "הַיָּם",
+"g": "the + sea"
+},
+{
+"h": "הוֹלֵךְ",
+"g": "to go, walk"
+},
+{
+"h": "וְסֹעֵר",
+"g": "and + to rush upon"
+},
+{
+"h": "עֲלֵיהֶם",
+"g": "on, over, against + +them/their"
+}
+]
+},
+{
+"c": 1,
+"v": 14,
+"en": "Therefore they cried to Yahweh, and said, “We beg you, Yahweh, we beg you, don’t let us die for this man’s life, and don’t lay on us innocent blood; for you, Yahweh, have done as it pleased you.”",
+"words": [
+{
+"h": "וַיִּקְרְאוּ",
+"g": "and + to call, cry out"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "וַיֹּאמְרוּ",
+"g": "and + to say"
+},
+{
+"h": "אָנָּה",
+"g": "oh now!"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "אַל־",
+"g": "not"
+},
+{
+"h": "נָא",
+"g": "please, now"
+},
+{
+"h": "נֹאבְדָה",
+"g": "to perish"
+},
+{
+"h": "בְּנֶפֶשׁ",
+"g": "in + soul, life, self"
+},
+{
+"h": "הָאִישׁ",
+"g": "the + man, each one"
+},
+{
+"h": "הַזֶּה",
+"g": "the + the masculine demonstrative pronoun, this or that"
+},
+{
+"h": "וְאַל־",
+"g": "and + not"
+},
+{
+"h": "תִּתֵּן",
+"g": "to give"
+},
+{
+"h": "עָלֵינוּ",
+"g": "on, over, against + +us/our"
+},
+{
+"h": "דָּם",
+"g": "blood  of man or an animal"
+},
+{
+"h": "נָקִיא",
+"g": "innocent"
+},
+{
+"h": "כִּי־",
+"g": "for, because, that"
+},
+{
+"h": "אַתָּה",
+"g": "thou and thee, or  ye and you"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "כַּאֲשֶׁר",
+"g": "like + which, who"
+},
+{
+"h": "חָפַצְתָּ",
+"g": "to incline to"
+},
+{
+"h": "עָשִׂיתָ",
+"g": "to do, make"
+}
+]
+},
+{
+"c": 1,
+"v": 15,
+"en": "So they took up Jonah, and threw him into the sea; and the sea ceased its raging.",
+"words": [
+{
+"h": "וַיִּשְׂאוּ",
+"g": "and + to lift, in a great variety of applications"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "יוֹנָה",
+"g": "Jonah"
+},
+{
+"h": "וַיְטִלֻהוּ",
+"g": "and + to hurl, throw + +him/his/it"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "הַיָּם",
+"g": "the + sea"
+},
+{
+"h": "וַיַּעֲמֹד",
+"g": "and + to stand, in various relations"
+},
+{
+"h": "הַיָּם",
+"g": "the + sea"
+},
+{
+"h": "מִזַּעְפּוֹ",
+"g": "from + anger + +him/his/it"
+}
+]
+},
+{
+"c": 1,
+"v": 16,
+"en": "Then the men feared Yahweh exceedingly; and they offered a sacrifice to Yahweh, and made vows.",
+"words": [
+{
+"h": "וַיִּירְאוּ",
+"g": "and + to fear"
+},
+{
+"h": "הָאֲנָשִׁים",
+"g": "the + man, each one"
+},
+{
+"h": "יִרְאָה",
+"g": "fearing"
+},
+{
+"h": "גְדוֹלָה",
+"g": "great, big"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "וַיִּזְבְּחוּ־",
+"g": "and + to sacrifice"
+},
+{
+"h": "זֶבַח",
+"g": "sacrifice"
+},
+{
+"h": "לַיהוָה",
+"g": "to + the LORD (YHWH)"
+},
+{
+"h": "וַיִּדְּרוּ",
+"g": "and + to vow"
+},
+{
+"h": "נְדָרִים",
+"g": "vow"
+}
+]
+},
+{
+"c": 2,
+"v": 1,
+"en": "Yahweh prepared a great fish to swallow up Jonah, and Jonah was in the belly of the fish three days and three nights.",
+"words": [
+{
+"h": "וַיְמַן",
+"g": "and + to appoint, prepare"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "דָּג",
+"g": "fish",
+"n": "dag gadol — 'a big fish'. That's all the Hebrew says. No whale anywhere in this book."
+},
+{
+"h": "גָּדוֹל",
+"g": "great, big"
+},
+{
+"h": "לִבְלֹעַ",
+"g": "to + to swallow"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "יוֹנָה",
+"g": "Jonah"
+},
+{
+"h": "וַיְהִי",
+"g": "and + to be, become"
+},
+{
+"h": "יוֹנָה",
+"g": "Jonah"
+},
+{
+"h": "בִּמְעֵי",
+"g": "in + belly, inward parts"
+},
+{
+"h": "הַדָּג",
+"g": "the + fish"
+},
+{
+"h": "שְׁלֹשָׁה",
+"g": "three"
+},
+{
+"h": "יָמִים",
+"g": "day"
+},
+{
+"h": "וּשְׁלֹשָׁה",
+"g": "and + three"
+},
+{
+"h": "לֵילוֹת",
+"g": "night"
+}
+]
+},
+{
+"c": 2,
+"v": 2,
+"en": "Then Jonah prayed to Yahweh, his God, out of the fish’s belly.",
+"words": [
+{
+"h": "וַיִּתְפַּלֵּל",
+"g": "and + to pray"
+},
+{
+"h": "יוֹנָה",
+"g": "Jonah"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "אֱלֹהָיו",
+"g": "God, gods + +him/his/it"
+},
+{
+"h": "מִמְּעֵי",
+"g": "from + belly, inward parts"
+},
+{
+"h": "הַדָּגָה",
+"g": "the + {a fish }"
+}
+]
+},
+{
+"c": 2,
+"v": 3,
+"en": "He said, “I called because of my affliction to Yahweh. He answered me. Out of the belly of Sheol I cried. You heard my voice.",
+"words": [
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "קָרָאתִי",
+"g": "to call, cry out",
+"n": "qarati — 'I called'. The -ti ending = 'I did it'. Past-tense endings name the doer: -ti I, -ta you, no ending = he."
+},
+{
+"h": "מִצָּרָה",
+"g": "from + tightness"
+},
+{
+"h": "לִי",
+"g": "to + +me/my"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "וַיַּעֲנֵנִי",
+"g": "and + to answer + +me/my"
+},
+{
+"h": "מִבֶּטֶן",
+"g": "from + belly, womb"
+},
+{
+"h": "שְׁאוֹל",
+"g": "Sheol, the grave"
+},
+{
+"h": "שִׁוַּעְתִּי",
+"g": "to be free"
+},
+{
+"h": "שָׁמַעְתָּ",
+"g": "to hear"
+},
+{
+"h": "קוֹלִי",
+"g": "voice, sound + +me/my"
+}
+]
+},
+{
+"c": 2,
+"v": 4,
+"en": "For you threw me into the depths, in the heart of the seas. The flood was all around me. All your waves and your billows passed over me.",
+"words": [
+{
+"h": "וַתַּשְׁלִיכֵנִי",
+"g": "and + to throw, cast + +me/my"
+},
+{
+"h": "מְצוּלָה",
+"g": "deep, depth"
+},
+{
+"h": "בִּלְבַב",
+"g": "in + heart"
+},
+{
+"h": "יַמִּים",
+"g": "sea"
+},
+{
+"h": "וְנָהָר",
+"g": "and + river, current"
+},
+{
+"h": "יְסֹבְבֵנִי",
+"g": "to revolve, surround + +me/my"
+},
+{
+"h": "כָּל־",
+"g": "the whole"
+},
+{
+"h": "מִשְׁבָּרֶיךָ",
+"g": "breaker, wave + +you/your"
+},
+{
+"h": "וְגַלֶּיךָ",
+"g": "and + wave, billow + +you/your"
+},
+{
+"h": "עָלַי",
+"g": "on, over, against + +me/my"
+},
+{
+"h": "עָבָרוּ",
+"g": "to pass over"
+}
+]
+},
+{
+"c": 2,
+"v": 5,
+"en": "I said, ‘I have been banished from your sight; yet I will look again toward your holy temple.’",
+"words": [
+{
+"h": "וַאֲנִי",
+"g": "and + I"
+},
+{
+"h": "אָמַרְתִּי",
+"g": "to say"
+},
+{
+"h": "נִגְרַשְׁתִּי",
+"g": "to drive out"
+},
+{
+"h": "מִנֶּגֶד",
+"g": "from + a front, i.e. part opposite"
+},
+{
+"h": "עֵינֶיךָ",
+"g": "an eye + +you/your"
+},
+{
+"h": "אַךְ",
+"g": "a particle of affirmation, surely"
+},
+{
+"h": "אוֹסִיף",
+"g": "to add, do again"
+},
+{
+"h": "לְהַבִּיט",
+"g": "to + to look"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "הֵיכַל",
+"g": "temple, palace"
+},
+{
+"h": "קָדְשֶׁךָ",
+"g": "holiness, holy + +you/your"
+}
+]
+},
+{
+"c": 2,
+"v": 6,
+"en": "The waters surrounded me, even to the soul. The deep was around me. The weeds were wrapped around my head.",
+"words": [
+{
+"h": "אֲפָפוּנִי",
+"g": "to surround + +me/my"
+},
+{
+"h": "מַיִם",
+"g": "water"
+},
+{
+"h": "עַד־",
+"g": "as far  as, whether of space  or time  or degree"
+},
+{
+"h": "נֶפֶשׁ",
+"g": "soul, life, self"
+},
+{
+"h": "תְּהוֹם",
+"g": "the deep"
+},
+{
+"h": "יְסֹבְבֵנִי",
+"g": "to revolve, surround + +me/my"
+},
+{
+"h": "סוּף",
+"g": "reeds, seaweed"
+},
+{
+"h": "חָבוּשׁ",
+"g": "to bind, wrap"
+},
+{
+"h": "לְרֹאשִׁי",
+"g": "to + head + +me/my"
+}
+]
+},
+{
+"c": 2,
+"v": 7,
+"en": "I went down to the bottoms of the mountains. The earth barred me in forever: yet have you brought up my life from the pit, Yahweh my God.",
+"words": [
+{
+"h": "לְקִצְבֵי",
+"g": "to + bottom, base"
+},
+{
+"h": "הָרִים",
+"g": "mountain"
+},
+{
+"h": "יָרַדְתִּי",
+"g": "to go down"
+},
+{
+"h": "הָאָרֶץ",
+"g": "the + land, earth"
+},
+{
+"h": "בְּרִחֶיהָ",
+"g": "bar, bolt + +her/its"
+},
+{
+"h": "בַעֲדִי",
+"g": "behind, on behalf of + +me/my"
+},
+{
+"h": "לְעוֹלָם",
+"g": "to + forever"
+},
+{
+"h": "וַתַּעַל",
+"g": "and + to go up"
+},
+{
+"h": "מִשַּׁחַת",
+"g": "from + pit, grave"
+},
+{
+"h": "חַיַּי",
+"g": "life, alive + +me/my"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "אֱלֹהָי",
+"g": "God, gods + +me/my"
+}
+]
+},
+{
+"c": 2,
+"v": 8,
+"en": "“When my soul fainted within me, I remembered Yahweh. My prayer came in to you, into your holy temple.",
+"words": [
+{
+"h": "בְּהִתְעַטֵּף",
+"g": "in + to faint, grow weak"
+},
+{
+"h": "עָלַי",
+"g": "on, over, against + +me/my"
+},
+{
+"h": "נַפְשִׁי",
+"g": "soul, life, self + +me/my"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "זָכָרְתִּי",
+"g": "to remember"
+},
+{
+"h": "וַתָּבוֹא",
+"g": "and + to come, go in"
+},
+{
+"h": "אֵלֶיךָ",
+"g": "to, toward + +you/your"
+},
+{
+"h": "תְּפִלָּתִי",
+"g": "prayer + +me/my"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "הֵיכַל",
+"g": "temple, palace"
+},
+{
+"h": "קָדְשֶׁךָ",
+"g": "holiness, holy + +you/your"
+}
+]
+},
+{
+"c": 2,
+"v": 9,
+"en": "Those who regard lying vanities forsake their own mercy.",
+"words": [
+{
+"h": "מְשַׁמְּרִים",
+"g": "to keep, watch"
+},
+{
+"h": "הַבְלֵי־",
+"g": "vapor, idol, vanity"
+},
+{
+"h": "שָׁוְא",
+"g": "vanity, falsehood"
+},
+{
+"h": "חַסְדָּם",
+"g": "steadfast love + +them/their"
+},
+{
+"h": "יַעֲזֹבוּ",
+"g": "to forsake"
+}
+]
+},
+{
+"c": 2,
+"v": 10,
+"en": "But I will sacrifice to you with the voice of thanksgiving. I will pay that which I have vowed. Salvation belongs to Yahweh.”",
+"words": [
+{
+"h": "וַאֲנִי",
+"g": "and + I"
+},
+{
+"h": "בְּקוֹל",
+"g": "in + voice, sound"
+},
+{
+"h": "תּוֹדָה",
+"g": "thanksgiving"
+},
+{
+"h": "אֶזְבְּחָה־",
+"g": "to sacrifice"
+},
+{
+"h": "לָּךְ",
+"g": "to + +you/your"
+},
+{
+"h": "אֲשֶׁר",
+"g": "which, who"
+},
+{
+"h": "נָדַרְתִּי",
+"g": "to vow"
+},
+{
+"h": "אֲשַׁלֵּמָה",
+"g": "to be safe"
+},
+{
+"h": "יְשׁוּעָתָה",
+"g": "salvation, deliverance"
+},
+{
+"h": "לַיהוָה",
+"g": "to + the LORD (YHWH)"
+}
+]
+},
+{
+"c": 2,
+"v": 11,
+"en": "Then Yahweh spoke to the fish, and it vomited out Jonah on the dry land.",
+"words": [
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "לַדָּג",
+"g": "to + fish"
+},
+{
+"h": "וַיָּקֵא",
+"g": "and + to vomit"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "יוֹנָה",
+"g": "Jonah"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "הַיַּבָּשָׁה",
+"g": "the + dry land"
+}
+]
+},
+{
+"c": 3,
+"v": 1,
+"en": "Yahweh’s word came to Jonah the second time, saying,",
+"words": [
+{
+"h": "וַיְהִי",
+"g": "and + to be, become"
+},
+{
+"h": "דְבַר־",
+"g": "word, thing"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "יוֹנָה",
+"g": "Jonah"
+},
+{
+"h": "שֵׁנִית",
+"g": "second (time)"
+},
+{
+"h": "לֵאמֹר",
+"g": "to + to say"
+}
+]
+},
+{
+"c": 3,
+"v": 2,
+"en": "“Arise, go to Nineveh, that great city, and preach to it the message that I give you.”",
+"words": [
+{
+"h": "קוּם",
+"g": "to arise"
+},
+{
+"h": "לֵךְ",
+"g": "to go, walk"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "נִינְוֵה",
+"g": "Nineveh"
+},
+{
+"h": "הָעִיר",
+"g": "the + city"
+},
+{
+"h": "הַגְּדוֹלָה",
+"g": "the + great, big"
+},
+{
+"h": "וִּקְרָא",
+"g": "and + to call, cry out"
+},
+{
+"h": "אֵלֶיהָ",
+"g": "to, toward + +her/its"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "הַקְּרִיאָה",
+"g": "the + proclamation"
+},
+{
+"h": "אֲשֶׁר",
+"g": "which, who"
+},
+{
+"h": "אָנֹכִי",
+"g": "I"
+},
+{
+"h": "דֹּבֵר",
+"g": "perhaps properly, to arrange"
+},
+{
+"h": "אֵלֶיךָ",
+"g": "to, toward + +you/your"
+}
+]
+},
+{
+"c": 3,
+"v": 3,
+"en": "So Jonah arose, and went to Nineveh, according to Yahweh’s word. Now Nineveh was an exceedingly great city, three days’ journey across.",
+"words": [
+{
+"h": "וַיָּקָם",
+"g": "and + to arise"
+},
+{
+"h": "יוֹנָה",
+"g": "Jonah"
+},
+{
+"h": "וַיֵּלֶךְ",
+"g": "and + to go, walk"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "נִינְוֶה",
+"g": "Nineveh"
+},
+{
+"h": "כִּדְבַר",
+"g": "like + word, thing"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "וְנִינְוֵה",
+"g": "and + Nineveh"
+},
+{
+"h": "הָיְתָה",
+"g": "to be, become"
+},
+{
+"h": "עִיר־",
+"g": "city"
+},
+{
+"h": "גְּדוֹלָה",
+"g": "great, big"
+},
+{
+"h": "לֵאלֹהִים",
+"g": "to + God, gods"
+},
+{
+"h": "מַהֲלַךְ",
+"g": "walk, journey"
+},
+{
+"h": "שְׁלֹשֶׁת",
+"g": "three",
+"n": "sh'loshet yamim — 'a three-day walk'. Numbers come before the noun and pair with its construct form."
+},
+{
+"h": "יָמִים",
+"g": "day"
+}
+]
+},
+{
+"c": 3,
+"v": 4,
+"en": "Jonah began to enter into the city a day’s journey, and he cried out, and said, “In forty days, Nineveh will be overthrown!”",
+"words": [
+{
+"h": "וַיָּחֶל",
+"g": "and + to bore, i.e.  to wound"
+},
+{
+"h": "יוֹנָה",
+"g": "Jonah"
+},
+{
+"h": "לָבוֹא",
+"g": "to + to come, go in"
+},
+{
+"h": "בָעִיר",
+"g": "in + city"
+},
+{
+"h": "מַהֲלַךְ",
+"g": "walk, journey"
+},
+{
+"h": "יוֹם",
+"g": "day"
+},
+{
+"h": "אֶחָד",
+"g": "one"
+},
+{
+"h": "וַיִּקְרָא",
+"g": "and + to call, cry out"
+},
+{
+"h": "וַיֹּאמַר",
+"g": "and + to say"
+},
+{
+"h": "עוֹד",
+"g": "still, yet"
+},
+{
+"h": "אַרְבָּעִים",
+"g": "forty",
+"n": "arba'im yom — 'forty day': after numbers above ten the noun often stays singular. od = 'yet/still': 'Yet forty days…'"
+},
+{
+"h": "יוֹם",
+"g": "day"
+},
+{
+"h": "וְנִינְוֵה",
+"g": "and + Nineveh"
+},
+{
+"h": "נֶהְפָּכֶת",
+"g": "to overturn, overthrow"
+}
+]
+},
+{
+"c": 3,
+"v": 5,
+"en": "The people of Nineveh believed God; and they proclaimed a fast, and put on sackcloth, from their greatest even to their least.",
+"words": [
+{
+"h": "וַיַּאֲמִינוּ",
+"g": "and + to believe, trust"
+},
+{
+"h": "אַנְשֵׁי",
+"g": "man, each one"
+},
+{
+"h": "נִינְוֵה",
+"g": "Nineveh"
+},
+{
+"h": "בֵּאלֹהִים",
+"g": "in + God, gods"
+},
+{
+"h": "וַיִּקְרְאוּ־",
+"g": "and + to call, cry out"
+},
+{
+"h": "צוֹם",
+"g": "fast (n.)"
+},
+{
+"h": "וַיִּלְבְּשׁוּ",
+"g": "and + to put on, clothe"
+},
+{
+"h": "שַׂקִּים",
+"g": "sackcloth"
+},
+{
+"h": "מִגְּדוֹלָם",
+"g": "from + great, big + +them/their"
+},
+{
+"h": "וְעַד־",
+"g": "and + as far  as, whether of space  or time  or degree"
+},
+{
+"h": "קְטַנָּם",
+"g": "abbreviated, i.e. diminutive + +them/their"
+}
+]
+},
+{
+"c": 3,
+"v": 6,
+"en": "The news reached the king of Nineveh, and he arose from his throne, and took off his royal robe, covered himself with sackcloth, and sat in ashes.",
+"words": [
+{
+"h": "וַיִּגַּע",
+"g": "and + to touch, i.e. lay the hand upon"
+},
+{
+"h": "הַדָּבָר",
+"g": "the + word, thing"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "מֶלֶך",
+"g": "a king"
+},
+{
+"h": "נִינְוֵה",
+"g": "Nineveh"
+},
+{
+"h": "וַיָּקָם",
+"g": "and + to arise"
+},
+{
+"h": "מִכִּסְאוֹ",
+"g": "from + throne + +him/his/it"
+},
+{
+"h": "וַיַּעֲבֵר",
+"g": "and + to pass over"
+},
+{
+"h": "אַדַּרְתּוֹ",
+"g": "robe, mantle + +him/his/it"
+},
+{
+"h": "מֵעָלָיו",
+"g": "from + on, over, against + +him/his/it"
+},
+{
+"h": "וַיְכַס",
+"g": "and + to cover"
+},
+{
+"h": "שַׂק",
+"g": "sackcloth"
+},
+{
+"h": "וַיֵּשֶׁב",
+"g": "and + to sit, dwell"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "הָאֵפֶר",
+"g": "the + ashes"
+}
+]
+},
+{
+"c": 3,
+"v": 7,
+"en": "He made a proclamation and published through Nineveh by the decree of the king and his nobles, saying, “Let neither man nor animal, herd nor flock, taste anything; let them not feed, nor drink water;",
+"words": [
+{
+"h": "וַיַּזְעֵק",
+"g": "and + to cry out"
+},
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "בְּנִינְוֵה",
+"g": "in + Nineveh"
+},
+{
+"h": "מִטַּעַם",
+"g": "from + decree"
+},
+{
+"h": "הַמֶּלֶךְ",
+"g": "the + a king"
+},
+{
+"h": "וּגְדֹלָיו",
+"g": "and + great, big + +him/his/it"
+},
+{
+"h": "לֵאמֹר",
+"g": "to + to say"
+},
+{
+"h": "הָאָדָם",
+"g": "the + man, mankind"
+},
+{
+"h": "וְהַבְּהֵמָה",
+"g": "and + the + beast, cattle"
+},
+{
+"h": "הַבָּקָר",
+"g": "the + herd, cattle"
+},
+{
+"h": "וְהַצֹּאן",
+"g": "and + the + flock, sheep"
+},
+{
+"h": "אַל־",
+"g": "not"
+},
+{
+"h": "יִטְעֲמוּ",
+"g": "to taste"
+},
+{
+"h": "מְאוּמָה",
+"g": "a speck or point, i.e.  something"
+},
+{
+"h": "אַל־",
+"g": "not"
+},
+{
+"h": "יִרְעוּ",
+"g": "to graze, feed"
+},
+{
+"h": "וּמַיִם",
+"g": "and + water"
+},
+{
+"h": "אַל־",
+"g": "not"
+},
+{
+"h": "יִשְׁתּוּ",
+"g": "to drink"
+}
+]
+},
+{
+"c": 3,
+"v": 8,
+"en": "but let them be covered with sackcloth, both man and animal, and let them cry mightily to God. Yes, let them turn everyone from his evil way, and from the violence that is in his hands.",
+"words": [
+{
+"h": "וְיִתְכַּסּוּ",
+"g": "and + to cover"
+},
+{
+"h": "שַׂקִּים",
+"g": "sackcloth",
+"n": "saqqim — sackcloth, plural of saq. One of a handful of Hebrew words English borrowed almost unchanged: sack."
+},
+{
+"h": "הָאָדָם",
+"g": "the + man, mankind"
+},
+{
+"h": "וְהַבְּהֵמָה",
+"g": "and + the + beast, cattle"
+},
+{
+"h": "וְיִקְרְאוּ",
+"g": "and + to call, cry out"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "בְּחָזְקָה",
+"g": "in + vehemence"
+},
+{
+"h": "וְיָשֻׁבוּ",
+"g": "and + to turn back, return"
+},
+{
+"h": "אִישׁ",
+"g": "man, each one"
+},
+{
+"h": "מִדַּרְכּוֹ",
+"g": "from + way, road + +him/his/it"
+},
+{
+"h": "הָרָעָה",
+"g": "the + evil, wickedness"
+},
+{
+"h": "וּמִן־",
+"g": "and + a part of"
+},
+{
+"h": "הֶחָמָס",
+"g": "the + violence"
+},
+{
+"h": "אֲשֶׁר",
+"g": "which, who"
+},
+{
+"h": "בְּכַפֵּיהֶם",
+"g": "in + palm, hand + +them/their"
+}
+]
+},
+{
+"c": 3,
+"v": 9,
+"en": "Who knows whether God will not turn and relent, and turn away from his fierce anger, so that we might not perish?”",
+"words": [
+{
+"h": "מִי־",
+"g": "who?"
+},
+{
+"h": "יוֹדֵעַ",
+"g": "to know"
+},
+{
+"h": "יָשׁוּב",
+"g": "to turn back, return"
+},
+{
+"h": "וְנִחַם",
+"g": "and + to relent, comfort"
+},
+{
+"h": "הָאֱלֹהִים",
+"g": "the + God, gods"
+},
+{
+"h": "וְשָׁב",
+"g": "and + to turn back, return"
+},
+{
+"h": "מֵחֲרוֹן",
+"g": "from + burning anger"
+},
+{
+"h": "אַפּוֹ",
+"g": "anger, nose + +him/his/it"
+},
+{
+"h": "וְלֹא",
+"g": "and + not"
+},
+{
+"h": "נֹאבֵד",
+"g": "to perish"
+}
+]
+},
+{
+"c": 3,
+"v": 10,
+"en": "God saw their works, that they turned from their evil way. God relented of the disaster which he said he would do to them, and he didn’t do it.",
+"words": [
+{
+"h": "וַיַּרְא",
+"g": "and + to see"
+},
+{
+"h": "הָאֱלֹהִים",
+"g": "the + God, gods"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "מַעֲשֵׂיהֶם",
+"g": "an action + +them/their"
+},
+{
+"h": "כִּי־",
+"g": "for, because, that"
+},
+{
+"h": "שָׁבוּ",
+"g": "to turn back, return"
+},
+{
+"h": "מִדַּרְכָּם",
+"g": "from + way, road + +them/their"
+},
+{
+"h": "הָרָעָה",
+"g": "the + evil, wickedness"
+},
+{
+"h": "וַיִּנָּחֶם",
+"g": "and + to relent, comfort"
+},
+{
+"h": "הָאֱלֹהִים",
+"g": "the + God, gods"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "הָרָעָה",
+"g": "the + evil, wickedness"
+},
+{
+"h": "אֲשֶׁר־",
+"g": "which, who"
+},
+{
+"h": "דִּבֶּר",
+"g": "perhaps properly, to arrange"
+},
+{
+"h": "לַעֲשׂוֹת־",
+"g": "to + to do, make"
+},
+{
+"h": "לָהֶם",
+"g": "to + +them/their"
+},
+{
+"h": "וְלֹא",
+"g": "and + not"
+},
+{
+"h": "עָשָׂה",
+"g": "to do, make"
+}
+]
+},
+{
+"c": 4,
+"v": 1,
+"en": "But it displeased Jonah exceedingly, and he was angry.",
+"words": [
+{
+"h": "וַיֵּרַע",
+"g": "and + to be evil, displease"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "יוֹנָה",
+"g": "Jonah"
+},
+{
+"h": "רָעָה",
+"g": "evil, wickedness"
+},
+{
+"h": "גְדוֹלָה",
+"g": "great, big"
+},
+{
+"h": "וַיִּחַר",
+"g": "and + to be angry, burn"
+},
+{
+"h": "לוֹ",
+"g": "to + +him/his/it"
+}
+]
+},
+{
+"c": 4,
+"v": 2,
+"en": "He prayed to Yahweh, and said, “Please, Yahweh, wasn’t this what I said when I was still in my own country? Therefore I hurried to flee to Tarshish, for I knew that you are a gracious God, and merciful, slow to anger, and abundant in loving kindness, and you relent of doing harm.",
+"words": [
+{
+"h": "וַיִּתְפַּלֵּל",
+"g": "and + to pray"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "וַיֹּאמַר",
+"g": "and + to say"
+},
+{
+"h": "אָנָּה",
+"g": "oh now!"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "הֲלוֹא־",
+"g": "(question) + not"
+},
+{
+"h": "זֶה",
+"g": "the masculine demonstrative pronoun, this or that"
+},
+{
+"h": "דְבָרִי",
+"g": "word, thing + +me/my"
+},
+{
+"h": "עַד־",
+"g": "as far  as, whether of space  or time  or degree"
+},
+{
+"h": "הֱיוֹתִי",
+"g": "to be, become + +me/my"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "אַדְמָתִי",
+"g": "soil + +me/my"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "כֵּן",
+"g": "set upright"
+},
+{
+"h": "קִדַּמְתִּי",
+"g": "to project , i.e. precede"
+},
+{
+"h": "לִבְרֹחַ",
+"g": "to + to flee"
+},
+{
+"h": "תַּרְשִׁישָׁה",
+"g": "Tarshish"
+},
+{
+"h": "כִּי",
+"g": "for, because, that"
+},
+{
+"h": "יָדַעְתִּי",
+"g": "to know"
+},
+{
+"h": "כִּי",
+"g": "for, because, that"
+},
+{
+"h": "אַתָּה",
+"g": "thou and thee, or  ye and you"
+},
+{
+"h": "אֵל־",
+"g": "strength"
+},
+{
+"h": "חַנּוּן",
+"g": "gracious",
+"n": "chanun v'rachum — 'gracious and compassionate'. Jonah is quoting God's own self-description from Exodus 34:6 back at him, as a complaint."
+},
+{
+"h": "וְרַחוּם",
+"g": "and + compassionate"
+},
+{
+"h": "אֶרֶךְ",
+"g": "slow (long)"
+},
+{
+"h": "אַפַּיִם",
+"g": "anger, nose"
+},
+{
+"h": "וְרַב־",
+"g": "and + great, many"
+},
+{
+"h": "חֶסֶד",
+"g": "steadfast love"
+},
+{
+"h": "וְנִחָם",
+"g": "and + to relent, comfort"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "הָרָעָה",
+"g": "the + evil, wickedness"
+}
+]
+},
+{
+"c": 4,
+"v": 3,
+"en": "Therefore now, Yahweh, take, I beg you, my life from me; for it is better for me to die than to live.”",
+"words": [
+{
+"h": "וְעַתָּה",
+"g": "and + at this time, whether adverb"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "קַח־",
+"g": "to take"
+},
+{
+"h": "נָא",
+"g": "please, now"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "נַפְשִׁי",
+"g": "soul, life, self + +me/my"
+},
+{
+"h": "מִמֶּנִּי",
+"g": "a part of + +me/my"
+},
+{
+"h": "כִּי",
+"g": "for, because, that"
+},
+{
+"h": "טוֹב",
+"g": "good"
+},
+{
+"h": "מוֹתִי",
+"g": "death + +me/my"
+},
+{
+"h": "מֵחַיָּי",
+"g": "from + life, alive + +me/my"
+}
+]
+},
+{
+"c": 4,
+"v": 4,
+"en": "Yahweh said, “Is it right for you to be angry?”",
+"words": [
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "הַהֵיטֵב",
+"g": "the + to be good, right"
+},
+{
+"h": "חָרָה",
+"g": "to be angry, burn"
+},
+{
+"h": "לָךְ",
+"g": "to + +you/your"
+}
+]
+},
+{
+"c": 4,
+"v": 5,
+"en": "Then Jonah went out of the city, and sat on the east side of the city, and there made himself a booth, and sat under it in the shade, until he might see what would become of the city.",
+"words": [
+{
+"h": "וַיֵּצֵא",
+"g": "and + to go out"
+},
+{
+"h": "יוֹנָה",
+"g": "Jonah"
+},
+{
+"h": "מִן־",
+"g": "a part of"
+},
+{
+"h": "הָעִיר",
+"g": "the + city"
+},
+{
+"h": "וַיֵּשֶׁב",
+"g": "and + to sit, dwell"
+},
+{
+"h": "מִקֶּדֶם",
+"g": "from + east, in front"
+},
+{
+"h": "לָעִיר",
+"g": "to + city"
+},
+{
+"h": "וַיַּעַשׂ",
+"g": "and + to do, make"
+},
+{
+"h": "לוֹ",
+"g": "to + +him/his/it"
+},
+{
+"h": "שָׁם",
+"g": "there  then"
+},
+{
+"h": "סֻכָּה",
+"g": "booth, shelter"
+},
+{
+"h": "וַיֵּשֶׁב",
+"g": "and + to sit, dwell"
+},
+{
+"h": "תַּחְתֶּיהָ",
+"g": "the bottom + +her/its"
+},
+{
+"h": "בַּצֵּל",
+"g": "in + shade, shadow"
+},
+{
+"h": "עַד",
+"g": "as far  as, whether of space  or time  or degree"
+},
+{
+"h": "אֲשֶׁר",
+"g": "which, who"
+},
+{
+"h": "יִרְאֶה",
+"g": "to see"
+},
+{
+"h": "מַה־",
+"g": "what?"
+},
+{
+"h": "יִּהְיֶה",
+"g": "to be, become"
+},
+{
+"h": "בָּעִיר",
+"g": "in + city"
+}
+]
+},
+{
+"c": 4,
+"v": 6,
+"en": "Yahweh God prepared a vine, and made it to come up over Jonah, that it might be a shade over his head, to deliver him from his discomfort. So Jonah was exceedingly glad because of the vine.",
+"words": [
+{
+"h": "וַיְמַן",
+"g": "and + to appoint, prepare"
+},
+{
+"h": "יְהוָה־",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "קִיקָיוֹן",
+"g": "the gourd",
+"n": "qiqayon — the famous mystery plant. Nobody knows what it was; translators have guessed gourd, ivy, and castor-oil plant for two thousand years."
+},
+{
+"h": "וַיַּעַל",
+"g": "and + to go up"
+},
+{
+"h": "מֵעַל",
+"g": "from + on, over, against"
+},
+{
+"h": "לְיוֹנָה",
+"g": "to + Jonah"
+},
+{
+"h": "לִהְיוֹת",
+"g": "to + to be, become"
+},
+{
+"h": "צֵל",
+"g": "shade, shadow"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "רֹאשׁוֹ",
+"g": "head + +him/his/it"
+},
+{
+"h": "לְהַצִּיל",
+"g": "to + to deliver, rescue"
+},
+{
+"h": "לוֹ",
+"g": "to + +him/his/it"
+},
+{
+"h": "מֵרָעָתוֹ",
+"g": "from + evil, wickedness + +him/his/it"
+},
+{
+"h": "וַיִּשְׂמַח",
+"g": "and + to rejoice"
+},
+{
+"h": "יוֹנָה",
+"g": "Jonah"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "הַקִּיקָיוֹן",
+"g": "the + the gourd"
+},
+{
+"h": "שִׂמְחָה",
+"g": "joy, gladness"
+},
+{
+"h": "גְדוֹלָה",
+"g": "great, big"
+}
+]
+},
+{
+"c": 4,
+"v": 7,
+"en": "But God prepared a worm at dawn the next day, and it chewed on the vine, so that it withered.",
+"words": [
+{
+"h": "וַיְמַן",
+"g": "and + to appoint, prepare"
+},
+{
+"h": "הָאֱלֹהִים",
+"g": "the + God, gods"
+},
+{
+"h": "תּוֹלַעַת",
+"g": "worm"
+},
+{
+"h": "בַּעֲלוֹת",
+"g": "in + to go up"
+},
+{
+"h": "הַשַּׁחַר",
+"g": "the + dawn"
+},
+{
+"h": "לַמָּחֳרָת",
+"g": "to + next day"
+},
+{
+"h": "וַתַּךְ",
+"g": "and + to strike, attack"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "הַקִּיקָיוֹן",
+"g": "the + the gourd"
+},
+{
+"h": "וַיִּיבָשׁ",
+"g": "and + to wither, dry up"
+}
+]
+},
+{
+"c": 4,
+"v": 8,
+"en": "When the sun arose, God prepared a sultry east wind; and the sun beat on Jonah’s head, so that he fainted, and requested for himself that he might die, and said, “It is better for me to die than to live.”",
+"words": [
+{
+"h": "וַיְהִי",
+"g": "and + to be, become"
+},
+{
+"h": "כִּזְרֹחַ",
+"g": "like + to rise (sun)"
+},
+{
+"h": "הַשֶּׁמֶשׁ",
+"g": "the + the sun"
+},
+{
+"h": "וַיְמַן",
+"g": "and + to appoint, prepare"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "רוּחַ",
+"g": "wind, spirit"
+},
+{
+"h": "קָדִים",
+"g": "the fore or front part"
+},
+{
+"h": "חֲרִישִׁית",
+"g": "scorching, sultry"
+},
+{
+"h": "וַתַּךְ",
+"g": "and + to strike, attack"
+},
+{
+"h": "הַשֶּׁמֶשׁ",
+"g": "the + the sun"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "רֹאשׁ",
+"g": "head"
+},
+{
+"h": "יוֹנָה",
+"g": "Jonah"
+},
+{
+"h": "וַיִּתְעַלָּף",
+"g": "and + to faint, be feeble"
+},
+{
+"h": "וַיִּשְׁאַל",
+"g": "and + to ask"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "נַפְשׁוֹ",
+"g": "soul, life, self + +him/his/it"
+},
+{
+"h": "לָמוּת",
+"g": "to + to die"
+},
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "טוֹב",
+"g": "good"
+},
+{
+"h": "מוֹתִי",
+"g": "to die + +me/my"
+},
+{
+"h": "מֵחַיָּי",
+"g": "from + life, alive + +me/my"
+}
+]
+},
+{
+"c": 4,
+"v": 9,
+"en": "God said to Jonah, “Is it right for you to be angry about the vine?” He said, “I am right to be angry, even to death.”",
+"words": [
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "יוֹנָה",
+"g": "Jonah"
+},
+{
+"h": "הַהֵיטֵב",
+"g": "the + to be good, right"
+},
+{
+"h": "חָרָה־",
+"g": "to be angry, burn"
+},
+{
+"h": "לְךָ",
+"g": "to + +you/your"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "הַקִּיקָיוֹן",
+"g": "the + the gourd"
+},
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "הֵיטֵב",
+"g": "to be good, right"
+},
+{
+"h": "חָרָה־",
+"g": "to be angry, burn"
+},
+{
+"h": "לִי",
+"g": "to + +me/my"
+},
+{
+"h": "עַד־",
+"g": "as far  as, whether of space  or time  or degree"
+},
+{
+"h": "מָוֶת",
+"g": "death"
+}
+]
+},
+{
+"c": 4,
+"v": 10,
+"en": "Yahweh said, “You have been concerned for the vine, for which you have not labored, neither made it grow; which came up in a night, and perished in a night.",
+"words": [
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "אַתָּה",
+"g": "thou and thee, or  ye and you"
+},
+{
+"h": "חַסְתָּ",
+"g": "to pity, spare"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "הַקִּיקָיוֹן",
+"g": "the + the gourd"
+},
+{
+"h": "אֲשֶׁר",
+"g": "which, who"
+},
+{
+"h": "לֹא־",
+"g": "not"
+},
+{
+"h": "עָמַלְתָּ",
+"g": "to toil, i.e. work severely and with irksomeness"
+},
+{
+"h": "בּוֹ",
+"g": "in + +him/his/it"
+},
+{
+"h": "וְלֹא",
+"g": "and + not"
+},
+{
+"h": "גִדַּלְתּוֹ",
+"g": "to be  large + +him/his/it"
+},
+{
+"h": "שֶׁבִּן־",
+"g": "which overnight (lit. son-of-a-night)"
+},
+{
+"h": "לַיְלָה",
+"g": "night"
+},
+{
+"h": "הָיָה",
+"g": "to be, become"
+},
+{
+"h": "וּבִן־",
+"g": "and + son"
+},
+{
+"h": "לַיְלָה",
+"g": "night"
+},
+{
+"h": "אָבָד",
+"g": "to perish"
+}
+]
+},
+{
+"c": 4,
+"v": 11,
+"en": "Shouldn’t I be concerned for Nineveh, that great city, in which are more than one hundred twenty thousand persons who can’t discern between their right hand and their left hand; and also much livestock?”",
+"words": [
+{
+"h": "וַאֲנִי",
+"g": "and + I"
+},
+{
+"h": "לֹא",
+"g": "not"
+},
+{
+"h": "אָחוּס",
+"g": "to pity, spare"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "נִינְוֵה",
+"g": "Nineveh"
+},
+{
+"h": "הָעִיר",
+"g": "the + city"
+},
+{
+"h": "הַגְּדוֹלָה",
+"g": "the + great, big"
+},
+{
+"h": "אֲשֶׁר",
+"g": "which, who"
+},
+{
+"h": "יֶשׁ־",
+"g": "there is or are"
+},
+{
+"h": "בָּהּ",
+"g": "in + +her/its"
+},
+{
+"h": "הַרְבֵּה",
+"g": "many, much"
+},
+{
+"h": "מִשְׁתֵּים־",
+"g": "from + two"
+},
+{
+"h": "עֶשְׂרֵה",
+"g": "ten (…teen)"
+},
+{
+"h": "רִבּוֹ",
+"g": "ten thousand, myriad",
+"n": "ribbo — 'ten thousand'. 'Twelve myriads' = 120,000 people who don't know their right hand from their left — and also much cattle. The book ends on God's question."
+},
+{
+"h": "אָדָם",
+"g": "man, mankind"
+},
+{
+"h": "אֲשֶׁר",
+"g": "which, who"
+},
+{
+"h": "לֹא־",
+"g": "not"
+},
+{
+"h": "יָדַע",
+"g": "to know"
+},
+{
+"h": "בֵּין־",
+"g": "between"
+},
+{
+"h": "יְמִינוֹ",
+"g": "right hand + +him/his/it"
+},
+{
+"h": "לִשְׂמֹאלוֹ",
+"g": "to + left hand + +him/his/it"
+},
+{
+"h": "וּבְהֵמָה",
+"g": "and + beast, cattle"
+},
+{
+"h": "רַבָּה",
+"g": "great, many"
+}
+]
+}
+]
