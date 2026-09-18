@@ -5,6 +5,7 @@ struct HomeView: View {
     @State private var showSession = false
     @State private var selected: LetterGroup?
     @State private var openVerse: VersePresentation?
+    @State private var confirmReset = false
 
     struct VersePresentation: Identifiable {
         let verse: JonahVerse
@@ -25,6 +26,12 @@ struct HomeView: View {
                 Text("\(store.dueCards.count) due · \(store.streak)🔥")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
+                    .onLongPressGesture { confirmReset = true }
+                    .confirmationDialog("Reset all progress?", isPresented: $confirmReset, titleVisibility: .visible) {
+                        Button("Reset everything", role: .destructive) { store.resetAll() }
+                    } message: {
+                        Text("Deletes all drill history, verse progress, and your streak. This cannot be undone.")
+                    }
             }
             .padding()
 

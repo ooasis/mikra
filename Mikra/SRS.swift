@@ -148,6 +148,17 @@ final class Store: ObservableObject {
         states.values.filter { $0.intervalDays >= 1 }.count
     }
 
+    /// Wipes all progress (drills, verses, streak) — irreversible.
+    func resetAll() {
+        states = [:]
+        streak = 0
+        verses = [:]
+        tapped = []
+        lastStudyDay = nil
+        lastVerseDay = nil
+        try? FileManager.default.removeItem(at: url)
+    }
+
     private func bumpStreak() {
         let today = Calendar.current.startOfDay(for: Date())
         guard lastStudyDay != today else { return }
