@@ -18,20 +18,6 @@ struct SessionView: View {
             HStack {
                 Button("Done") { dismiss() }
                 Spacer()
-                Button {
-                    goBack()
-                } label: {
-                    Image(systemName: "chevron.backward")
-                }
-                .disabled((browse ?? history.count) == 0)
-                Button {
-                    goForward()
-                } label: {
-                    Image(systemName: "chevron.forward")
-                }
-                .disabled(browse == nil)
-                .padding(.horizontal, 8)
-                Spacer()
                 Text("\(queue.count) left").foregroundStyle(.secondary)
             }
             .padding()

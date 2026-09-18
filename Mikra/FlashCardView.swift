@@ -60,32 +60,27 @@ struct VowelGlyph: View {
 struct FlashCardView: View {
     let groups: [LetterGroup] // navigable list; each group = one letter's variants (or a single vowel/word card)
     @State var index: Int
-    @Environment(\.dismiss) private var dismiss
     @State private var playing: String?
 
     private var cards: [Card] { groups[index].cards }
 
     var body: some View {
-        VStack(spacing: 0) {
-            HStack {
-                Button("Done") { dismiss() }
-                Spacer()
-                Button {
-                    goBack()
-                } label: {
-                    Image(systemName: "chevron.backward")
-                }
-                .disabled(index == 0)
-                Button {
-                    goForward()
-                } label: {
-                    Image(systemName: "chevron.forward")
-                }
-                .disabled(index == groups.count - 1)
-                .padding(.leading, 8)
+        TabView(selection: $index) {
+            ForEach(Array(groups.enumerated()), id: \.element.id) { i, group in
+                page(group.cards).tag(i)
             }
-            .padding()
+        }
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .presentationDragIndicator(.visible)
+        .padding(.top, 24)
+        .onAppear { if let first = cards.first { Speech.say(first.speechText) } }
+        .onChange(of: index) {
+            playing = nil
+            if let first = cards.first { Speech.say(first.speechText) }
+        }
+    }
 
+    private func page(_ cards: [Card]) -> some View {
             ScrollView {
                 HStack(spacing: 16) {
                     ForEach(cards) { card in
@@ -155,24 +150,5 @@ struct FlashCardView: View {
                     }
                 }
             }
-        }
-        .onAppear { if let first = cards.first { Speech.say(first.speechText) } }
-        .onChange(of: index) {
-            playing = nil
-            if let first = cards.first { Speech.say(first.speechText) }
-        }
-        .gesture(
-            DragGesture(minimumDistance: 30).onEnded { g in
-                if g.translation.width > 50 { goBack() } else if g.translation.width < -50 { goForward() }
-            }
-        )
-    }
-
-    private func goBack() {
-        if index > 0 { index -= 1 }
-    }
-
-    private func goForward() {
-        if index < groups.count - 1 { index += 1 }
     }
 }
