@@ -71,13 +71,13 @@ struct FlashCardView: View {
                 Button("Done") { dismiss() }
                 Spacer()
                 Button {
-                    index -= 1
+                    goBack()
                 } label: {
                     Image(systemName: "chevron.backward")
                 }
                 .disabled(index == 0)
                 Button {
-                    index += 1
+                    goForward()
                 } label: {
                     Image(systemName: "chevron.forward")
                 }
@@ -161,5 +161,18 @@ struct FlashCardView: View {
             playing = nil
             if let first = cards.first { Speech.say(first.speechText) }
         }
+        .gesture(
+            DragGesture(minimumDistance: 30).onEnded { g in
+                if g.translation.width > 50 { goBack() } else if g.translation.width < -50 { goForward() }
+            }
+        )
+    }
+
+    private func goBack() {
+        if index > 0 { index -= 1 }
+    }
+
+    private func goForward() {
+        if index < groups.count - 1 { index += 1 }
     }
 }

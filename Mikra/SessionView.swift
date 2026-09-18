@@ -19,14 +19,13 @@ struct SessionView: View {
                 Button("Done") { dismiss() }
                 Spacer()
                 Button {
-                    browse = (browse ?? history.count) - 1
+                    goBack()
                 } label: {
                     Image(systemName: "chevron.backward")
                 }
                 .disabled((browse ?? history.count) == 0)
                 Button {
-                    let next = browse! + 1
-                    browse = next == history.count ? nil : next
+                    goForward()
                 } label: {
                     Image(systemName: "chevron.forward")
                 }
@@ -118,6 +117,21 @@ struct SessionView: View {
         .onAppear {
             queue = store.dueCards + store.newCards(limit: 5)
         }
+        .gesture(
+            DragGesture(minimumDistance: 30).onEnded { g in
+                if g.translation.width > 50 { goBack() } else if g.translation.width < -50 { goForward() }
+            }
+        )
+    }
+
+    private func goBack() {
+        let i = (browse ?? history.count) - 1
+        if i >= 0 { browse = i }
+    }
+
+    private func goForward() {
+        guard let b = browse else { return }
+        browse = b + 1 == history.count ? nil : b + 1
     }
 
     private func finish(_ card: Card, _ grade: Grade) {
