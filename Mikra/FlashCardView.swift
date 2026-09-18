@@ -67,10 +67,13 @@ struct FlashCardView: View {
     var body: some View {
         TabView(selection: $index) {
             ForEach(Array(groups.enumerated()), id: \.element.id) { i, group in
-                page(group.cards).tag(i)
+                page(group.cards)
+                    .environment(\.layoutDirection, .leftToRight) // content stays LTR
+                    .tag(i)
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
+        .environment(\.layoutDirection, .rightToLeft) // pages advance right-to-left, like Hebrew
         .presentationDragIndicator(.visible)
         .padding(.top, 24)
         .onAppear { if let first = cards.first { Speech.say(first.speechText) } }

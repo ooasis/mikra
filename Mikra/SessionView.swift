@@ -105,7 +105,8 @@ struct SessionView: View {
         }
         .gesture(
             DragGesture(minimumDistance: 30).onEnded { g in
-                if g.translation.width > 50 { goBack() } else if g.translation.width < -50 { goForward() }
+                // RTL convention: swipe right = forward, swipe left = back
+                if g.translation.width > 50 { goForward() } else if g.translation.width < -50 { goBack() }
             }
         )
     }
