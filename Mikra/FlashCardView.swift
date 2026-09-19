@@ -61,6 +61,7 @@ struct FlashCardView: View {
     let groups: [LetterGroup] // navigable list; each group = one letter's variants (or a single vowel/word card)
     @State var index: Int
     @State private var playing: String?
+    @State private var lastSpoken: String?
 
     private var cards: [Card] { groups[index].cards }
 
@@ -76,11 +77,35 @@ struct FlashCardView: View {
         .environment(\.layoutDirection, .rightToLeft) // pages advance right-to-left, like Hebrew
         .presentationDragIndicator(.visible)
         .padding(.top, 24)
-        .onAppear { if let first = cards.first { Speech.say(first.speechText) } }
+        .safeAreaInset(edge: .bottom) { replayBar }
+        .onAppear { if let first = cards.first { say(first.speechText) } }
         .onChange(of: index) {
             playing = nil
-            if let first = cards.first { Speech.say(first.speechText) }
+            if let first = cards.first { say(first.speechText) }
         }
+    }
+
+    /// Thumb-reachable replay: the speaker icons sit too high on the card to tap one-handed.
+    private var replayBar: some View {
+        Button {
+            if let text = lastSpoken { Speech.say(text) }
+        } label: {
+            Label("Play again", systemImage: "speaker.wave.2.fill")
+                .font(.headline)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 14)
+                .background(.blue, in: Capsule())
+                .foregroundStyle(.white)
+        }
+        .buttonStyle(.plain)
+        .padding(.horizontal)
+        .padding(.bottom, 8)
+        .background(.bar)
+    }
+
+    private func say(_ text: String) {
+        lastSpoken = text
+        Speech.say(text)
     }
 
     private func page(_ cards: [Card]) -> some View {
@@ -88,7 +113,7 @@ struct FlashCardView: View {
                 HStack(spacing: 16) {
                     ForEach(cards) { card in
                         Button {
-                            Speech.say(card.speechText)
+                            say(card.speechText)
                         } label: {
                             VStack(spacing: 6) {
                                 if card.kind == .vowel {
@@ -98,6 +123,9 @@ struct FlashCardView: View {
                                         .font(.system(size: cards.count > 2 ? 64 : 80))
                                 }
                                 Text(card.name).font(.headline)
+                                if let pron = card.namePron {
+                                    Text(pron).font(.caption).foregroundStyle(.tertiary)
+                                }
                                 Text(card.sound).font(.subheadline).foregroundStyle(.secondary)
                                 Image(systemName: "speaker.wave.2.fill")
                                     .font(.footnote)
@@ -132,7 +160,7 @@ struct FlashCardView: View {
                             ForEach(practice) { combo in
                                 Button {
                                     playing = combo.id
-                                    Speech.say(combo.hebrew)
+                                    say(combo.hebrew)
                                 } label: {
                                     VStack(spacing: 2) {
                                         Text(combo.hebrew).font(.system(size: 34))

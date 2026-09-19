@@ -8,8 +8,9 @@ struct Card: Identifiable {
     let name: String        // reveal line 1 (letter/vowel name, or gloss for words)
     let sound: String       // reveal line 2 (how it sounds)
     let kind: Kind
+    var namePron: String? = nil // how to say `name` out loud, e.g. "kah-MAHTS" (vowel names only)
     var note: String? = nil // confusable warnings etc.
-    var tts: String? = nil  // override for what the synthesizer speaks; defaults to `hebrew`
+    var tts: String? = nil  // override for what the synthesizer speaks; defaults to `hebrew` (vowels speak their name)
     // ponytail: tts strings untuned — if the he-IL voice mangles a card, set `tts` for it.
 
     var prompt: String {
@@ -71,14 +72,14 @@ let curriculum: [Card] = [
     Card(id: "tav", hebrew: "ת", name: "Tav", sound: "t", kind: .letter, note: "Don't confuse with ח — tav has a foot on the left leg.", tts: "תָּו"),
 
     // — Vowels (niqqud), on the carrier letter bet —
-    Card(id: "qamats", hebrew: "בָּ", name: "Qamats", sound: "ba (a as in father)", kind: .vowel, tts: "בָּא"),
-    Card(id: "patach", hebrew: "בַּ", name: "Patach", sound: "ba (a as in father)", kind: .vowel, note: "Sounds the same as qamats in Modern Israeli.", tts: "בָּא"),
-    Card(id: "tsere", hebrew: "בֵּ", name: "Tsere", sound: "be (e as in they)", kind: .vowel, tts: "בֵּה"),
-    Card(id: "segol", hebrew: "בֶּ", name: "Segol", sound: "be (e as in bed)", kind: .vowel, note: "Three dots. Same as tsere in Modern Israeli.", tts: "בֵּה"),
-    Card(id: "chirik", hebrew: "בִּ", name: "Chirik", sound: "bi (i as in machine)", kind: .vowel, tts: "בִּי"),
-    Card(id: "cholam", hebrew: "בֹּ", name: "Cholam", sound: "bo", kind: .vowel, note: "In the Bible often written with vav: בּוֹ.", tts: "בּוֹ"),
-    Card(id: "kubuts", hebrew: "בֻּ", name: "Kubuts", sound: "bu (u as in flute)", kind: .vowel, note: "Three diagonal dots → u. In the Bible often written as vav with a middle dot: בּוּ.", tts: "בּוּ"),
-    Card(id: "sheva", hebrew: "בְּ", name: "Sheva", sound: "b / be (very short or silent)", kind: .vowel, tts: "בְּה"),
+    Card(id: "qamats", hebrew: "בָּ", name: "Qamats", sound: "ba (a as in father)", kind: .vowel, namePron: "kah-MAHTS", tts: "קָמָץ"),
+    Card(id: "patach", hebrew: "בַּ", name: "Patach", sound: "ba (a as in father)", kind: .vowel, namePron: "pah-TAKH", note: "Sounds the same as qamats in Modern Israeli.", tts: "פַּתָּח"),
+    Card(id: "tsere", hebrew: "בֵּ", name: "Tsere", sound: "be (e as in they)", kind: .vowel, namePron: "tseh-REH", tts: "צֵירֵי"),
+    Card(id: "segol", hebrew: "בֶּ", name: "Segol", sound: "be (e as in bed)", kind: .vowel, namePron: "seh-GOL", note: "Three dots. Same as tsere in Modern Israeli.", tts: "סֶגּוֹל"),
+    Card(id: "chirik", hebrew: "בִּ", name: "Chirik", sound: "bi (i as in machine)", kind: .vowel, namePron: "khee-REEK", tts: "חִירִיק"),
+    Card(id: "cholam", hebrew: "בֹּ", name: "Cholam", sound: "bo", kind: .vowel, namePron: "kho-LAHM", note: "In the Bible often written with vav: בּוֹ.", tts: "חוֹלָם"),
+    Card(id: "kubuts", hebrew: "בֻּ", name: "Kubuts", sound: "bu (u as in flute)", kind: .vowel, namePron: "koo-BOOTS", note: "Three diagonal dots → u. In the Bible often written as vav with a middle dot: בּוּ.", tts: "קֻבּוּץ"),
+    Card(id: "sheva", hebrew: "בְּ", name: "Sheva", sound: "b / be (very short or silent)", kind: .vowel, namePron: "sh'VAH", tts: "שְׁוָא"),
 
     // — First real Bible words —
     Card(id: "w-el", hebrew: "אֵל", name: "God", sound: "el", kind: .word),
