@@ -43,12 +43,19 @@ final class Store: ObservableObject {
         var verses: [String: VerseProgress]? = nil
         var tapped: Set<String>? = nil
         var lastVerseDay: Date? = nil
+        var currentBook: String? = nil
+        var pace: String? = nil
     }
 
     @Published private(set) var states: [String: CardState] = [:]
     @Published private(set) var streak = 0
     @Published private(set) var verses: [String: VerseProgress] = [:]
     @Published private(set) var tapped: Set<String> = []
+    /// The book the daily ritual follows. Other books are readable, but don't drive Today or the wave.
+    @Published private(set) var currentBook: String = books[0].name
+    /// How verses are read aloud. Kept here rather than in UserDefaults, which
+    /// would pull in a required-reason API and a privacy manifest.
+    @Published private(set) var pace: Pace = .normal
     private var lastStudyDay: Date?
     private var lastVerseDay: Date?
 
@@ -60,10 +67,24 @@ final class Store: ObservableObject {
             states = snap.states
             streak = snap.streak
             lastStudyDay = snap.lastStudyDay
-            verses = snap.verses ?? [:]
+            verses = Self.bookQualified(snap.verses ?? [:])
             tapped = snap.tapped ?? []
             lastVerseDay = snap.lastVerseDay
+            if let saved = snap.currentBook, books.contains(where: { $0.name == saved }) {
+                currentBook = saved
+            }
+            if let saved = snap.pace, let p = Pace(rawValue: saved) { pace = p }
         }
+    }
+
+    /// Verse progress used to be keyed "1:3", from when Jonah was the only text.
+    /// A second book makes that ambiguous, so old keys are stamped with Jonah's name.
+    private static func bookQualified(_ saved: [String: VerseProgress]) -> [String: VerseProgress] {
+        var out: [String: VerseProgress] = [:]
+        for (key, progress) in saved {
+            out[key.contains(" ") ? key : "Jonah " + key] = progress
+        }
+        return out
     }
 
     func grade(_ card: Card, _ grade: Grade) {
@@ -75,23 +96,36 @@ final class Store: ObservableObject {
     var dueCards: [Card] {
         let now = Date()
         let drills = curriculum.filter { (states[$0.id]?.due ?? .distantFuture) <= now }
-        let words = tapped.compactMap { jonahCardsByID[$0] }
+        let words = tapped.compactMap { enrolledCardsByID[$0] }
             .filter { (states[$0.id]?.due ?? .distantPast) <= now }
         return drills + words
     }
 
-    // — Jonah / Assimil —
+    // — The daily reading (Assimil waves), through whichever book is current —
 
     static let waveOffset = 12 // second wave trails the passive wave by ~2 weeks
 
+    var ritualVerses: [Verse] { book(named: currentBook).verses }
+
+    func setPace(_ p: Pace) {
+        pace = p
+        save()
+    }
+
+    func setCurrentBook(_ name: String) {
+        guard books.contains(where: { $0.name == name }) else { return }
+        currentBook = name
+        save()
+    }
+
     /// Index of the next verse without a completed passive pass.
     var verseIndex: Int {
-        jonahVerses.firstIndex { verses[$0.id]?.passive == nil } ?? jonahVerses.count
+        ritualVerses.firstIndex { verses[$0.id]?.passive == nil } ?? ritualVerses.count
     }
 
     /// Today's new verse, or nil when the book is finished.
-    var todaysVerse: JonahVerse? {
-        verseIndex < jonahVerses.count ? jonahVerses[verseIndex] : nil
+    var todaysVerse: Verse? {
+        verseIndex < ritualVerses.count ? ritualVerses[verseIndex] : nil
     }
 
     /// One new verse per day — the Assimil rhythm.
@@ -100,30 +134,33 @@ final class Store: ObservableObject {
     }
 
     /// The oldest passive verse due for its active (read-aloud) pass.
-    var waveVerse: JonahVerse? {
-        let cap = verseIndex >= jonahVerses.count ? jonahVerses.count : verseIndex - Self.waveOffset
+    var waveVerse: Verse? {
+        let all = ritualVerses
+        let cap = verseIndex >= all.count ? all.count : verseIndex - Self.waveOffset
         guard cap > 0 else { return nil }
-        return jonahVerses.prefix(cap).first {
+        return all.prefix(cap).first {
             verses[$0.id]?.passive != nil && verses[$0.id]?.wave == nil
         }
     }
 
     /// Last few passive verses, for the weekly-style replay.
-    var recentVerses: [JonahVerse] {
-        Array(jonahVerses.filter { verses[$0.id]?.passive != nil }.suffix(6))
+    var recentVerses: [Verse] {
+        Array(ritualVerses.filter { verses[$0.id]?.passive != nil }.suffix(6))
     }
 
-    func completePassive(_ verse: JonahVerse) {
+    func completePassive(_ verse: Verse) {
         var p = verses[verse.id] ?? VerseProgress()
         let isNew = p.passive == nil
+        let wasTodays = todaysVerse?.id == verse.id // read before the mutation moves the index
         p.passive = Date()
         verses[verse.id] = p
-        if isNew { lastVerseDay = Calendar.current.startOfDay(for: Date()) }
+        // only the ritual's own next verse spends the day; a freely picked verse doesn't
+        if isNew && wasTodays { lastVerseDay = Calendar.current.startOfDay(for: Date()) }
         bumpStreak()
         save()
     }
 
-    func completeWave(_ verse: JonahVerse) {
+    func completeWave(_ verse: Verse) {
         var p = verses[verse.id] ?? VerseProgress()
         p.wave = Date()
         verses[verse.id] = p
@@ -131,12 +168,14 @@ final class Store: ObservableObject {
         save()
     }
 
-    /// Tapping an unknown word enrolls it as an SRS card.
-    func tapWord(_ w: JonahWord) {
-        guard !tapped.contains(jonahCardID(w)) else { return }
-        tapped.insert(jonahCardID(w))
+    /// Hand-picked words become SRS cards: tapped in the reader, or taken from the word deck.
+    func enroll(_ id: String) {
+        guard !tapped.contains(id) else { return }
+        tapped.insert(id)
         save()
     }
+
+    func tapWord(_ w: VerseWord) { enroll(verseWordCardID(w)) }
 
     /// Next unseen cards, in curriculum order.
     func newCards(limit: Int) -> [Card] {
@@ -154,6 +193,8 @@ final class Store: ObservableObject {
         streak = 0
         verses = [:]
         tapped = []
+        currentBook = books[0].name
+        pace = .normal
         lastStudyDay = nil
         lastVerseDay = nil
         try? FileManager.default.removeItem(at: url)
@@ -173,7 +214,8 @@ final class Store: ObservableObject {
 
     private func save() {
         let snap = Snapshot(states: states, streak: streak, lastStudyDay: lastStudyDay,
-                            verses: verses, tapped: tapped, lastVerseDay: lastVerseDay)
+                            verses: verses, tapped: tapped, lastVerseDay: lastVerseDay,
+                            currentBook: currentBook, pace: pace.rawValue)
         try? JSONEncoder().encode(snap).write(to: url)
     }
 }

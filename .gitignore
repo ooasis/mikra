@@ -2,3 +2,4 @@
 Mikra.xcodeproj/
 xcuserdata/
 .wrangler/
+.cache/

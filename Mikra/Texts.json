@@ -1,5 +1,9 @@
 [
 {
+"name": "Jonah",
+"heb": "יוֹנָה",
+"verses": [
+{
 "c": 1,
 "v": 1,
 "en": "Now Yahweh’s word came to Jonah the son of Amittai, saying,",
@@ -1236,7 +1240,7 @@
 },
 {
 "h": "הַדָּגָה",
-"g": "the + {a fish }"
+"g": "the + fish (collective)"
 }
 ]
 },
@@ -2383,7 +2387,7 @@
 },
 {
 "h": "אַדְמָתִי",
-"g": "soil + +me/my"
+"g": "ground, soil + +me/my"
 },
 {
 "h": "עַל־",
@@ -2597,7 +2601,7 @@
 },
 {
 "h": "תַּחְתֶּיהָ",
-"g": "the bottom + +her/its"
+"g": "under, beneath + +her/its"
 },
 {
 "h": "בַּצֵּל",
@@ -3102,6 +3106,1977 @@
 {
 "h": "רַבָּה",
 "g": "great, many"
+}
+]
+}
+]
+},
+{
+"name": "Genesis",
+"heb": "בְּרֵאשִׁית א",
+"verses": [
+{
+"c": 1,
+"v": 1,
+"en": "In the beginning, God created the heavens and the earth.",
+"words": [
+{
+"h": "בְּרֵאשִׁית",
+"g": "in + beginning, first",
+"n": "b'reshit — 'in a beginning'. b- ('in') fused onto reshit ('head, first'). The Bible opens not with a sentence but with a prepositional phrase."
+},
+{
+"h": "בָּרָא",
+"g": "to create"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods",
+"n": "bara elohim — 'created God', i.e. 'God created'. Hebrew puts the verb first; the subject follows it. You'll meet this order in nearly every narrative sentence."
+},
+{
+"h": "אֵת",
+"g": "(object marker)"
+},
+{
+"h": "הַשָּׁמַיִם",
+"g": "the + heavens, sky"
+},
+{
+"h": "וְאֵת",
+"g": "and + (object marker)"
+},
+{
+"h": "הָאָרֶץ",
+"g": "the + land, earth"
+}
+]
+},
+{
+"c": 1,
+"v": 2,
+"en": "The earth was formless and empty. Darkness was on the surface of the deep and God’s Spirit was hovering over the surface of the waters.",
+"words": [
+{
+"h": "וְהָאָרֶץ",
+"g": "and + the + land, earth"
+},
+{
+"h": "הָיְתָה",
+"g": "to be, become"
+},
+{
+"h": "תֹהוּ",
+"g": "formless, waste",
+"n": "tohu va-vohu — 'wild and waste'. A rhyming pair, the kind of doubling Hebrew uses where English would reach for an adjective."
+},
+{
+"h": "וָבֹהוּ",
+"g": "and + emptiness, void"
+},
+{
+"h": "וְחֹשֶׁךְ",
+"g": "and + darkness"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "פְּנֵי",
+"g": "face, presence"
+},
+{
+"h": "תְהוֹם",
+"g": "the deep"
+},
+{
+"h": "וְרוּחַ",
+"g": "and + wind, spirit"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "מְרַחֶפֶת",
+"g": "to brood"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "פְּנֵי",
+"g": "face, presence"
+},
+{
+"h": "הַמָּיִם",
+"g": "the + water"
+}
+]
+},
+{
+"c": 1,
+"v": 3,
+"en": "God said, “Let there be light,” and there was light.",
+"words": [
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say",
+"n": "va-yomer — 'and he said'. The same vay- chain that drives Jonah: va- + verb, one step forward in the story."
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "יְהִי",
+"g": "to be, become",
+"n": "y'hi or — 'let there be light'. Two words. y'hi is hayah in the jussive: a third-person command or wish."
+},
+{
+"h": "אוֹר",
+"g": "light"
+},
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "אוֹר",
+"g": "light"
+}
+]
+},
+{
+"c": 1,
+"v": 4,
+"en": "God saw the light, and saw that it was good. God divided the light from the darkness.",
+"words": [
+{
+"h": "וַיַּרְא",
+"g": "and + to see"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "הָאוֹר",
+"g": "the + light"
+},
+{
+"h": "כִּי־",
+"g": "for, because, that"
+},
+{
+"h": "טוֹב",
+"g": "good"
+},
+{
+"h": "וַיַּבְדֵּל",
+"g": "and + to divide, separate",
+"n": "va-yavdel bein … u-vein — 'he separated between X and between Y'. Hebrew repeats bein before each item; English says 'between' once."
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "בֵּין",
+"g": "between"
+},
+{
+"h": "הָאוֹר",
+"g": "the + light"
+},
+{
+"h": "וּבֵין",
+"g": "and + between"
+},
+{
+"h": "הַחֹשֶׁךְ",
+"g": "the + darkness"
+}
+]
+},
+{
+"c": 1,
+"v": 5,
+"en": "God called the light “day”, and the darkness he called “night”. There was evening and there was morning, the first day.",
+"words": [
+{
+"h": "וַיִּקְרָא",
+"g": "and + to call, cry out",
+"n": "va-yiqra … yom — 'he called the light day'. qara + l- means 'to call something by a name'."
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "לָאוֹר",
+"g": "to + light"
+},
+{
+"h": "יוֹם",
+"g": "day"
+},
+{
+"h": "וְלַחֹשֶׁךְ",
+"g": "and + to + darkness"
+},
+{
+"h": "קָרָא",
+"g": "to call, cry out"
+},
+{
+"h": "לָיְלָה",
+"g": "night"
+},
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "עֶרֶב",
+"g": "evening"
+},
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "בֹקֶר",
+"g": "morning"
+},
+{
+"h": "יוֹם",
+"g": "day"
+},
+{
+"h": "אֶחָד",
+"g": "one",
+"n": "yom echad — 'day one', not 'first day'. The other days take ordinals (sheni, sh'lishi); day one keeps the cardinal."
+}
+]
+},
+{
+"c": 1,
+"v": 6,
+"en": "God said, “Let there be an expanse in the middle of the waters, and let it divide the waters from the waters.”",
+"words": [
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "יְהִי",
+"g": "to be, become"
+},
+{
+"h": "רָקִיעַ",
+"g": "expanse, firmament"
+},
+{
+"h": "בְּתוֹךְ",
+"g": "in + midst"
+},
+{
+"h": "הַמָּיִם",
+"g": "the + water"
+},
+{
+"h": "וִיהִי",
+"g": "and + to be, become"
+},
+{
+"h": "מַבְדִּיל",
+"g": "to divide, separate"
+},
+{
+"h": "בֵּין",
+"g": "between"
+},
+{
+"h": "מַיִם",
+"g": "water"
+},
+{
+"h": "לָמָיִם",
+"g": "to + water"
+}
+]
+},
+{
+"c": 1,
+"v": 7,
+"en": "God made the expanse, and divided the waters which were under the expanse from the waters which were above the expanse; and it was so.",
+"words": [
+{
+"h": "וַיַּעַשׂ",
+"g": "and + to do, make"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "הָרָקִיעַ",
+"g": "the + expanse, firmament"
+},
+{
+"h": "וַיַּבְדֵּל",
+"g": "and + to divide, separate"
+},
+{
+"h": "בֵּין",
+"g": "between"
+},
+{
+"h": "הַמַּיִם",
+"g": "the + water"
+},
+{
+"h": "אֲשֶׁר",
+"g": "which, who"
+},
+{
+"h": "מִתַּחַת",
+"g": "from + under, beneath"
+},
+{
+"h": "לָרָקִיעַ",
+"g": "to + expanse, firmament"
+},
+{
+"h": "וּבֵין",
+"g": "and + between"
+},
+{
+"h": "הַמַּיִם",
+"g": "the + water"
+},
+{
+"h": "אֲשֶׁר",
+"g": "which, who"
+},
+{
+"h": "מֵעַל",
+"g": "from + on, over, against"
+},
+{
+"h": "לָרָקִיעַ",
+"g": "to + expanse, firmament"
+},
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "כֵן",
+"g": "set upright"
+}
+]
+},
+{
+"c": 1,
+"v": 8,
+"en": "God called the expanse “sky”. There was evening and there was morning, a second day.",
+"words": [
+{
+"h": "וַיִּקְרָא",
+"g": "and + to call, cry out"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "לָרָקִיעַ",
+"g": "to + expanse, firmament"
+},
+{
+"h": "שָׁמָיִם",
+"g": "heavens, sky"
+},
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "עֶרֶב",
+"g": "evening"
+},
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "בֹקֶר",
+"g": "morning"
+},
+{
+"h": "יוֹם",
+"g": "day"
+},
+{
+"h": "שֵׁנִי",
+"g": "second (time)"
+}
+]
+},
+{
+"c": 1,
+"v": 9,
+"en": "God said, “Let the waters under the sky be gathered together to one place, and let the dry land appear”; and it was so.",
+"words": [
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "יִקָּווּ",
+"g": "to bind together , i.e. collect"
+},
+{
+"h": "הַמַּיִם",
+"g": "the + water"
+},
+{
+"h": "מִתַּחַת",
+"g": "from + under, beneath"
+},
+{
+"h": "הַשָּׁמַיִם",
+"g": "the + heavens, sky"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "מָקוֹם",
+"g": "place"
+},
+{
+"h": "אֶחָד",
+"g": "one"
+},
+{
+"h": "וְתֵרָאֶה",
+"g": "and + to see"
+},
+{
+"h": "הַיַּבָּשָׁה",
+"g": "the + dry land"
+},
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "כֵן",
+"g": "set upright"
+}
+]
+},
+{
+"c": 1,
+"v": 10,
+"en": "God called the dry land “earth”, and the gathering together of the waters he called “seas”. God saw that it was good.",
+"words": [
+{
+"h": "וַיִּקְרָא",
+"g": "and + to call, cry out"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "לַיַּבָּשָׁה",
+"g": "to + dry land"
+},
+{
+"h": "אֶרֶץ",
+"g": "land, earth"
+},
+{
+"h": "וּלְמִקְוֵה",
+"g": "and + to + something waited for, i.e. confidence"
+},
+{
+"h": "הַמַּיִם",
+"g": "the + water"
+},
+{
+"h": "קָרָא",
+"g": "to call, cry out"
+},
+{
+"h": "יַמִּים",
+"g": "sea"
+},
+{
+"h": "וַיַּרְא",
+"g": "and + to see"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "כִּי־",
+"g": "for, because, that"
+},
+{
+"h": "טוֹב",
+"g": "good"
+}
+]
+},
+{
+"c": 1,
+"v": 11,
+"en": "God said, “Let the earth yield grass, herbs yielding seeds, and fruit trees bearing fruit after their kind, with their seeds in it, on the earth”; and it was so.",
+"words": [
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "תַּדְשֵׁא",
+"g": "to sprout"
+},
+{
+"h": "הָאָרֶץ",
+"g": "the + land, earth"
+},
+{
+"h": "דֶּשֶׁא",
+"g": "grass, vegetation"
+},
+{
+"h": "עֵשֶׂב",
+"g": "plant, herb"
+},
+{
+"h": "מַזְרִיעַ",
+"g": "to sow, seed"
+},
+{
+"h": "זֶרַע",
+"g": "seed"
+},
+{
+"h": "עֵץ",
+"g": "tree, wood"
+},
+{
+"h": "פְּרִי",
+"g": "fruit"
+},
+{
+"h": "עֹשֶׂה",
+"g": "to do, make"
+},
+{
+"h": "פְּרִי",
+"g": "fruit"
+},
+{
+"h": "לְמִינוֹ",
+"g": "to + kind, species + +him/his/it"
+},
+{
+"h": "אֲשֶׁר",
+"g": "which, who"
+},
+{
+"h": "זַרְעוֹ־",
+"g": "seed + +him/his/it"
+},
+{
+"h": "בוֹ",
+"g": "in + +him/his/it"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "הָאָרֶץ",
+"g": "the + land, earth"
+},
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "כֵן",
+"g": "set upright"
+}
+]
+},
+{
+"c": 1,
+"v": 12,
+"en": "The earth yielded grass, herbs yielding seed after their kind, and trees bearing fruit, with their seeds in it, after their kind; and God saw that it was good.",
+"words": [
+{
+"h": "וַתּוֹצֵא",
+"g": "and + to go out"
+},
+{
+"h": "הָאָרֶץ",
+"g": "the + land, earth"
+},
+{
+"h": "דֶּשֶׁא",
+"g": "grass, vegetation"
+},
+{
+"h": "עֵשֶׂב",
+"g": "plant, herb"
+},
+{
+"h": "מַזְרִיעַ",
+"g": "to sow, seed"
+},
+{
+"h": "זֶרַע",
+"g": "seed"
+},
+{
+"h": "לְמִינֵהוּ",
+"g": "to + kind, species + +him/his/it"
+},
+{
+"h": "וְעֵץ",
+"g": "and + tree, wood"
+},
+{
+"h": "עֹשֶׂה־",
+"g": "to do, make"
+},
+{
+"h": "פְּרִי",
+"g": "fruit"
+},
+{
+"h": "אֲשֶׁר",
+"g": "which, who"
+},
+{
+"h": "זַרְעוֹ־",
+"g": "seed + +him/his/it"
+},
+{
+"h": "בוֹ",
+"g": "in + +him/his/it"
+},
+{
+"h": "לְמִינֵהוּ",
+"g": "to + kind, species + +him/his/it"
+},
+{
+"h": "וַיַּרְא",
+"g": "and + to see"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "כִּי־",
+"g": "for, because, that"
+},
+{
+"h": "טוֹב",
+"g": "good"
+}
+]
+},
+{
+"c": 1,
+"v": 13,
+"en": "There was evening and there was morning, a third day.",
+"words": [
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "עֶרֶב",
+"g": "evening"
+},
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "בֹקֶר",
+"g": "morning"
+},
+{
+"h": "יוֹם",
+"g": "day"
+},
+{
+"h": "שְׁלִישִׁי",
+"g": "third"
+}
+]
+},
+{
+"c": 1,
+"v": 14,
+"en": "God said, “Let there be lights in the expanse of the sky to divide the day from the night; and let them be for signs to mark seasons, days, and years;",
+"words": [
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "יְהִי",
+"g": "to be, become"
+},
+{
+"h": "מְאֹרֹת",
+"g": "light-giver, lamp"
+},
+{
+"h": "בִּרְקִיעַ",
+"g": "in + expanse, firmament"
+},
+{
+"h": "הַשָּׁמַיִם",
+"g": "the + heavens, sky"
+},
+{
+"h": "לְהַבְדִּיל",
+"g": "to + to divide, separate"
+},
+{
+"h": "בֵּין",
+"g": "between"
+},
+{
+"h": "הַיּוֹם",
+"g": "the + day"
+},
+{
+"h": "וּבֵין",
+"g": "and + between"
+},
+{
+"h": "הַלָּיְלָה",
+"g": "the + night"
+},
+{
+"h": "וְהָיוּ",
+"g": "and + to be, become"
+},
+{
+"h": "לְאֹתֹת",
+"g": "to + sign"
+},
+{
+"h": "וּלְמוֹעֲדִים",
+"g": "and + to + appointed time, season"
+},
+{
+"h": "וּלְיָמִים",
+"g": "and + to + day"
+},
+{
+"h": "וְשָׁנִים",
+"g": "and + year"
+}
+]
+},
+{
+"c": 1,
+"v": 15,
+"en": "and let them be for lights in the expanse of the sky to give light on the earth”; and it was so.",
+"words": [
+{
+"h": "וְהָיוּ",
+"g": "and + to be, become"
+},
+{
+"h": "לִמְאוֹרֹת",
+"g": "to + light-giver, lamp"
+},
+{
+"h": "בִּרְקִיעַ",
+"g": "in + expanse, firmament"
+},
+{
+"h": "הַשָּׁמַיִם",
+"g": "the + heavens, sky"
+},
+{
+"h": "לְהָאִיר",
+"g": "to + to give light"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "הָאָרֶץ",
+"g": "the + land, earth"
+},
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "כֵן",
+"g": "set upright"
+}
+]
+},
+{
+"c": 1,
+"v": 16,
+"en": "God made the two great lights: the greater light to rule the day, and the lesser light to rule the night. He also made the stars.",
+"words": [
+{
+"h": "וַיַּעַשׂ",
+"g": "and + to do, make"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "שְׁנֵי",
+"g": "two"
+},
+{
+"h": "הַמְּאֹרֹת",
+"g": "the + light-giver, lamp"
+},
+{
+"h": "הַגְּדֹלִים",
+"g": "the + great, big"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "הַמָּאוֹר",
+"g": "the + light-giver, lamp"
+},
+{
+"h": "הַגָּדֹל",
+"g": "the + great, big"
+},
+{
+"h": "לְמֶמְשֶׁלֶת",
+"g": "to + rule, dominion"
+},
+{
+"h": "הַיּוֹם",
+"g": "the + day"
+},
+{
+"h": "וְאֶת־",
+"g": "and + (object marker)"
+},
+{
+"h": "הַמָּאוֹר",
+"g": "the + light-giver, lamp"
+},
+{
+"h": "הַקָּטֹן",
+"g": "the + abbreviated, i.e. diminutive"
+},
+{
+"h": "לְמֶמְשֶׁלֶת",
+"g": "to + rule, dominion"
+},
+{
+"h": "הַלַּיְלָה",
+"g": "the + night"
+},
+{
+"h": "וְאֵת",
+"g": "and + (object marker)"
+},
+{
+"h": "הַכּוֹכָבִים",
+"g": "the + star"
+}
+]
+},
+{
+"c": 1,
+"v": 17,
+"en": "God set them in the expanse of the sky to give light to the earth,",
+"words": [
+{
+"h": "וַיִּתֵּן",
+"g": "and + to give"
+},
+{
+"h": "אֹתָם",
+"g": "(object marker) + +them/their"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "בִּרְקִיעַ",
+"g": "in + expanse, firmament"
+},
+{
+"h": "הַשָּׁמָיִם",
+"g": "the + heavens, sky"
+},
+{
+"h": "לְהָאִיר",
+"g": "to + to give light"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "הָאָרֶץ",
+"g": "the + land, earth"
+}
+]
+},
+{
+"c": 1,
+"v": 18,
+"en": "and to rule over the day and over the night, and to divide the light from the darkness. God saw that it was good.",
+"words": [
+{
+"h": "וְלִמְשֹׁל",
+"g": "and + to + to rule"
+},
+{
+"h": "בַּיּוֹם",
+"g": "in + day"
+},
+{
+"h": "וּבַלַּיְלָה",
+"g": "and + in + night"
+},
+{
+"h": "וּלֲהַבְדִּיל",
+"g": "and + to + to divide, separate"
+},
+{
+"h": "בֵּין",
+"g": "between"
+},
+{
+"h": "הָאוֹר",
+"g": "the + light"
+},
+{
+"h": "וּבֵין",
+"g": "and + between"
+},
+{
+"h": "הַחֹשֶׁךְ",
+"g": "the + darkness"
+},
+{
+"h": "וַיַּרְא",
+"g": "and + to see"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "כִּי־",
+"g": "for, because, that"
+},
+{
+"h": "טוֹב",
+"g": "good"
+}
+]
+},
+{
+"c": 1,
+"v": 19,
+"en": "There was evening and there was morning, a fourth day.",
+"words": [
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "עֶרֶב",
+"g": "evening"
+},
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "בֹקֶר",
+"g": "morning"
+},
+{
+"h": "יוֹם",
+"g": "day"
+},
+{
+"h": "רְבִיעִי",
+"g": "fourth"
+}
+]
+},
+{
+"c": 1,
+"v": 20,
+"en": "God said, “Let the waters abound with living creatures, and let birds fly above the earth in the open expanse of the sky.”",
+"words": [
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "יִשְׁרְצוּ",
+"g": "to swarm, teem"
+},
+{
+"h": "הַמַּיִם",
+"g": "the + water"
+},
+{
+"h": "שֶׁרֶץ",
+"g": "swarming things"
+},
+{
+"h": "נֶפֶשׁ",
+"g": "soul, life, self"
+},
+{
+"h": "חַיָּה",
+"g": "life, alive"
+},
+{
+"h": "וְעוֹף",
+"g": "and + bird, flying thing"
+},
+{
+"h": "יְעוֹפֵף",
+"g": "to fly"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "הָאָרֶץ",
+"g": "the + land, earth"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "פְּנֵי",
+"g": "face, presence"
+},
+{
+"h": "רְקִיעַ",
+"g": "expanse, firmament"
+},
+{
+"h": "הַשָּׁמָיִם",
+"g": "the + heavens, sky"
+}
+]
+},
+{
+"c": 1,
+"v": 21,
+"en": "God created the large sea creatures and every living creature that moves, with which the waters swarmed, after their kind, and every winged bird after its kind. God saw that it was good.",
+"words": [
+{
+"h": "וַיִּבְרָא",
+"g": "and + to create"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "הַתַּנִּינִם",
+"g": "the + a marine or land monster, i.e. sea-serpent or jackal"
+},
+{
+"h": "הַגְּדֹלִים",
+"g": "the + great, big"
+},
+{
+"h": "וְאֵת",
+"g": "and + (object marker)"
+},
+{
+"h": "כָּל־",
+"g": "the whole"
+},
+{
+"h": "נֶפֶשׁ",
+"g": "soul, life, self"
+},
+{
+"h": "הַחַיָּה",
+"g": "the + life, alive"
+},
+{
+"h": "הָרֹמֶשֶׂת",
+"g": "the + to creep, crawl"
+},
+{
+"h": "אֲשֶׁר",
+"g": "which, who"
+},
+{
+"h": "שָׁרְצוּ",
+"g": "to swarm, teem"
+},
+{
+"h": "הַמַּיִם",
+"g": "the + water"
+},
+{
+"h": "לְמִינֵהֶם",
+"g": "to + kind, species + +them/their"
+},
+{
+"h": "וְאֵת",
+"g": "and + (object marker)"
+},
+{
+"h": "כָּל־",
+"g": "the whole"
+},
+{
+"h": "עוֹף",
+"g": "bird, flying thing"
+},
+{
+"h": "כָּנָף",
+"g": "wing"
+},
+{
+"h": "לְמִינֵהוּ",
+"g": "to + kind, species + +him/his/it"
+},
+{
+"h": "וַיַּרְא",
+"g": "and + to see"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "כִּי־",
+"g": "for, because, that"
+},
+{
+"h": "טוֹב",
+"g": "good"
+}
+]
+},
+{
+"c": 1,
+"v": 22,
+"en": "God blessed them, saying, “Be fruitful, and multiply, and fill the waters in the seas, and let birds multiply on the earth.”",
+"words": [
+{
+"h": "וַיְבָרֶךְ",
+"g": "and + to kneel"
+},
+{
+"h": "אֹתָם",
+"g": "(object marker) + +them/their"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "לֵאמֹר",
+"g": "to + to say"
+},
+{
+"h": "פְּרוּ",
+"g": "to bear fruit"
+},
+{
+"h": "וּרְבוּ",
+"g": "and + many, much"
+},
+{
+"h": "וּמִלְאוּ",
+"g": "and + to fill, be full"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "הַמַּיִם",
+"g": "the + water"
+},
+{
+"h": "בַּיַּמִּים",
+"g": "in + sea"
+},
+{
+"h": "וְהָעוֹף",
+"g": "and + the + bird, flying thing"
+},
+{
+"h": "יִרֶב",
+"g": "many, much"
+},
+{
+"h": "בָּאָרֶץ",
+"g": "in + land, earth"
+}
+]
+},
+{
+"c": 1,
+"v": 23,
+"en": "There was evening and there was morning, a fifth day.",
+"words": [
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "עֶרֶב",
+"g": "evening"
+},
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "בֹקֶר",
+"g": "morning"
+},
+{
+"h": "יוֹם",
+"g": "day"
+},
+{
+"h": "חֲמִישִׁי",
+"g": "fifth"
+}
+]
+},
+{
+"c": 1,
+"v": 24,
+"en": "God said, “Let the earth produce living creatures after their kind, livestock, creeping things, and animals of the earth after their kind”; and it was so.",
+"words": [
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "תּוֹצֵא",
+"g": "to go out"
+},
+{
+"h": "הָאָרֶץ",
+"g": "the + land, earth"
+},
+{
+"h": "נֶפֶשׁ",
+"g": "soul, life, self"
+},
+{
+"h": "חַיָּה",
+"g": "life, alive"
+},
+{
+"h": "לְמִינָהּ",
+"g": "to + kind, species + +her/its"
+},
+{
+"h": "בְּהֵמָה",
+"g": "beast, cattle"
+},
+{
+"h": "וָרֶמֶשׂ",
+"g": "and + creeping things"
+},
+{
+"h": "וְחַיְתוֹ־",
+"g": "and + life, alive"
+},
+{
+"h": "אֶרֶץ",
+"g": "land, earth"
+},
+{
+"h": "לְמִינָהּ",
+"g": "to + kind, species + +her/its"
+},
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "כֵן",
+"g": "set upright"
+}
+]
+},
+{
+"c": 1,
+"v": 25,
+"en": "God made the animals of the earth after their kind, and the livestock after their kind, and everything that creeps on the ground after its kind. God saw that it was good.",
+"words": [
+{
+"h": "וַיַּעַשׂ",
+"g": "and + to do, make"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "חַיַּת",
+"g": "life, alive"
+},
+{
+"h": "הָאָרֶץ",
+"g": "the + land, earth"
+},
+{
+"h": "לְמִינָהּ",
+"g": "to + kind, species + +her/its"
+},
+{
+"h": "וְאֶת־",
+"g": "and + (object marker)"
+},
+{
+"h": "הַבְּהֵמָה",
+"g": "the + beast, cattle"
+},
+{
+"h": "לְמִינָהּ",
+"g": "to + kind, species + +her/its"
+},
+{
+"h": "וְאֵת",
+"g": "and + (object marker)"
+},
+{
+"h": "כָּל־",
+"g": "the whole"
+},
+{
+"h": "רֶמֶשׂ",
+"g": "creeping things"
+},
+{
+"h": "הָאֲדָמָה",
+"g": "the + ground, soil"
+},
+{
+"h": "לְמִינֵהוּ",
+"g": "to + kind, species + +him/his/it"
+},
+{
+"h": "וַיַּרְא",
+"g": "and + to see"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "כִּי־",
+"g": "for, because, that"
+},
+{
+"h": "טוֹב",
+"g": "good"
+}
+]
+},
+{
+"c": 1,
+"v": 26,
+"en": "God said, “Let us make man in our image, after our likeness: and let them have dominion over the fish of the sea, and over the birds of the sky, and over the livestock, and over all the earth, and over every creeping thing that creeps on the earth.”",
+"words": [
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "נַעֲשֶׂה",
+"g": "to do, make",
+"n": "na'aseh — 'let us make'. The plural has been argued over for two thousand years: royal plural, divine council, or something else."
+},
+{
+"h": "אָדָם",
+"g": "man, mankind"
+},
+{
+"h": "בְּצַלְמֵנוּ",
+"g": "in + image + +us/our"
+},
+{
+"h": "כִּדְמוּתֵנוּ",
+"g": "like + likeness + +us/our"
+},
+{
+"h": "וְיִרְדּוּ",
+"g": "and + to tread down, i.e. subjugate"
+},
+{
+"h": "בִדְגַת",
+"g": "in + fish (collective)"
+},
+{
+"h": "הַיָּם",
+"g": "the + sea"
+},
+{
+"h": "וּבְעוֹף",
+"g": "and + in + bird, flying thing"
+},
+{
+"h": "הַשָּׁמַיִם",
+"g": "the + heavens, sky"
+},
+{
+"h": "וּבַבְּהֵמָה",
+"g": "and + in + beast, cattle"
+},
+{
+"h": "וּבְכָל־",
+"g": "and + in + the whole"
+},
+{
+"h": "הָאָרֶץ",
+"g": "the + land, earth"
+},
+{
+"h": "וּבְכָל־",
+"g": "and + in + the whole"
+},
+{
+"h": "הָרֶמֶשׂ",
+"g": "the + creeping things"
+},
+{
+"h": "הָרֹמֵשׂ",
+"g": "the + to creep, crawl"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "הָאָרֶץ",
+"g": "the + land, earth"
+}
+]
+},
+{
+"c": 1,
+"v": 27,
+"en": "God created man in his own image. In God’s image he created him; male and female he created them.",
+"words": [
+{
+"h": "וַיִּבְרָא",
+"g": "and + to create"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "הָאָדָם",
+"g": "the + man, mankind"
+},
+{
+"h": "בְּצַלְמוֹ",
+"g": "in + image + +him/his/it",
+"n": "b'tsalmo — 'in his image'. tselem + -o ('his'), the same possessive ending you met on elohav in Jonah 1:5."
+},
+{
+"h": "בְּצֶלֶם",
+"g": "in + image"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "בָּרָא",
+"g": "to create"
+},
+{
+"h": "אֹתוֹ",
+"g": "(object marker) + +him/his/it"
+},
+{
+"h": "זָכָר",
+"g": "male"
+},
+{
+"h": "וּנְקֵבָה",
+"g": "and + female"
+},
+{
+"h": "בָּרָא",
+"g": "to create"
+},
+{
+"h": "אֹתָם",
+"g": "(object marker) + +them/their"
+}
+]
+},
+{
+"c": 1,
+"v": 28,
+"en": "God blessed them. God said to them, “Be fruitful, multiply, fill the earth, and subdue it. Have dominion over the fish of the sea, over the birds of the sky, and over every living thing that moves on the earth.”",
+"words": [
+{
+"h": "וַיְבָרֶךְ",
+"g": "and + to kneel"
+},
+{
+"h": "אֹתָם",
+"g": "(object marker) + +them/their"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "לָהֶם",
+"g": "to + +them/their"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "פְּרוּ",
+"g": "to bear fruit"
+},
+{
+"h": "וּרְבוּ",
+"g": "and + many, much"
+},
+{
+"h": "וּמִלְאוּ",
+"g": "and + to fill, be full"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "הָאָרֶץ",
+"g": "the + land, earth"
+},
+{
+"h": "וְכִבְשֻׁהָ",
+"g": "and + to subdue + +her/its"
+},
+{
+"h": "וּרְדוּ",
+"g": "and + to tread down, i.e. subjugate"
+},
+{
+"h": "בִּדְגַת",
+"g": "in + fish (collective)"
+},
+{
+"h": "הַיָּם",
+"g": "the + sea"
+},
+{
+"h": "וּבְעוֹף",
+"g": "and + in + bird, flying thing"
+},
+{
+"h": "הַשָּׁמַיִם",
+"g": "the + heavens, sky"
+},
+{
+"h": "וּבְכָל־",
+"g": "and + in + the whole"
+},
+{
+"h": "חַיָּה",
+"g": "life, alive"
+},
+{
+"h": "הָרֹמֶשֶׂת",
+"g": "the + to creep, crawl"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "הָאָרֶץ",
+"g": "the + land, earth"
+}
+]
+},
+{
+"c": 1,
+"v": 29,
+"en": "God said, “Behold, I have given you every herb yielding seed, which is on the surface of all the earth, and every tree, which bears fruit yielding seed. It will be your food.",
+"words": [
+{
+"h": "וַיֹּאמֶר",
+"g": "and + to say"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "הִנֵּה",
+"g": "behold, look"
+},
+{
+"h": "נָתַתִּי",
+"g": "to give"
+},
+{
+"h": "לָכֶם",
+"g": "to + +you/your"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "כָּל־",
+"g": "the whole"
+},
+{
+"h": "עֵשֶׂב",
+"g": "plant, herb"
+},
+{
+"h": "זֹרֵעַ",
+"g": "to sow, seed"
+},
+{
+"h": "זֶרַע",
+"g": "seed"
+},
+{
+"h": "אֲשֶׁר",
+"g": "which, who"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "פְּנֵי",
+"g": "face, presence"
+},
+{
+"h": "כָל־",
+"g": "the whole"
+},
+{
+"h": "הָאָרֶץ",
+"g": "the + land, earth"
+},
+{
+"h": "וְאֶת־",
+"g": "and + (object marker)"
+},
+{
+"h": "כָּל־",
+"g": "the whole"
+},
+{
+"h": "הָעֵץ",
+"g": "the + tree, wood"
+},
+{
+"h": "אֲשֶׁר־",
+"g": "which, who"
+},
+{
+"h": "בּוֹ",
+"g": "in + +him/his/it"
+},
+{
+"h": "פְרִי־",
+"g": "fruit"
+},
+{
+"h": "עֵץ",
+"g": "tree, wood"
+},
+{
+"h": "זֹרֵעַ",
+"g": "to sow, seed"
+},
+{
+"h": "זָרַע",
+"g": "seed"
+},
+{
+"h": "לָכֶם",
+"g": "to + +you/your"
+},
+{
+"h": "יִהְיֶה",
+"g": "to be, become"
+},
+{
+"h": "לְאָכְלָה",
+"g": "to + food"
+}
+]
+},
+{
+"c": 1,
+"v": 30,
+"en": "To every animal of the earth, and to every bird of the sky, and to everything that creeps on the earth, in which there is life, I have given every green herb for food;” and it was so.",
+"words": [
+{
+"h": "וּלְכָל־",
+"g": "and + to + the whole"
+},
+{
+"h": "חַיַּת",
+"g": "life, alive"
+},
+{
+"h": "הָאָרֶץ",
+"g": "the + land, earth"
+},
+{
+"h": "וּלְכָל־",
+"g": "and + to + the whole"
+},
+{
+"h": "עוֹף",
+"g": "bird, flying thing"
+},
+{
+"h": "הַשָּׁמַיִם",
+"g": "the + heavens, sky"
+},
+{
+"h": "וּלְכֹל",
+"g": "and + to + the whole"
+},
+{
+"h": "רוֹמֵשׂ",
+"g": "to creep, crawl"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "הָאָרֶץ",
+"g": "the + land, earth"
+},
+{
+"h": "אֲשֶׁר־",
+"g": "which, who"
+},
+{
+"h": "בּוֹ",
+"g": "in + +him/his/it"
+},
+{
+"h": "נֶפֶשׁ",
+"g": "soul, life, self"
+},
+{
+"h": "חַיָּה",
+"g": "life, alive"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "כָּל־",
+"g": "the whole"
+},
+{
+"h": "יֶרֶק",
+"g": "green plant"
+},
+{
+"h": "עֵשֶׂב",
+"g": "plant, herb"
+},
+{
+"h": "לְאָכְלָה",
+"g": "to + food"
+},
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "כֵן",
+"g": "set upright"
+}
+]
+},
+{
+"c": 1,
+"v": 31,
+"en": "God saw everything that he had made, and, behold, it was very good. There was evening and there was morning, a sixth day.",
+"words": [
+{
+"h": "וַיַּרְא",
+"g": "and + to see"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "כָּל־",
+"g": "the whole"
+},
+{
+"h": "אֲשֶׁר",
+"g": "which, who"
+},
+{
+"h": "עָשָׂה",
+"g": "to do, make"
+},
+{
+"h": "וְהִנֵּה־",
+"g": "and + behold, look"
+},
+{
+"h": "טוֹב",
+"g": "good"
+},
+{
+"h": "מְאֹד",
+"g": "very, exceedingly"
+},
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "עֶרֶב",
+"g": "evening"
+},
+{
+"h": "וַיְהִי־",
+"g": "and + to be, become"
+},
+{
+"h": "בֹקֶר",
+"g": "morning"
+},
+{
+"h": "יוֹם",
+"g": "day"
+},
+{
+"h": "הַשִּׁשִּׁי",
+"g": "the + sixth"
+}
+]
 }
 ]
 }

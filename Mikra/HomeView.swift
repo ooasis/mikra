@@ -5,10 +5,12 @@ struct HomeView: View {
     @State private var showSession = false
     @State private var selected: LetterGroup?
     @State private var openVerse: VersePresentation?
+    @State private var openDeck: WordBand?
+    @State private var showPicker = false
     @State private var confirmReset = false
 
     struct VersePresentation: Identifiable {
-        let verse: JonahVerse
+        let verse: Verse
         let mode: VerseMode
         var id: String { verse.id }
     }
@@ -36,11 +38,12 @@ struct HomeView: View {
             .padding()
 
             ScrollView {
-                jonahSection
+                readingSection
                 section("Letters — \(learnedIn(letters))/\(letters.count)",
                         letterGroups, columns: 3)
                 section("Vowels — \(learnedIn(vowels))/\(vowels.count)",
                         vowelGroups, columns: 4)
+                wordsSection
             }
 
             Button {
@@ -74,10 +77,15 @@ struct HomeView: View {
             let args = ProcessInfo.processInfo.arguments
             // delay: presenting during the first onAppear races the cold launch and silently no-ops
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                if args.contains("-openVerse") {
-                    openVerse = VersePresentation(verse: jonahVerses[0], mode: .passive)
+                if args.contains("-genesis") { store.setCurrentBook("Genesis") } // modifier for the hooks below
+                if args.contains("-openPicker") {
+                    showPicker = true
+                } else if args.contains("-openVerse") {
+                    openVerse = VersePresentation(verse: store.ritualVerses[0], mode: .passive)
                 } else if args.contains("-openWave") {
-                    openVerse = VersePresentation(verse: jonahVerses[0], mode: .wave)
+                    openVerse = VersePresentation(verse: store.ritualVerses[0], mode: .wave)
+                } else if args.contains("-openWords") {
+                    openDeck = wordBands[0]
                 } else if args.contains("-openVowel") {
                     selected = LetterGroup(id: "qamats",
                                            cards: ["qamats", "cholam", "kubuts", "segol"].compactMap { cardsByID[$0] })
@@ -87,20 +95,44 @@ struct HomeView: View {
         #endif
     }
 
-    // — Jonah (Assimil waves) —
+    // — The daily reading (Assimil waves), through whichever book is current —
 
-    private var jonahSection: some View {
-        VStack(alignment: .leading, spacing: 10) {
+    private var readingSection: some View {
+        let current = book(named: store.currentBook)
+        let done = current.verses.filter { store.verses[$0.id]?.passive != nil }.count
+        return VStack(alignment: .leading, spacing: 10) {
             HStack {
-                Text("יוֹנָה — Jonah").font(.headline)
+                Menu {
+                    ForEach(books) { b in
+                        Button {
+                            store.setCurrentBook(b.name)
+                        } label: {
+                            Label(b.name, systemImage: b.name == store.currentBook ? "checkmark" : "")
+                        }
+                    }
+                } label: {
+                    HStack(spacing: 4) {
+                        Text("\(current.heb) — \(current.name)").font(.headline)
+                        Image(systemName: "chevron.down").font(.caption2)
+                    }
+                    .foregroundStyle(.primary)
+                }
                 Spacer()
-                Text("\(store.verses.values.filter { $0.passive != nil }.count)/48")
+                Button {
+                    showPicker = true
+                } label: {
+                    Image(systemName: "square.grid.2x2")
+                        .font(.footnote)
+                        .foregroundStyle(.blue)
+                }
+                .buttonStyle(.plain)
+                Text("\(done)/\(current.verses.count)")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
 
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 12), spacing: 4) {
-                ForEach(Array(jonahVerses.enumerated()), id: \.element.id) { i, verse in
+                ForEach(Array(current.verses.enumerated()), id: \.element.id) { i, verse in
                     let p = store.verses[verse.id]
                     Button {
                         openVerse = VersePresentation(verse: verse, mode: .passive)
@@ -149,6 +181,55 @@ struct HomeView: View {
         }
         .padding(.horizontal)
         .padding(.bottom, 12)
+        // third presentation on this screen; it gets its own node so it actually fires
+        .sheet(isPresented: $showPicker) {
+            VersePickerView(book: store.currentBook) { verse in
+                openVerse = VersePresentation(verse: verse, mode: .passive)
+            }
+        }
+    }
+
+    // — Word deck: browse-only, "Learn this" opts a single card into the SRS —
+
+    private var wordsSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Words — commonest in the Bible").font(.headline).padding(.horizontal)
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), spacing: 10) {
+                ForEach(wordBands) { band in
+                    Button {
+                        openDeck = band
+                    } label: {
+                        VStack(spacing: 3) {
+                            Text(wordDeck[band.start].h)
+                                .font(.system(size: 28))
+                                .minimumScaleFactor(0.6)
+                                .lineLimit(1)
+                            Text(band.title).font(.caption2.bold())
+                            Text("\(band.floor)+ times")
+                                .font(.caption2).foregroundStyle(.secondary)
+                            Text("\(learningIn(band)) learning")
+                                .font(.caption2).foregroundStyle(.tertiary)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 10)
+                        .background(Color(.secondarySystemBackground),
+                                    in: RoundedRectangle(cornerRadius: 12))
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding(.horizontal)
+        }
+        .padding(.bottom, 12)
+        // second sheet hangs off this node; two sheets on one view don't both fire
+        .sheet(item: $openDeck) { band in
+            WordDeckView(index: band.start)
+        }
+    }
+
+    private func learningIn(_ band: WordBand) -> Int {
+        wordDeck[band.start ..< band.start + band.count]
+            .filter { store.tapped.contains($0.id) }.count
     }
 
     private func verseColor(_ p: VerseProgress?, isNext: Bool) -> Color {

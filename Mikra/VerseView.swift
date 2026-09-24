@@ -3,16 +3,19 @@ import SwiftUI
 enum VerseMode { case passive, wave }
 
 struct VerseView: View {
-    let verse: JonahVerse
+    let verse: Verse
     let mode: VerseMode
     @EnvironmentObject var store: Store
+    @ObservedObject private var monitor = SpeechMonitor.shared
     @Environment(\.dismiss) private var dismiss
 
     private enum Stage { case listen, read, check }
     @State private var stage: Stage
-    @State private var tappedWord: JonahWord?
+    /// Which word's sheet is open. By index, since a verse can repeat a word.
+    private struct WordPick: Identifiable { let index: Int; var id: Int { index } }
+    @State private var picked: WordPick?
 
-    init(verse: JonahVerse, mode: VerseMode) {
+    init(verse: Verse, mode: VerseMode) {
         self.verse = verse
         self.mode = mode
         _stage = State(initialValue: mode == .passive ? .listen : .read)
@@ -25,12 +28,8 @@ struct VerseView: View {
                 Spacer()
                 Text(verse.ref).font(.headline)
                 Spacer()
-                Button {
-                    Speech.say(verse.hebrew)
-                } label: {
-                    Image(systemName: "speaker.wave.2.fill")
-                }
-                .opacity(stage == .listen && mode == .passive ? 0 : 1)
+                // no speaker here: on the text page the pace buttons do the speaking
+                Color.clear.frame(width: 44, height: 1)
             }
             .padding()
 
@@ -45,12 +44,12 @@ struct VerseView: View {
 
             footer
         }
-        .sheet(item: $tappedWord) { word in
-            WordSheet(word: word)
-                .presentationDetents([.height(300)])
+        .sheet(item: $picked) { pick in
+            WordSheet(words: verse.words, index: pick.index)
+                .presentationDetents([.height(320)])
         }
         .onAppear {
-            if mode == .passive { Speech.say(verse.hebrew) }
+            if mode == .passive { Speech.say(verse: verse, pace: .normal) }
         }
     }
 
@@ -58,7 +57,8 @@ struct VerseView: View {
         VStack(spacing: 24) {
             Spacer(minLength: 80)
             Button {
-                Speech.say(verse.hebrew)
+                // ear first is always full speed — slow practice belongs with the text
+                Speech.say(verse: verse, pace: .normal)
             } label: {
                 Image(systemName: "speaker.wave.3.fill")
                     .font(.system(size: 70))
@@ -68,6 +68,29 @@ struct VerseView: View {
                 .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity)
+    }
+
+    /// Each button plays the verse at its own pace — tapping the current one replays,
+    /// which is why these are buttons rather than a Picker.
+    private var paceControls: some View {
+        HStack(spacing: 8) {
+            ForEach(Pace.allCases) { pace in
+                let isCurrent = store.pace == pace
+                Button {
+                    store.setPace(pace)
+                    Speech.say(verse: verse, pace: pace)
+                } label: {
+                    Text(pace.label)
+                        .font(.subheadline.weight(isCurrent ? .semibold : .regular))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 11)
+                        .background(isCurrent ? Color.blue : Color(.secondarySystemBackground),
+                                    in: Capsule())
+                        .foregroundStyle(isCurrent ? .white : .primary)
+                }
+                .buttonStyle(.plain)
+            }
+        }
     }
 
     private var readStage: some View {
@@ -80,9 +103,9 @@ struct VerseView: View {
                     .multilineTextAlignment(.center)
             }
             VerseFlow {
-                ForEach(Array(verse.words.enumerated()), id: \.offset) { _, word in
+                ForEach(Array(verse.words.enumerated()), id: \.offset) { i, word in
                     Button {
-                        tappedWord = word
+                        picked = WordPick(index: i)
                         store.tapWord(word)
                         Speech.say(word.h)
                     } label: {
@@ -90,10 +113,14 @@ struct VerseView: View {
                             .font(.system(size: 32))
                             .foregroundStyle(.primary)
                             .padding(.vertical, 2)
+                            .padding(.horizontal, 3)
+                            .background(monitor.spokenWord == i ? Color.yellow.opacity(0.45) : .clear,
+                                        in: RoundedRectangle(cornerRadius: 6))
+                            .animation(.easeOut(duration: 0.12), value: monitor.spokenWord == i)
                             .overlay(alignment: .bottom) {
                                 if word.n != nil {
                                     Circle().fill(.orange).frame(width: 5, height: 5).offset(y: 4)
-                                } else if store.tapped.contains(jonahCardID(word)) {
+                                } else if store.tapped.contains(verseWordCardID(word)) {
                                     Circle().fill(.blue.opacity(0.5)).frame(width: 4, height: 4).offset(y: 4)
                                 }
                             }
@@ -103,13 +130,17 @@ struct VerseView: View {
             }
             .padding(.horizontal, 4)
 
+            paceControls
+
             if stage == .check {
                 Text(verse.en)
                     .font(.body)
                     .foregroundStyle(.secondary)
                     .padding(.top, 8)
             } else if mode == .passive {
-                Text("Tap any word you don't know — it joins your drills.")
+                Text(store.pace.wordByWord
+                     ? "Tap any word you don't know — it joins your drills.\nPlay follows along, one word at a time."
+                     : "Tap any word you don't know — it joins your drills.")
                     .font(.footnote)
                     .foregroundStyle(.tertiary)
                     .frame(maxWidth: .infinity)
@@ -134,7 +165,7 @@ struct VerseView: View {
             case (.wave, .read):
                 bigButton("Check") {
                     stage = .check
-                    Speech.say(verse.hebrew)
+                    Speech.say(verse: verse, pace: store.pace)
                 }
             case (.wave, .check):
                 HStack(spacing: 12) {
@@ -176,31 +207,49 @@ struct VerseView: View {
     }
 }
 
-extension JonahWord: Identifiable {
-    var id: String { h }
-}
-
+/// One word at a time; swipe to walk through the verse.
 private struct WordSheet: View {
-    let word: JonahWord
+    let words: [VerseWord]
+    @State var index: Int
 
     var body: some View {
-        VStack(spacing: 12) {
-            Text(word.h).font(.system(size: 64))
-            Text(word.g).font(.title3).multilineTextAlignment(.center)
-            if let n = word.n {
-                Text(n)
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
-            }
-            Button {
-                Speech.say(word.h)
-            } label: {
-                Image(systemName: "speaker.wave.2.fill").font(.title2)
+        TabView(selection: $index) {
+            ForEach(Array(words.enumerated()), id: \.offset) { i, word in
+                page(word, position: i)
+                    .environment(\.layoutDirection, .leftToRight) // content stays LTR
+                    .tag(i)
             }
         }
-        .padding()
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .environment(\.layoutDirection, .rightToLeft) // pages advance right-to-left, like Hebrew
+    }
+
+    private func page(_ word: VerseWord, position: Int) -> some View {
+        ScrollView {
+            VStack(spacing: 12) {
+                Text("\(position + 1) / \(words.count)")
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
+                Text(word.h).font(.system(size: 64)).minimumScaleFactor(0.5).lineLimit(1)
+                Text(word.g).font(.title3).multilineTextAlignment(.center)
+                if let n = word.n {
+                    Text(n)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                }
+                Button {
+                    Speech.say(word.h)
+                } label: {
+                    Image(systemName: "speaker.wave.2.fill").font(.title2)
+                }
+                .padding(.bottom, 8)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal)
+        }
+        .padding(.top, 12)
     }
 }
 
