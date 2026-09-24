@@ -153,7 +153,7 @@ struct HomeView: View {
 
             HStack(spacing: 8) {
                 if let today = store.todaysVerse, !store.verseDoneToday {
-                    jonahButton("▶ Today: \(today.ref)", .blue) {
+                    readingButton("▶ Today: \(today.ref)", .blue) {
                         openVerse = VersePresentation(verse: today, mode: .passive)
                     }
                 } else if store.todaysVerse != nil {
@@ -163,7 +163,7 @@ struct HomeView: View {
                         .frame(maxWidth: .infinity)
                 }
                 if let wave = store.waveVerse {
-                    jonahButton("🌊 Wave: \(wave.ref)", .teal) {
+                    readingButton("🌊 Wave: \(wave.ref)", .teal) {
                         openVerse = VersePresentation(verse: wave, mode: .wave)
                     }
                 }
@@ -238,7 +238,7 @@ struct HomeView: View {
         return Color(.secondarySystemBackground)
     }
 
-    private func jonahButton(_ label: String, _ color: Color, action: @escaping () -> Void) -> some View {
+    private func readingButton(_ label: String, _ color: Color, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Text(label)
                 .font(.subheadline.bold())

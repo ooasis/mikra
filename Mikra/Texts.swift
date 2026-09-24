@@ -56,3 +56,18 @@ let verseWordCardsByID: [String: Card] = {
     }
     return dict
 }()
+
+#if DEBUG
+/// Smallest check that fails if a verse loses its book, which would send the
+/// reader's pager to the wrong book and open it at the wrong verse.
+func textsSelfCheck() {
+    for book in books {
+        assert(!book.verses.isEmpty, "\(book.name) has no verses")
+        for (i, verse) in book.verses.enumerated() {
+            assert(verse.book == book.name, "\(verse.id) is not stamped with \(book.name)")
+            assert(Mikra.book(named: verse.book).verses.firstIndex { $0.id == verse.id } == i,
+                   "\(verse.id) does not round-trip to index \(i)")
+        }
+    }
+}
+#endif

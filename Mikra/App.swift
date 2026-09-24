@@ -8,6 +8,7 @@ struct MikraApp: App {
         #if DEBUG
         srsSelfCheck()
         speechSelfCheck()
+        textsSelfCheck()
         assert(book(named: "Jonah").verses.count == 48, "Texts.json should bundle 48 Jonah verses")
         assert(book(named: "Genesis").verses.count == 31, "Texts.json should bundle Genesis 1")
         #endif

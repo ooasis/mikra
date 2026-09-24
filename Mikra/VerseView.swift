@@ -2,7 +2,39 @@ import SwiftUI
 
 enum VerseMode { case passive, wave }
 
+/// One verse per page; swipe to move through the book.
 struct VerseView: View {
+    let verse: Verse
+    let mode: VerseMode
+    @State private var index: Int
+
+    init(verse: Verse, mode: VerseMode) {
+        self.verse = verse
+        self.mode = mode
+        _index = State(initialValue: book(named: verse.book).verses
+            .firstIndex { $0.id == verse.id } ?? 0)
+    }
+
+    private var verses: [Verse] { book(named: verse.book).verses }
+
+    var body: some View {
+        TabView(selection: $index) {
+            ForEach(Array(verses.enumerated()), id: \.element.id) { i, v in
+                VersePage(verse: v, mode: mode)
+                    .environment(\.layoutDirection, .leftToRight) // content stays LTR
+                    .tag(i)
+            }
+        }
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .environment(\.layoutDirection, .rightToLeft) // pages advance right-to-left, like Hebrew
+        // audio belongs to the pager: a page's own onAppear would fire for the
+        // neighbours TabView builds off-screen, and they'd all start talking
+        .onAppear { if mode == .passive { Speech.say(verse: verse, pace: .normal) } }
+        .onChange(of: index) { Speech.stop() }
+    }
+}
+
+private struct VersePage: View {
     let verse: Verse
     let mode: VerseMode
     @EnvironmentObject var store: Store
@@ -47,9 +79,6 @@ struct VerseView: View {
         .sheet(item: $picked) { pick in
             WordSheet(words: verse.words, index: pick.index)
                 .presentationDetents([.height(320)])
-        }
-        .onAppear {
-            if mode == .passive { Speech.say(verse: verse, pace: .normal) }
         }
     }
 
