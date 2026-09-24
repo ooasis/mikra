@@ -3,7 +3,8 @@
 ## Already done (in this repo)
 - [x] App icon (Assets.xcassets/AppIcon, 1024px, no alpha)
 - [x] Version 1.0 (build 3, uploaded 2026-09-19) — **approved and live on the App Store**
-- [x] Version 1.1 (build 4, uploaded 2026-09-24): word frequency deck, Genesis 1, slow read-aloud, word swipe
+- [x] Version 1.1 (build 5, uploaded 2026-09-24): word frequency deck, Genesis 1, slow read-aloud, word swipe, verse swipe
+  - build 4 superseded by build 5 (verse swiping landed after it)
 - [x] Export compliance key (ITSAppUsesNonExemptEncryption=NO)
 - [x] 6.9" screenshots in appstore/screenshots/ (1320×2868, iPhone 17 Pro Max)
 - [x] Metadata drafts (metadata.md)
@@ -20,7 +21,7 @@
 - [x] App Privacy: answer "No" to data collection → publish "Data Not Collected".  (done for 1.0)
 - [x] Age rating questionnaire → 4+.  (done for 1.0)
 - [x] 1.0 version page (done for 1.0).
-- [ ] **1.1 version page**: create the 1.1 version in App Store Connect, select build 4 once processed, add “What’s New” text, then submit.
+- [ ] **1.1 version page**: create the 1.1 version in App Store Connect, select build 5 once processed, add “What’s New” text, then submit.
 
 ## Archive & upload
 
