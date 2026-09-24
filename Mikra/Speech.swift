@@ -48,9 +48,12 @@ final class SpeechMonitor: NSObject, ObservableObject, AVSpeechSynthesizerDelega
         lastIndex = utterances.count - 1
     }
 
+    /// Always deferred: `track` is called from a view's onAppear, and mutating an
+    /// observed @Published during a view update can blank the presentation.
     private func publish(_ value: Int?) {
-        if Thread.isMainThread { spokenWord = value }
-        else { DispatchQueue.main.async { self.spokenWord = value } }
+        DispatchQueue.main.async {
+            if self.spokenWord != value { self.spokenWord = value }
+        }
     }
 
     func speechSynthesizer(_ synth: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
