@@ -2,23 +2,25 @@
 
 ## Already done (in this repo)
 - [x] App icon (Assets.xcassets/AppIcon, 1024px, no alpha)
-- [x] Version 1.0, build 3 uploaded 2026-09-19 (project.yml)
+- [x] Version 1.0 (build 3, uploaded 2026-09-19) — **approved and live on the App Store**
+- [x] Version 1.1 (build 4, uploaded 2026-09-24): word frequency deck, Genesis 1, slow read-aloud, word swipe
 - [x] Export compliance key (ITSAppUsesNonExemptEncryption=NO)
 - [x] 6.9" screenshots in appstore/screenshots/ (1320×2868, iPhone 17 Pro Max)
 - [x] Metadata drafts (metadata.md)
 - [x] Privacy policy text (privacy-policy.md)
 
 ## One-time prerequisites
-- [ ] Paid Apple Developer Program membership ($99/yr) on team 263U684LP7 — required for App Store distribution; a free account can only run on device. Check at developer.apple.com/account.
+- [x] Paid Apple Developer Program membership on team 263U684LP7 (individual, `isFreeProvisioningTeam = 0`; `Apple Distribution: Hang Sun` certificate valid).
 - [x] Privacy/support page live at https://mikra.pages.dev/ (docs/index.html, Cloudflare Pages project "mikra"; deploy updates with `wrangler pages deploy docs --project-name mikra --branch main`).
 
 ## App Store Connect (appstoreconnect.apple.com)
 - [x] Apps → "+" → New App: iOS, name from metadata.md, primary language English, bundle ID com.ooasis.mikra (register it at developer.apple.com/account → Identifiers if it's not in the dropdown), SKU e.g. `mikra-001`.
-- [ ] App Information: category, privacy policy URL.
-- [ ] Pricing: Free, choose territories.
-- [ ] App Privacy: answer "No" to data collection → publish "Data Not Collected".
-- [ ] Age rating questionnaire → 4+.
-- [ ] 1.0 version page: paste description/keywords/promo text, upload the two screenshots from appstore/screenshots/.
+- [x] App Information: category, privacy policy URL.  (done for 1.0)
+- [x] Pricing: Free, choose territories.  (done for 1.0)
+- [x] App Privacy: answer "No" to data collection → publish "Data Not Collected".  (done for 1.0)
+- [x] Age rating questionnaire → 4+.  (done for 1.0)
+- [x] 1.0 version page (done for 1.0).
+- [ ] **1.1 version page**: create the 1.1 version in App Store Connect, select build 4 once processed, add “What’s New” text, then submit.
 
 ## Archive & upload
 
@@ -69,10 +71,12 @@ thing by hand; drop the archive in
 
 ## Submit
 - [ ] Add App Review notes from metadata.md.
-- [ ] Submit for Review. First review typically takes 1–3 days.
+- [ ] Submit 1.1 for Review.
 
 ## Gotchas that cause first-submission rejections
 - Privacy policy URL must load publicly (test in an incognito window).
 - Screenshots must show the actual app (ours do).
 - If Apple asks "does your app use encryption" anyway, answer No/exempt (HTTPS-only counts as exempt; we have no networking at all).
+- A released version's train closes: once 1.N is approved, uploads keep `MARKETING_VERSION: 1.N` are rejected with `90186 Invalid Pre-Release Train` / `90062`. Bump `MARKETING_VERSION` for every post-release build.
+- The Apple ID can silently drop out of Xcode (`defaults read com.apple.dt.Xcode DVTDeveloperAccountManagerAppleIDLists` empty), and the upload then fails with `Failed to Use Accounts` even though signing still works. Re-add it in Xcode → Settings → Accounts.
 - Test once on a real iPhone before submitting — TTS voice availability can differ from the simulator (he-IL voice downloads on demand; if Speech.say is silent on device, the voice needs downloading in Settings → Accessibility → Spoken Content → Voices → Hebrew).
