@@ -38,12 +38,12 @@ struct HomeView: View {
             .padding()
 
             ScrollView {
+                wordsSection
                 readingSection
                 section("Letters — \(learnedIn(letters))/\(letters.count)",
                         letterGroups, columns: 3)
                 section("Vowels — \(learnedIn(vowels))/\(vowels.count)",
                         vowelGroups, columns: 4)
-                wordsSection
             }
 
             Button {
@@ -223,7 +223,7 @@ struct HomeView: View {
         .padding(.bottom, 12)
         // second sheet hangs off this node; two sheets on one view don't both fire
         .sheet(item: $openDeck) { band in
-            WordDeckView(index: band.start)
+            WordDeckView(band: band)
         }
     }
 

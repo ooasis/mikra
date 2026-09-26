@@ -4,20 +4,30 @@ import SwiftUI
 /// Browse-only — nothing is scheduled unless you tap "Learn this".
 struct WordDeckView: View {
     @EnvironmentObject var store: Store
-    @State var index: Int
+    let band: WordBand
+    /// Global word indices, shuffled once when the set opens and then left alone,
+    /// so paging back and forth keeps the same order until you close it.
+    @State private var order: [Int]
+    @State private var index = 0
     @State private var revealed = false
 
-    private var card: WordCard { wordDeck[index] }
-    private var band: WordBand {
-        wordBands.last { index >= $0.start } ?? wordBands[0]
+    init(band: WordBand) {
+        self.band = band
+        _order = State(initialValue: Self.shuffledOrder(for: band))
     }
+
+    static func shuffledOrder(for band: WordBand) -> [Int] {
+        Array(band.start ..< band.start + band.count).shuffled()
+    }
+
+    private var card: WordCard { wordDeck[order[index]] }
 
     var body: some View {
         VStack(spacing: 0) {
             header
             TabView(selection: $index) {
-                ForEach(Array(wordDeck.enumerated()), id: \.element.s) { i, word in
-                    page(word, showBack: revealed && i == index)
+                ForEach(Array(order.enumerated()), id: \.element) { i, word in
+                    page(wordDeck[word], showBack: revealed && i == index)
                         .environment(\.layoutDirection, .leftToRight) // content stays LTR
                         .tag(i)
                 }
@@ -41,12 +51,12 @@ struct WordDeckView: View {
             HStack {
                 Text(band.title).font(.headline)
                 Spacer()
-                Text("#\(index + 1) of \(wordDeck.count) · \(card.n)×")
+                Text("\(index + 1) of \(order.count) · \(card.n)×")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
             // The 3ms-perfect convention, explained once when you open a deck rather than on 99 cards.
-            if index == band.start {
+            if index == 0 {
                 Text("Verbs are listed the way every Hebrew dictionary lists them — "
                      + "as \u{201C}he did\u{201D}, glossed \u{201C}to do\u{201D}.")
                     .font(.caption2)
@@ -103,8 +113,11 @@ struct WordDeckView: View {
     private func link(_ strongs: String, _ why: String) -> some View {
         Button {
             guard let target = wordIndexByStrongs[strongs] else { return }
+            // a sibling usually lives in another band; append it rather than
+            // reshuffling, so everything you already paged through keeps its place
+            if order.firstIndex(of: target) == nil { order.append(target) }
             withAnimation {
-                index = target
+                index = order.firstIndex(of: target) ?? index
                 revealed = true // the gloss was on the link you just tapped
             }
         } label: {

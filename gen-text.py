@@ -23,6 +23,8 @@ STRONGS = "https://raw.githubusercontent.com/openscriptures/strongs/master/hebre
 TEXTS = [
     ("Jonah", "\u05d9\u05d5\u05b9\u05e0\u05b8\u05d4", "Jonah", [1, 2, 3, 4], 48),
     ("Genesis", "\u05d1\u05b0\u05bc\u05e8\u05b5\u05d0\u05e9\u05c1\u05b4\u05d9\u05ea \u05d0", "Gen", [1], 31),
+    # five psalms people actually know, and all five happen to need no versification remap
+    ("Psalms", "\u05ea\u05b0\u05bc\u05d4\u05b4\u05dc\u05b4\u05d9\u05dd", "Ps", [1, 23, 91, 100, 121], 41),
 ]
 
 # Hebrew and English versification disagree in places. Map a Hebrew (chapter,
@@ -185,6 +187,69 @@ NOTES = {"Jonah": NOTES, "Genesis": [
     (1, 26, "נעשה", "na'aseh — 'let us make'. The plural has been argued over for two thousand years: royal plural, divine council, or something else."),
     (1, 27, "בצלמו", "b'tsalmo — 'in his image'. tselem + -o ('his'), the same possessive ending you met on elohav in Jonah 1:5."),
 ]}
+
+# Psalms 1, 23, 91, 100 and 121 — poetry, so a lot of vocabulary for 41 verses.
+CURATED.update({
+    "7563": "wicked, guilty", "3119": "by day", "1931": "he, it; that",
+    "2400": "sinner", "4210": "psalm", "4268": "refuge, shelter",
+    "1698": "plague, pestilence", "5704": "as far as, until", "5828": "help, helper",
+    "408": "do not (with a command)", "5123": "to slumber", "835": "happy is, blessed is",
+    "6098": "counsel, advice", "4186": "seat, dwelling", "3887": "to scoff, mock",
+    "2656": "delight, desire", "1897": "to murmur, meditate", "8362": "to transplant",
+    "6388": "stream, channel", "5929": "leaf", "4671": "chaff",
+    "5086": "to drive away, scatter", "1732": "David", "2637": "to lack",
+    "4999": "pasture, meadow", "7257": "to lie down", "4496": "resting place",
+    "5095": "to lead, guide", "5148": "to lead, guide", "4570": "path, track",
+    "4616": "for the sake of", "1516": "valley", "6757": "deep darkness",
+    "5978": "with me", "1992": "they", "7979": "table", "5048": "in front of, before",
+    "1878": "to anoint richly", "7310": "overflowing", "389": "surely, only",
+    "7706": "the Almighty (Shaddai)", "3353": "fowler, trapper", "1942": "destruction, ruin",
+    "84": "pinion, wing", "2620": "to take refuge", "5507": "buckler, shield",
+    "6343": "dread, terror", "2671": "arrow", "652": "darkness", "6986": "destruction, plague",
+    "7736": "to devastate", "6654": "side", "7233": "ten thousand", "7535": "only, surely",
+    "8011": "recompense", "4583": "dwelling, refuge", "579": "to befall, meet",
+    "5061": "plague, affliction", "6435": "lest", "5062": "to strike", "7826": "lion",
+    "6620": "cobra, asp", "1869": "to tread, trample", "7429": "to trample",
+    "6403": "to rescue, deliver", "7682": "to set on high, protect", "595": "I",
+    "7321": "to shout", "7445": "joyful shout", "587": "we", "4830": "pasture, flock",
+    "8416": "praise", "530": "faithfulness", "4132": "to be shaken, totter",
+    "3462": "to sleep", "3478": "Israel", "3394": "moon", "6258": "now",
+})
+
+NOTES["Psalms"] = [
+    (1, 1, "אשרי", "ashrei — 'happy is\u2026'. The Psalter opens on a word that isn't a sentence: a construct plural, roughly 'O the happinesses of the one who\u2026'"),
+    (1, 3, "שתול", "shatul — 'transplanted', not just 'planted'. Someone moved this tree to the water on purpose."),
+    (23, 1, "רעי", "ro'i — 'my shepherd'. ro'eh ('shepherd') + -i ('my'): two English words, one Hebrew one."),
+    (23, 4, "צלמות", "tsalmavet — literally 'shadow of death', tsel (shadow) + mavet (death). Modern translations often prefer 'deepest darkness'."),
+    (91, 1, "שדי", "Shaddai — an ancient name of God, traditionally 'the Almighty'. What it originally meant is still argued over."),
+    (100, 3, "אנחנו", "anachnu — 'we'. Hebrew normally hides the pronoun inside the verb, so spelling it out is emphatic."),
+    (121, 1, "אשא", "essa — 'I lift'. From nasa, the verb you met in Jonah; the aleph prefix is what makes it 'I'."),
+    (121, 4, "יישן", "yishan — 'sleeps'. The psalm says it twice: he neither slumbers (yanum) nor sleeps. Hebrew poetry likes saying things twice, slightly differently."),
+]
+
+# Frequent words that were still falling through to raw Strong's prose.
+CURATED.update({
+    "3605": "all, every, whole", "589": "I", "7021": "the qiqayon plant",
+    "5375": "to lift, carry", "2088": "this", "8034": "name", "1288": "to bless",
+    "8121": "sun", "2063": "this (f.)", "5975": "to stand", "8451": "instruction, law",
+    "6662": "righteous", "753": "length", "7272": "foot", "1755": "generation",
+    "8367": "to grow calm, subside", "5590": "to storm, rage", "577": "ah now!, please",
+    "5437": "to go around, surround", "1696": "to speak", "4428": "king", "6256": "time",
+    "4941": "judgement, justice", "5712": "congregation, assembly",
+    "6664": "righteousness, what is right", "7626": "rod; tribe", "8081": "oil",
+    "7291": "to pursue, chase", "982": "to trust", "571": "truth, faithfulness",
+    "505": "thousand", "5066": "to draw near, approach", "168": "tent", "6680": "to command",
+    "68": "stone", "3513": "to honour; be heavy", "7646": "to be satisfied",
+    "5647": "to serve, work", "8179": "gate", "3034": "to praise, give thanks",
+    "3027": "hand", "7939": "wage, fare", "4419": "sailor", "3411": "far side, recesses",
+    "194": "perhaps", "5680": "a Hebrew", "7945": "because of, which",
+    "2864": "to dig; to row hard", "3201": "to be able", "1818": "blood",
+    "2197": "rage, indignation", "7768": "to cry for help", "5060": "to touch, reach",
+    "2938": "to taste", "3972": "anything, nothing", "2394": "force, strength",
+    "4639": "deed, work", "6923": "to go before, anticipate", "410": "God, mighty one",
+    "2587": "gracious", "8033": "there", "6921": "east; east wind", "5998": "to toil, labour",
+    "1431": "to be great, grow", "3426": "there is",
+})
 
 
 def strip_cant(s):

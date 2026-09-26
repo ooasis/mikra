@@ -161,7 +161,7 @@
 },
 {
 "h": "שְׂכָרָהּ",
-"g": "payment of contract + +her/its"
+"g": "wage, fare + +her/its"
 },
 {
 "h": "וַיֵּרֶד",
@@ -264,7 +264,7 @@
 },
 {
 "h": "הַמַּלָּחִים",
-"g": "the + a sailor"
+"g": "the + sailor"
 },
 {
 "h": "וַיִּזְעֲקוּ",
@@ -333,7 +333,7 @@
 },
 {
 "h": "יַרְכְּתֵי",
-"g": "the flank"
+"g": "far side, recesses"
 },
 {
 "h": "הַסְּפִינָה",
@@ -408,7 +408,7 @@
 },
 {
 "h": "אוּלַי",
-"g": "if not"
+"g": "perhaps"
 },
 {
 "h": "יִתְעַשֵּׁת",
@@ -480,7 +480,7 @@
 },
 {
 "h": "הַזֹּאת",
-"g": "the + this"
+"g": "the + this (f.)"
 },
 {
 "h": "לָנוּ",
@@ -551,7 +551,7 @@
 },
 {
 "h": "הַזֹּאת",
-"g": "the + this"
+"g": "the + this (f.)"
 },
 {
 "h": "לָנוּ",
@@ -587,7 +587,7 @@
 },
 {
 "h": "מִזֶּה",
-"g": "from + the masculine demonstrative pronoun, this or that"
+"g": "from + this"
 },
 {
 "h": "עַם",
@@ -614,7 +614,7 @@
 },
 {
 "h": "עִבְרִי",
-"g": "an Eberite  or descendant of Eber",
+"g": "a Hebrew",
 "n": "ivri — 'a Hebrew'. This is the word the language is named after. Jonah's whole self-introduction is two words: ivri anokhi."
 },
 {
@@ -706,7 +706,7 @@
 },
 {
 "h": "זֹּאת",
-"g": "this"
+"g": "this (f.)"
 },
 {
 "h": "עָשִׂיתָ",
@@ -738,7 +738,7 @@
 },
 {
 "h": "הוּא",
-"g": "he"
+"g": "he, it; that"
 },
 {
 "h": "בֹרֵחַ",
@@ -785,7 +785,7 @@
 },
 {
 "h": "וְיִשְׁתֹּק",
-"g": "and + to subside"
+"g": "and + to grow calm, subside"
 },
 {
 "h": "הַיָּם",
@@ -809,7 +809,7 @@
 },
 {
 "h": "וְסֹעֵר",
-"g": "and + to rush upon"
+"g": "and + to storm, rage"
 }
 ]
 },
@@ -828,7 +828,7 @@
 },
 {
 "h": "שָׂאוּנִי",
-"g": "to lift, in a great variety of applications + +me/my"
+"g": "to lift, carry + +me/my"
 },
 {
 "h": "וַהֲטִילֻנִי",
@@ -844,7 +844,7 @@
 },
 {
 "h": "וְיִשְׁתֹּק",
-"g": "and + to subside"
+"g": "and + to grow calm, subside"
 },
 {
 "h": "הַיָּם",
@@ -885,7 +885,7 @@
 },
 {
 "h": "הַזֶּה",
-"g": "the + the masculine demonstrative pronoun, this or that"
+"g": "the + this"
 },
 {
 "h": "עֲלֵיכֶם",
@@ -900,7 +900,7 @@
 "words": [
 {
 "h": "וַיַּחְתְּרוּ",
-"g": "and + to force a passage, as by burglary"
+"g": "and + to dig; to row hard"
 },
 {
 "h": "הָאֲנָשִׁים",
@@ -924,7 +924,7 @@
 },
 {
 "h": "יָכֹלוּ",
-"g": "to be able, literally  or morally"
+"g": "to be able"
 },
 {
 "h": "כִּי",
@@ -940,7 +940,7 @@
 },
 {
 "h": "וְסֹעֵר",
-"g": "and + to rush upon"
+"g": "and + to storm, rage"
 },
 {
 "h": "עֲלֵיהֶם",
@@ -971,7 +971,7 @@
 },
 {
 "h": "אָנָּה",
-"g": "oh now!"
+"g": "ah now!, please"
 },
 {
 "h": "יְהוָה",
@@ -979,7 +979,7 @@
 },
 {
 "h": "אַל־",
-"g": "not"
+"g": "do not (with a command)"
 },
 {
 "h": "נָא",
@@ -999,11 +999,11 @@
 },
 {
 "h": "הַזֶּה",
-"g": "the + the masculine demonstrative pronoun, this or that"
+"g": "the + this"
 },
 {
 "h": "וְאַל־",
-"g": "and + not"
+"g": "and + do not (with a command)"
 },
 {
 "h": "תִּתֵּן",
@@ -1015,7 +1015,7 @@
 },
 {
 "h": "דָּם",
-"g": "blood  of man or an animal"
+"g": "blood"
 },
 {
 "h": "נָקִיא",
@@ -1054,7 +1054,7 @@
 "words": [
 {
 "h": "וַיִּשְׂאוּ",
-"g": "and + to lift, in a great variety of applications"
+"g": "and + to lift, carry"
 },
 {
 "h": "אֶת־",
@@ -1078,7 +1078,7 @@
 },
 {
 "h": "וַיַּעֲמֹד",
-"g": "and + to stand, in various relations"
+"g": "and + to stand"
 },
 {
 "h": "הַיָּם",
@@ -1086,7 +1086,7 @@
 },
 {
 "h": "מִזַּעְפּוֹ",
-"g": "from + anger + +him/his/it"
+"g": "from + rage, indignation + +him/his/it"
 }
 ]
 },
@@ -1288,7 +1288,7 @@
 },
 {
 "h": "שִׁוַּעְתִּי",
-"g": "to be free"
+"g": "to cry for help"
 },
 {
 "h": "שָׁמַעְתָּ",
@@ -1327,11 +1327,11 @@
 },
 {
 "h": "יְסֹבְבֵנִי",
-"g": "to revolve, surround + +me/my"
+"g": "to go around, surround + +me/my"
 },
 {
 "h": "כָּל־",
-"g": "the whole"
+"g": "all, every, whole"
 },
 {
 "h": "מִשְׁבָּרֶיךָ",
@@ -1370,7 +1370,7 @@
 },
 {
 "h": "מִנֶּגֶד",
-"g": "from + a front, i.e. part opposite"
+"g": "from + in front of, before"
 },
 {
 "h": "עֵינֶיךָ",
@@ -1378,7 +1378,7 @@
 },
 {
 "h": "אַךְ",
-"g": "a particle of affirmation, surely"
+"g": "surely, only"
 },
 {
 "h": "אוֹסִיף",
@@ -1417,7 +1417,7 @@
 },
 {
 "h": "עַד־",
-"g": "as far  as, whether of space  or time  or degree"
+"g": "as far as, until"
 },
 {
 "h": "נֶפֶשׁ",
@@ -1429,7 +1429,7 @@
 },
 {
 "h": "יְסֹבְבֵנִי",
-"g": "to revolve, surround + +me/my"
+"g": "to go around, surround + +me/my"
 },
 {
 "h": "סוּף",
@@ -1758,7 +1758,7 @@
 },
 {
 "h": "דֹּבֵר",
-"g": "perhaps properly, to arrange"
+"g": "to speak"
 },
 {
 "h": "אֵלֶיךָ",
@@ -1941,7 +1941,7 @@
 },
 {
 "h": "וְעַד־",
-"g": "and + as far  as, whether of space  or time  or degree"
+"g": "and + as far as, until"
 },
 {
 "h": "קְטַנָּם",
@@ -1956,7 +1956,7 @@
 "words": [
 {
 "h": "וַיִּגַּע",
-"g": "and + to touch, i.e. lay the hand upon"
+"g": "and + to touch, reach"
 },
 {
 "h": "הַדָּבָר",
@@ -1968,7 +1968,7 @@
 },
 {
 "h": "מֶלֶך",
-"g": "a king"
+"g": "king"
 },
 {
 "h": "נִינְוֵה",
@@ -2039,7 +2039,7 @@
 },
 {
 "h": "הַמֶּלֶךְ",
-"g": "the + a king"
+"g": "the + king"
 },
 {
 "h": "וּגְדֹלָיו",
@@ -2067,7 +2067,7 @@
 },
 {
 "h": "אַל־",
-"g": "not"
+"g": "do not (with a command)"
 },
 {
 "h": "יִטְעֲמוּ",
@@ -2075,11 +2075,11 @@
 },
 {
 "h": "מְאוּמָה",
-"g": "a speck or point, i.e.  something"
+"g": "anything, nothing"
 },
 {
 "h": "אַל־",
-"g": "not"
+"g": "do not (with a command)"
 },
 {
 "h": "יִרְעוּ",
@@ -2091,7 +2091,7 @@
 },
 {
 "h": "אַל־",
-"g": "not"
+"g": "do not (with a command)"
 },
 {
 "h": "יִשְׁתּוּ",
@@ -2135,7 +2135,7 @@
 },
 {
 "h": "בְּחָזְקָה",
-"g": "in + vehemence"
+"g": "in + force, strength"
 },
 {
 "h": "וְיָשֻׁבוּ",
@@ -2237,7 +2237,7 @@
 },
 {
 "h": "מַעֲשֵׂיהֶם",
-"g": "an action + +them/their"
+"g": "deed, work + +them/their"
 },
 {
 "h": "כִּי־",
@@ -2277,7 +2277,7 @@
 },
 {
 "h": "דִּבֶּר",
-"g": "perhaps properly, to arrange"
+"g": "to speak"
 },
 {
 "h": "לַעֲשׂוֹת־",
@@ -2355,7 +2355,7 @@
 },
 {
 "h": "אָנָּה",
-"g": "oh now!"
+"g": "ah now!, please"
 },
 {
 "h": "יְהוָה",
@@ -2367,7 +2367,7 @@
 },
 {
 "h": "זֶה",
-"g": "the masculine demonstrative pronoun, this or that"
+"g": "this"
 },
 {
 "h": "דְבָרִי",
@@ -2375,7 +2375,7 @@
 },
 {
 "h": "עַד־",
-"g": "as far  as, whether of space  or time  or degree"
+"g": "as far as, until"
 },
 {
 "h": "הֱיוֹתִי",
@@ -2399,7 +2399,7 @@
 },
 {
 "h": "קִדַּמְתִּי",
-"g": "to project , i.e. precede"
+"g": "to go before, anticipate"
 },
 {
 "h": "לִבְרֹחַ",
@@ -2427,7 +2427,7 @@
 },
 {
 "h": "אֵל־",
-"g": "strength"
+"g": "God, mighty one"
 },
 {
 "h": "חַנּוּן",
@@ -2475,7 +2475,7 @@
 "words": [
 {
 "h": "וְעַתָּה",
-"g": "and + at this time, whether adverb"
+"g": "and + now"
 },
 {
 "h": "יְהוָה",
@@ -2589,7 +2589,7 @@
 },
 {
 "h": "שָׁם",
-"g": "there  then"
+"g": "there"
 },
 {
 "h": "סֻכָּה",
@@ -2609,7 +2609,7 @@
 },
 {
 "h": "עַד",
-"g": "as far  as, whether of space  or time  or degree"
+"g": "as far as, until"
 },
 {
 "h": "אֲשֶׁר",
@@ -2652,7 +2652,7 @@
 },
 {
 "h": "קִיקָיוֹן",
-"g": "the gourd",
+"g": "the qiqayon plant",
 "n": "qiqayon — the famous mystery plant. Nobody knows what it was; translators have guessed gourd, ivy, and castor-oil plant for two thousand years."
 },
 {
@@ -2709,7 +2709,7 @@
 },
 {
 "h": "הַקִּיקָיוֹן",
-"g": "the + the gourd"
+"g": "the + the qiqayon plant"
 },
 {
 "h": "שִׂמְחָה",
@@ -2760,7 +2760,7 @@
 },
 {
 "h": "הַקִּיקָיוֹן",
-"g": "the + the gourd"
+"g": "the + the qiqayon plant"
 },
 {
 "h": "וַיִּיבָשׁ",
@@ -2783,7 +2783,7 @@
 },
 {
 "h": "הַשֶּׁמֶשׁ",
-"g": "the + the sun"
+"g": "the + sun"
 },
 {
 "h": "וַיְמַן",
@@ -2799,7 +2799,7 @@
 },
 {
 "h": "קָדִים",
-"g": "the fore or front part"
+"g": "east; east wind"
 },
 {
 "h": "חֲרִישִׁית",
@@ -2811,7 +2811,7 @@
 },
 {
 "h": "הַשֶּׁמֶשׁ",
-"g": "the + the sun"
+"g": "the + sun"
 },
 {
 "h": "עַל־",
@@ -2902,7 +2902,7 @@
 },
 {
 "h": "הַקִּיקָיוֹן",
-"g": "the + the gourd"
+"g": "the + the qiqayon plant"
 },
 {
 "h": "וַיֹּאמֶר",
@@ -2922,7 +2922,7 @@
 },
 {
 "h": "עַד־",
-"g": "as far  as, whether of space  or time  or degree"
+"g": "as far as, until"
 },
 {
 "h": "מָוֶת",
@@ -2957,7 +2957,7 @@
 },
 {
 "h": "הַקִּיקָיוֹן",
-"g": "the + the gourd"
+"g": "the + the qiqayon plant"
 },
 {
 "h": "אֲשֶׁר",
@@ -2969,7 +2969,7 @@
 },
 {
 "h": "עָמַלְתָּ",
-"g": "to toil, i.e. work severely and with irksomeness"
+"g": "to toil, labour"
 },
 {
 "h": "בּוֹ",
@@ -2981,7 +2981,7 @@
 },
 {
 "h": "גִדַּלְתּוֹ",
-"g": "to be  large + +him/his/it"
+"g": "to be great, grow + +him/his/it"
 },
 {
 "h": "שֶׁבִּן־",
@@ -3048,7 +3048,7 @@
 },
 {
 "h": "יֶשׁ־",
-"g": "there is or are"
+"g": "there is"
 },
 {
 "h": "בָּהּ",
@@ -4266,7 +4266,7 @@
 },
 {
 "h": "כָּל־",
-"g": "the whole"
+"g": "all, every, whole"
 },
 {
 "h": "נֶפֶשׁ",
@@ -4302,7 +4302,7 @@
 },
 {
 "h": "כָּל־",
-"g": "the whole"
+"g": "all, every, whole"
 },
 {
 "h": "עוֹף",
@@ -4341,7 +4341,7 @@
 "words": [
 {
 "h": "וַיְבָרֶךְ",
-"g": "and + to kneel"
+"g": "and + to bless"
 },
 {
 "h": "אֹתָם",
@@ -4534,7 +4534,7 @@
 },
 {
 "h": "כָּל־",
-"g": "the whole"
+"g": "all, every, whole"
 },
 {
 "h": "רֶמֶשׂ",
@@ -4622,7 +4622,7 @@
 },
 {
 "h": "וּבְכָל־",
-"g": "and + in + the whole"
+"g": "and + in + all, every, whole"
 },
 {
 "h": "הָאָרֶץ",
@@ -4630,7 +4630,7 @@
 },
 {
 "h": "וּבְכָל־",
-"g": "and + in + the whole"
+"g": "and + in + all, every, whole"
 },
 {
 "h": "הָרֶמֶשׂ",
@@ -4717,7 +4717,7 @@
 "words": [
 {
 "h": "וַיְבָרֶךְ",
-"g": "and + to kneel"
+"g": "and + to bless"
 },
 {
 "h": "אֹתָם",
@@ -4785,7 +4785,7 @@
 },
 {
 "h": "וּבְכָל־",
-"g": "and + in + the whole"
+"g": "and + in + all, every, whole"
 },
 {
 "h": "חַיָּה",
@@ -4836,7 +4836,7 @@
 },
 {
 "h": "כָּל־",
-"g": "the whole"
+"g": "all, every, whole"
 },
 {
 "h": "עֵשֶׂב",
@@ -4864,7 +4864,7 @@
 },
 {
 "h": "כָל־",
-"g": "the whole"
+"g": "all, every, whole"
 },
 {
 "h": "הָאָרֶץ",
@@ -4876,7 +4876,7 @@
 },
 {
 "h": "כָּל־",
-"g": "the whole"
+"g": "all, every, whole"
 },
 {
 "h": "הָעֵץ",
@@ -4927,7 +4927,7 @@
 "words": [
 {
 "h": "וּלְכָל־",
-"g": "and + to + the whole"
+"g": "and + to + all, every, whole"
 },
 {
 "h": "חַיַּת",
@@ -4939,7 +4939,7 @@
 },
 {
 "h": "וּלְכָל־",
-"g": "and + to + the whole"
+"g": "and + to + all, every, whole"
 },
 {
 "h": "עוֹף",
@@ -4951,7 +4951,7 @@
 },
 {
 "h": "וּלְכֹל",
-"g": "and + to + the whole"
+"g": "and + to + all, every, whole"
 },
 {
 "h": "רוֹמֵשׂ",
@@ -4987,7 +4987,7 @@
 },
 {
 "h": "כָּל־",
-"g": "the whole"
+"g": "all, every, whole"
 },
 {
 "h": "יֶרֶק",
@@ -5030,7 +5030,7 @@
 },
 {
 "h": "כָּל־",
-"g": "the whole"
+"g": "all, every, whole"
 },
 {
 "h": "אֲשֶׁר",
@@ -5075,6 +5075,1647 @@
 {
 "h": "הַשִּׁשִּׁי",
 "g": "the + sixth"
+}
+]
+}
+]
+},
+{
+"name": "Psalms",
+"heb": "תְּהִלִים",
+"verses": [
+{
+"c": 1,
+"v": 1,
+"en": "Blessed is the man who doesn’t walk in the counsel of the wicked, nor stand on the path of sinners, nor sit in the seat of scoffers;",
+"words": [
+{
+"h": "אַשְׁרֵי־",
+"g": "happy is, blessed is",
+"n": "ashrei — 'happy is…'. The Psalter opens on a word that isn't a sentence: a construct plural, roughly 'O the happinesses of the one who…'"
+},
+{
+"h": "הָאִישׁ",
+"g": "the + man, each one"
+},
+{
+"h": "אֲשֶׁר",
+"g": "which, who"
+},
+{
+"h": "לֹא",
+"g": "not"
+},
+{
+"h": "הָלַךְ",
+"g": "to go, walk"
+},
+{
+"h": "בַּעֲצַת",
+"g": "in + counsel, advice"
+},
+{
+"h": "רְשָׁעִים",
+"g": "wicked, guilty"
+},
+{
+"h": "וּבְדֶרֶךְ",
+"g": "and + in + way, road"
+},
+{
+"h": "חַטָּאִים",
+"g": "sinner"
+},
+{
+"h": "לֹא",
+"g": "not"
+},
+{
+"h": "עָמָד",
+"g": "to stand"
+},
+{
+"h": "וּבְמוֹשַׁב",
+"g": "and + in + seat, dwelling"
+},
+{
+"h": "לֵצִים",
+"g": "to scoff, mock"
+},
+{
+"h": "לֹא",
+"g": "not"
+},
+{
+"h": "יָשָׁב",
+"g": "to sit, dwell"
+}
+]
+},
+{
+"c": 1,
+"v": 2,
+"en": "but his delight is in Yahweh’s law. On his law he meditates day and night.",
+"words": [
+{
+"h": "כִּי",
+"g": "for, because, that"
+},
+{
+"h": "אִם",
+"g": "used very widely as demonstrative, lo!"
+},
+{
+"h": "בְּתוֹרַת",
+"g": "in + instruction, law"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "חֶפְצוֹ",
+"g": "delight, desire + +him/his/it"
+},
+{
+"h": "וּבְתוֹרָתוֹ",
+"g": "and + in + instruction, law + +him/his/it"
+},
+{
+"h": "יֶהְגֶּה",
+"g": "to murmur, meditate"
+},
+{
+"h": "יוֹמָם",
+"g": "by day"
+},
+{
+"h": "וָלָיְלָה",
+"g": "and + night"
+}
+]
+},
+{
+"c": 1,
+"v": 3,
+"en": "He will be like a tree planted by the streams of water, that produces its fruit in its season, whose leaf also does not wither. Whatever he does shall prosper.",
+"words": [
+{
+"h": "וְהָיָה",
+"g": "and + to be, become"
+},
+{
+"h": "כְּעֵץ",
+"g": "like + tree, wood"
+},
+{
+"h": "שָׁתוּל",
+"g": "to transplant",
+"n": "shatul — 'transplanted', not just 'planted'. Someone moved this tree to the water on purpose."
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "פַּלְגֵי",
+"g": "stream, channel"
+},
+{
+"h": "מָיִם",
+"g": "water"
+},
+{
+"h": "אֲשֶׁר",
+"g": "which, who"
+},
+{
+"h": "פִּרְיוֹ",
+"g": "fruit + +him/his/it"
+},
+{
+"h": "יִתֵּן",
+"g": "to give"
+},
+{
+"h": "בְּעִתּוֹ",
+"g": "in + time + +him/his/it"
+},
+{
+"h": "וְעָלֵהוּ",
+"g": "and + leaf + +him/his/it"
+},
+{
+"h": "לֹא־",
+"g": "not"
+},
+{
+"h": "יִבּוֹל",
+"g": "to wilt"
+},
+{
+"h": "וְכֹל",
+"g": "and + all, every, whole"
+},
+{
+"h": "אֲשֶׁר־",
+"g": "which, who"
+},
+{
+"h": "יַעֲשֶׂה",
+"g": "to do, make"
+},
+{
+"h": "יַצְלִיחַ",
+"g": "to push forward, in various senses"
+}
+]
+},
+{
+"c": 1,
+"v": 4,
+"en": "The wicked are not so, but are like the chaff which the wind drives away.",
+"words": [
+{
+"h": "לֹא־",
+"g": "not"
+},
+{
+"h": "כֵן",
+"g": "set upright"
+},
+{
+"h": "הָרְשָׁעִים",
+"g": "the + wicked, guilty"
+},
+{
+"h": "כִּי",
+"g": "for, because, that"
+},
+{
+"h": "אִם־",
+"g": "used very widely as demonstrative, lo!"
+},
+{
+"h": "כַּמֹּץ",
+"g": "like + chaff"
+},
+{
+"h": "אֲשֶׁר־",
+"g": "which, who"
+},
+{
+"h": "תִּדְּפֶנּוּ",
+"g": "to drive away, scatter + +him/his/it"
+},
+{
+"h": "רוּחַ",
+"g": "wind, spirit"
+}
+]
+},
+{
+"c": 1,
+"v": 5,
+"en": "Therefore the wicked shall not stand in the judgment, nor sinners in the congregation of the righteous.",
+"words": [
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "כֵּן",
+"g": "set upright"
+},
+{
+"h": "לֹא־",
+"g": "not"
+},
+{
+"h": "יָקֻמוּ",
+"g": "to arise"
+},
+{
+"h": "רְשָׁעִים",
+"g": "wicked, guilty"
+},
+{
+"h": "בַּמִּשְׁפָּט",
+"g": "in + judgement, justice"
+},
+{
+"h": "וְחַטָּאִים",
+"g": "and + sinner"
+},
+{
+"h": "בַּעֲדַת",
+"g": "in + congregation, assembly"
+},
+{
+"h": "צַדִּיקִים",
+"g": "righteous"
+}
+]
+},
+{
+"c": 1,
+"v": 6,
+"en": "For Yahweh knows the way of the righteous, but the way of the wicked shall perish.",
+"words": [
+{
+"h": "כִּי־",
+"g": "for, because, that"
+},
+{
+"h": "יוֹדֵעַ",
+"g": "to know"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "דֶּרֶךְ",
+"g": "way, road"
+},
+{
+"h": "צַדִּיקִים",
+"g": "righteous"
+},
+{
+"h": "וְדֶרֶךְ",
+"g": "and + way, road"
+},
+{
+"h": "רְשָׁעִים",
+"g": "wicked, guilty"
+},
+{
+"h": "תֹּאבֵד",
+"g": "to perish"
+}
+]
+},
+{
+"c": 23,
+"v": 1,
+"en": "Yahweh is my shepherd: I shall lack nothing.",
+"words": [
+{
+"h": "מִזְמוֹר",
+"g": "psalm"
+},
+{
+"h": "לְדָוִד",
+"g": "to + David"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "רֹעִי",
+"g": "to graze, feed + +me/my",
+"n": "ro'i — 'my shepherd'. ro'eh ('shepherd') + -i ('my'): two English words, one Hebrew one."
+},
+{
+"h": "לֹא",
+"g": "not"
+},
+{
+"h": "אֶחְסָר",
+"g": "to lack"
+}
+]
+},
+{
+"c": 23,
+"v": 2,
+"en": "He makes me lie down in green pastures. He leads me beside still waters.",
+"words": [
+{
+"h": "בִּנְאוֹת",
+"g": "in + pasture, meadow"
+},
+{
+"h": "דֶּשֶׁא",
+"g": "grass, vegetation"
+},
+{
+"h": "יַרְבִּיצֵנִי",
+"g": "to lie down + +me/my"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "מֵי",
+"g": "water"
+},
+{
+"h": "מְנֻחוֹת",
+"g": "resting place"
+},
+{
+"h": "יְנַהֲלֵנִי",
+"g": "to lead, guide + +me/my"
+}
+]
+},
+{
+"c": 23,
+"v": 3,
+"en": "He restores my soul. He guides me in the paths of righteousness for his name’s sake.",
+"words": [
+{
+"h": "נַפְשִׁי",
+"g": "soul, life, self + +me/my"
+},
+{
+"h": "יְשׁוֹבֵב",
+"g": "to turn back, return"
+},
+{
+"h": "יַנְחֵנִי",
+"g": "to lead, guide + +me/my"
+},
+{
+"h": "בְמַעְגְּלֵי־",
+"g": "in + path, track"
+},
+{
+"h": "צֶדֶק",
+"g": "righteousness, what is right"
+},
+{
+"h": "לְמַעַן",
+"g": "for the sake of"
+},
+{
+"h": "שְׁמוֹ",
+"g": "name + +him/his/it"
+}
+]
+},
+{
+"c": 23,
+"v": 4,
+"en": "Even though I walk through the valley of the shadow of death, I will fear no evil, for you are with me. Your rod and your staff, they comfort me.",
+"words": [
+{
+"h": "גַּם",
+"g": "also, even"
+},
+{
+"h": "כִּי־",
+"g": "for, because, that"
+},
+{
+"h": "אֵלֵךְ",
+"g": "to go, walk"
+},
+{
+"h": "בְּגֵיא",
+"g": "in + valley"
+},
+{
+"h": "צַלְמָוֶת",
+"g": "deep darkness",
+"n": "tsalmavet — literally 'shadow of death', tsel (shadow) + mavet (death). Modern translations often prefer 'deepest darkness'."
+},
+{
+"h": "לֹא־",
+"g": "not"
+},
+{
+"h": "אִירָא",
+"g": "to fear"
+},
+{
+"h": "רָע",
+"g": "evil, wickedness"
+},
+{
+"h": "כִּי־",
+"g": "for, because, that"
+},
+{
+"h": "אַתָּה",
+"g": "thou and thee, or  ye and you"
+},
+{
+"h": "עִמָּדִי",
+"g": "with me + +me/my"
+},
+{
+"h": "שִׁבְטְךָ",
+"g": "rod; tribe + +you/your"
+},
+{
+"h": "וּמִשְׁעַנְתֶּךָ",
+"g": "and + support , i.e.  sustenance or  a walking-stick + +you/your"
+},
+{
+"h": "הֵמָּה",
+"g": "they"
+},
+{
+"h": "יְנַחֲמֻנִי",
+"g": "to relent, comfort + +me/my"
+}
+]
+},
+{
+"c": 23,
+"v": 5,
+"en": "You prepare a table before me in the presence of my enemies. You anoint my head with oil. My cup runs over.",
+"words": [
+{
+"h": "תַּעֲרֹךְ",
+"g": "to set in a row, i.e. arrange"
+},
+{
+"h": "לְפָנַי",
+"g": "to + face, presence + +me/my"
+},
+{
+"h": "שֻׁלְחָן",
+"g": "table"
+},
+{
+"h": "נֶגֶד",
+"g": "in front of, before"
+},
+{
+"h": "צֹרְרָי",
+"g": "to cramp, literally or figuratively + +me/my"
+},
+{
+"h": "דִּשַּׁנְתָּ",
+"g": "to anoint richly"
+},
+{
+"h": "בַשֶּׁמֶן",
+"g": "in + oil"
+},
+{
+"h": "רֹאשִׁי",
+"g": "head + +me/my"
+},
+{
+"h": "כּוֹסִי",
+"g": "a cup , often figuratively + +me/my"
+},
+{
+"h": "רְוָיָה",
+"g": "overflowing"
+}
+]
+},
+{
+"c": 23,
+"v": 6,
+"en": "Surely goodness and loving kindness shall follow me all the days of my life, and I will dwell in Yahweh’s house forever.",
+"words": [
+{
+"h": "אַךְ",
+"g": "surely, only"
+},
+{
+"h": "טוֹב",
+"g": "good"
+},
+{
+"h": "וָחֶסֶד",
+"g": "and + steadfast love"
+},
+{
+"h": "יִרְדְּפוּנִי",
+"g": "to pursue, chase + +me/my"
+},
+{
+"h": "כָּל־",
+"g": "all, every, whole"
+},
+{
+"h": "יְמֵי",
+"g": "day"
+},
+{
+"h": "חַיָּי",
+"g": "life, alive + +me/my"
+},
+{
+"h": "וְשַׁבְתִּי",
+"g": "and + to sit, dwell"
+},
+{
+"h": "בְּבֵית־",
+"g": "in + house"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "לְאֹרֶךְ",
+"g": "to + length"
+},
+{
+"h": "יָמִים",
+"g": "day"
+}
+]
+},
+{
+"c": 91,
+"v": 1,
+"en": "He who dwells in the secret place of the Most High will rest in the shadow of the Almighty.",
+"words": [
+{
+"h": "יֹשֵׁב",
+"g": "to sit, dwell"
+},
+{
+"h": "בְּסֵתֶר",
+"g": "in + a cover"
+},
+{
+"h": "עֶלְיוֹן",
+"g": "an elevation, i.e.  lofty"
+},
+{
+"h": "בְּצֵל",
+"g": "in + shade, shadow"
+},
+{
+"h": "שַׁדַּי",
+"g": "the Almighty (Shaddai)",
+"n": "Shaddai — an ancient name of God, traditionally 'the Almighty'. What it originally meant is still argued over."
+},
+{
+"h": "יִתְלוֹנָן",
+"g": "to stop"
+}
+]
+},
+{
+"c": 91,
+"v": 2,
+"en": "I will say of Yahweh, “He is my refuge and my fortress; my God, in whom I trust.”",
+"words": [
+{
+"h": "אֹמַר",
+"g": "to say"
+},
+{
+"h": "לַיהוָה",
+"g": "to + the LORD (YHWH)"
+},
+{
+"h": "מַחְסִי",
+"g": "refuge, shelter + +me/my"
+},
+{
+"h": "וּמְצוּדָתִי",
+"g": "and + a net, or  capture + +me/my"
+},
+{
+"h": "אֱלֹהַי",
+"g": "God, gods + +me/my"
+},
+{
+"h": "אֶבְטַח־",
+"g": "to trust"
+},
+{
+"h": "בּוֹ",
+"g": "in + +him/his/it"
+}
+]
+},
+{
+"c": 91,
+"v": 3,
+"en": "For he will deliver you from the snare of the fowler, and from the deadly pestilence.",
+"words": [
+{
+"h": "כִּי",
+"g": "for, because, that"
+},
+{
+"h": "הוּא",
+"g": "he, it; that"
+},
+{
+"h": "יַצִּילְךָ",
+"g": "to deliver, rescue + +you/your"
+},
+{
+"h": "מִפַּח",
+"g": "from + a  sheet"
+},
+{
+"h": "יָקוּשׁ",
+"g": "fowler, trapper"
+},
+{
+"h": "מִדֶּבֶר",
+"g": "from + plague, pestilence"
+},
+{
+"h": "הַוּוֹת",
+"g": "destruction, ruin"
+}
+]
+},
+{
+"c": 91,
+"v": 4,
+"en": "He will cover you with his feathers. Under his wings you will take refuge. His faithfulness is your shield and rampart.",
+"words": [
+{
+"h": "בְּאֶבְרָתוֹ",
+"g": "in + pinion, wing + +him/his/it"
+},
+{
+"h": "יָסֶךְ",
+"g": "to entwine as ascreen"
+},
+{
+"h": "לָךְ",
+"g": "to + +you/your"
+},
+{
+"h": "וְתַחַת־",
+"g": "and + under, beneath"
+},
+{
+"h": "כְּנָפָיו",
+"g": "wing + +him/his/it"
+},
+{
+"h": "תֶּחְסֶה",
+"g": "to take refuge"
+},
+{
+"h": "צִנָּה",
+"g": "a hook"
+},
+{
+"h": "וְסֹחֵרָה",
+"g": "and + buckler, shield"
+},
+{
+"h": "אֲמִתּוֹ",
+"g": "truth, faithfulness + +him/his/it"
+}
+]
+},
+{
+"c": 91,
+"v": 5,
+"en": "You shall not be afraid of the terror by night, nor of the arrow that flies by day;",
+"words": [
+{
+"h": "לֹא־",
+"g": "not"
+},
+{
+"h": "תִירָא",
+"g": "to fear"
+},
+{
+"h": "מִפַּחַד",
+"g": "from + dread, terror"
+},
+{
+"h": "לָיְלָה",
+"g": "night"
+},
+{
+"h": "מֵחֵץ",
+"g": "from + arrow"
+},
+{
+"h": "יָעוּף",
+"g": "to fly"
+},
+{
+"h": "יוֹמָם",
+"g": "by day"
+}
+]
+},
+{
+"c": 91,
+"v": 6,
+"en": "nor of the pestilence that walks in darkness, nor of the destruction that wastes at noonday.",
+"words": [
+{
+"h": "מִדֶּבֶר",
+"g": "from + plague, pestilence"
+},
+{
+"h": "בָּאֹפֶל",
+"g": "in + darkness"
+},
+{
+"h": "יַהֲלֹךְ",
+"g": "to go, walk"
+},
+{
+"h": "מִקֶּטֶב",
+"g": "from + destruction, plague"
+},
+{
+"h": "יָשׁוּד",
+"g": "to devastate"
+},
+{
+"h": "צָהֳרָיִם",
+"g": "a light"
+}
+]
+},
+{
+"c": 91,
+"v": 7,
+"en": "A thousand may fall at your side, and ten thousand at your right hand; but it will not come near you.",
+"words": [
+{
+"h": "יִפֹּל",
+"g": "to fall"
+},
+{
+"h": "מִצִּדְּךָ",
+"g": "from + side + +you/your"
+},
+{
+"h": "אֶלֶף",
+"g": "thousand"
+},
+{
+"h": "וּרְבָבָה",
+"g": "and + ten thousand"
+},
+{
+"h": "מִימִינֶךָ",
+"g": "from + right hand + +you/your"
+},
+{
+"h": "אֵלֶיךָ",
+"g": "to, toward + +you/your"
+},
+{
+"h": "לֹא",
+"g": "not"
+},
+{
+"h": "יִגָּשׁ",
+"g": "to draw near, approach"
+}
+]
+},
+{
+"c": 91,
+"v": 8,
+"en": "You will only look with your eyes, and see the recompense of the wicked.",
+"words": [
+{
+"h": "רַק",
+"g": "only, surely"
+},
+{
+"h": "בְּעֵינֶיךָ",
+"g": "in + an eye + +you/your"
+},
+{
+"h": "תַבִּיט",
+"g": "to look"
+},
+{
+"h": "וְשִׁלֻּמַת",
+"g": "and + recompense"
+},
+{
+"h": "רְשָׁעִים",
+"g": "wicked, guilty"
+},
+{
+"h": "תִּרְאֶה",
+"g": "to see"
+}
+]
+},
+{
+"c": 91,
+"v": 9,
+"en": "Because you have made Yahweh your refuge, and the Most High your dwelling place,",
+"words": [
+{
+"h": "כִּי־",
+"g": "for, because, that"
+},
+{
+"h": "אַתָּה",
+"g": "thou and thee, or  ye and you"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "מַחְסִי",
+"g": "refuge, shelter + +me/my"
+},
+{
+"h": "עֶלְיוֹן",
+"g": "an elevation, i.e.  lofty"
+},
+{
+"h": "שַׂמְתָּ",
+"g": "to put"
+},
+{
+"h": "מְעוֹנֶךָ",
+"g": "dwelling, refuge + +you/your"
+}
+]
+},
+{
+"c": 91,
+"v": 10,
+"en": "no evil shall happen to you, neither shall any plague come near your dwelling.",
+"words": [
+{
+"h": "לֹא־",
+"g": "not"
+},
+{
+"h": "תְאֻנֶּה",
+"g": "to befall, meet"
+},
+{
+"h": "אֵלֶיךָ",
+"g": "to, toward + +you/your"
+},
+{
+"h": "רָעָה",
+"g": "evil, wickedness"
+},
+{
+"h": "וְנֶגַע",
+"g": "and + plague, affliction"
+},
+{
+"h": "לֹא־",
+"g": "not"
+},
+{
+"h": "יִקְרַב",
+"g": "to draw near"
+},
+{
+"h": "בְּאָהֳלֶךָ",
+"g": "in + tent + +you/your"
+}
+]
+},
+{
+"c": 91,
+"v": 11,
+"en": "For he will put his angels in charge of you, to guard you in all your ways.",
+"words": [
+{
+"h": "כִּי",
+"g": "for, because, that"
+},
+{
+"h": "מַלְאָכָיו",
+"g": "sailor? messenger + +him/his/it"
+},
+{
+"h": "יְצַוֶּה־",
+"g": "to command"
+},
+{
+"h": "לָּךְ",
+"g": "to + +you/your"
+},
+{
+"h": "לִשְׁמָרְךָ",
+"g": "to + to keep, watch + +you/your"
+},
+{
+"h": "בְּכָל־",
+"g": "in + all, every, whole"
+},
+{
+"h": "דְּרָכֶיךָ",
+"g": "way, road + +you/your"
+}
+]
+},
+{
+"c": 91,
+"v": 12,
+"en": "They will bear you up in their hands, so that you won’t dash your foot against a stone.",
+"words": [
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "כַּפַּיִם",
+"g": "palm, hand"
+},
+{
+"h": "יִשָּׂאוּנְךָ",
+"g": "to lift, carry + +you/your"
+},
+{
+"h": "פֶּן־",
+"g": "lest"
+},
+{
+"h": "תִּגֹּף",
+"g": "to strike"
+},
+{
+"h": "בָּאֶבֶן",
+"g": "in + stone"
+},
+{
+"h": "רַגְלֶךָ",
+"g": "foot + +you/your"
+}
+]
+},
+{
+"c": 91,
+"v": 13,
+"en": "You will tread on the lion and cobra. You will trample the young lion and the serpent underfoot.",
+"words": [
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "שַׁחַל",
+"g": "lion"
+},
+{
+"h": "וָפֶתֶן",
+"g": "and + cobra, asp"
+},
+{
+"h": "תִּדְרֹךְ",
+"g": "to tread, trample"
+},
+{
+"h": "תִּרְמֹס",
+"g": "to trample"
+},
+{
+"h": "כְּפִיר",
+"g": "a village"
+},
+{
+"h": "וְתַנִּין",
+"g": "and + a marine or land monster, i.e. sea-serpent or jackal"
+}
+]
+},
+{
+"c": 91,
+"v": 14,
+"en": "“Because he has set his love on me, therefore I will deliver him. I will set him on high, because he has known my name.",
+"words": [
+{
+"h": "כִּי",
+"g": "for, because, that"
+},
+{
+"h": "בִי",
+"g": "in + +me/my"
+},
+{
+"h": "חָשַׁק",
+"g": "to cling, i.e. join"
+},
+{
+"h": "וַאֲפַלְּטֵהוּ",
+"g": "and + to rescue, deliver + +him/his/it"
+},
+{
+"h": "אֲשַׂגְּבֵהוּ",
+"g": "to set on high, protect + +him/his/it"
+},
+{
+"h": "כִּי־",
+"g": "for, because, that"
+},
+{
+"h": "יָדַע",
+"g": "to know"
+},
+{
+"h": "שְׁמִי",
+"g": "name + +me/my"
+}
+]
+},
+{
+"c": 91,
+"v": 15,
+"en": "He will call on me, and I will answer him. I will be with him in trouble. I will deliver him, and honor him.",
+"words": [
+{
+"h": "יִקְרָאֵנִי",
+"g": "to call, cry out + +me/my"
+},
+{
+"h": "וְאֶעֱנֵהוּ",
+"g": "and + to answer + +him/his/it"
+},
+{
+"h": "עִמּוֹ־",
+"g": "adverb or preposition, with + +him/his/it"
+},
+{
+"h": "אָנֹכִי",
+"g": "I"
+},
+{
+"h": "בְצָרָה",
+"g": "in + tightness"
+},
+{
+"h": "אֲחַלְּצֵהוּ",
+"g": "to pull off + +him/his/it"
+},
+{
+"h": "וַאֲכַבְּדֵהוּ",
+"g": "and + to honour; be heavy + +him/his/it"
+}
+]
+},
+{
+"c": 91,
+"v": 16,
+"en": "I will satisfy him with long life, and show him my salvation.”",
+"words": [
+{
+"h": "אֹרֶךְ",
+"g": "length"
+},
+{
+"h": "יָמִים",
+"g": "day"
+},
+{
+"h": "אַשְׂבִּיעֵהוּ",
+"g": "to be satisfied + +him/his/it"
+},
+{
+"h": "וְאַרְאֵהוּ",
+"g": "and + to see + +him/his/it"
+},
+{
+"h": "בִּישׁוּעָתִי",
+"g": "in + salvation, deliverance + +me/my"
+}
+]
+},
+{
+"c": 100,
+"v": 1,
+"en": "Shout for joy to Yahweh, all you lands!",
+"words": [
+{
+"h": "מִזְמוֹר",
+"g": "psalm"
+},
+{
+"h": "לְתוֹדָה",
+"g": "to + thanksgiving"
+},
+{
+"h": "הָרִיעוּ",
+"g": "to shout"
+},
+{
+"h": "לַיהוָה",
+"g": "to + the LORD (YHWH)"
+},
+{
+"h": "כָּל־",
+"g": "all, every, whole"
+},
+{
+"h": "הָאָרֶץ",
+"g": "the + land, earth"
+}
+]
+},
+{
+"c": 100,
+"v": 2,
+"en": "Serve Yahweh with gladness. Come before his presence with singing.",
+"words": [
+{
+"h": "עִבְדוּ",
+"g": "to serve, work"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "בְּשִׂמְחָה",
+"g": "in + joy, gladness"
+},
+{
+"h": "בֹּאוּ",
+"g": "to come, go in"
+},
+{
+"h": "לְפָנָיו",
+"g": "to + face, presence + +him/his/it"
+},
+{
+"h": "בִּרְנָנָה",
+"g": "in + joyful shout"
+}
+]
+},
+{
+"c": 100,
+"v": 3,
+"en": "Know that Yahweh, he is God. It is he who has made us, and we are his. We are his people, and the sheep of his pasture.",
+"words": [
+{
+"h": "דְּעוּ",
+"g": "to know"
+},
+{
+"h": "כִּי־",
+"g": "for, because, that"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "הוּא",
+"g": "he, it; that"
+},
+{
+"h": "אֱלֹהִים",
+"g": "God, gods"
+},
+{
+"h": "הוּא־",
+"g": "he, it; that"
+},
+{
+"h": "עָשָׂנוּ",
+"g": "to do, make + +us/our"
+},
+{
+"h": "ולא",
+"g": "and + not"
+},
+{
+"h": "אֲנַחְנוּ",
+"g": "we",
+"n": "anachnu — 'we'. Hebrew normally hides the pronoun inside the verb, so spelling it out is emphatic."
+},
+{
+"h": "עַמּוֹ",
+"g": "people + +him/his/it"
+},
+{
+"h": "וְצֹאן",
+"g": "and + flock, sheep"
+},
+{
+"h": "מַרְעִיתוֹ",
+"g": "pasture, flock + +him/his/it"
+}
+]
+},
+{
+"c": 100,
+"v": 4,
+"en": "Enter into his gates with thanksgiving, into his courts with praise. Give thanks to him, and bless his name.",
+"words": [
+{
+"h": "בֹּאוּ",
+"g": "to come, go in"
+},
+{
+"h": "שְׁעָרָיו",
+"g": "gate + +him/his/it"
+},
+{
+"h": "בְּתוֹדָה",
+"g": "in + thanksgiving"
+},
+{
+"h": "חֲצֵרֹתָיו",
+"g": "a yard + +him/his/it"
+},
+{
+"h": "בִּתְהִלָּה",
+"g": "in + praise"
+},
+{
+"h": "הוֹדוּ־",
+"g": "to praise, give thanks"
+},
+{
+"h": "לוֹ",
+"g": "to + +him/his/it"
+},
+{
+"h": "בָּרֲכוּ",
+"g": "to bless"
+},
+{
+"h": "שְׁמוֹ",
+"g": "name + +him/his/it"
+}
+]
+},
+{
+"c": 100,
+"v": 5,
+"en": "For Yahweh is good. His loving kindness endures forever, his faithfulness to all generations.",
+"words": [
+{
+"h": "כִּי־",
+"g": "for, because, that"
+},
+{
+"h": "טוֹב",
+"g": "good"
+},
+{
+"h": "יְהֹוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "לְעוֹלָם",
+"g": "to + forever"
+},
+{
+"h": "חַסְדּוֹ",
+"g": "steadfast love + +him/his/it"
+},
+{
+"h": "וְעַד־",
+"g": "and + as far as, until"
+},
+{
+"h": "דֹּר",
+"g": "generation"
+},
+{
+"h": "וָדֹר",
+"g": "and + generation"
+},
+{
+"h": "אֱמוּנָתוֹ",
+"g": "faithfulness + +him/his/it"
+}
+]
+},
+{
+"c": 121,
+"v": 1,
+"en": "I will lift up my eyes to the hills. Where does my help come from?",
+"words": [
+{
+"h": "שִׁיר",
+"g": "a song"
+},
+{
+"h": "לַמַּעֲלוֹת",
+"g": "to + elevation, i.e. the act"
+},
+{
+"h": "אֶשָּׂא",
+"g": "to lift, carry",
+"n": "essa — 'I lift'. From nasa, the verb you met in Jonah; the aleph prefix is what makes it 'I'."
+},
+{
+"h": "עֵינַי",
+"g": "an eye + +me/my"
+},
+{
+"h": "אֶל־",
+"g": "to, toward"
+},
+{
+"h": "הֶהָרִים",
+"g": "the + mountain"
+},
+{
+"h": "מֵאַיִן",
+"g": "from + where?"
+},
+{
+"h": "יָבֹא",
+"g": "to come, go in"
+},
+{
+"h": "עֶזְרִי",
+"g": "help, helper + +me/my"
+}
+]
+},
+{
+"c": 121,
+"v": 2,
+"en": "My help comes from Yahweh, who made heaven and earth.",
+"words": [
+{
+"h": "עֶזְרִי",
+"g": "help, helper + +me/my"
+},
+{
+"h": "מֵעִם",
+"g": "from + adverb or preposition, with"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "עֹשֵׂה",
+"g": "to do, make"
+},
+{
+"h": "שָׁמַיִם",
+"g": "heavens, sky"
+},
+{
+"h": "וָאָרֶץ",
+"g": "and + land, earth"
+}
+]
+},
+{
+"c": 121,
+"v": 3,
+"en": "He will not allow your foot to be moved. He who keeps you will not slumber.",
+"words": [
+{
+"h": "אַל־",
+"g": "do not (with a command)"
+},
+{
+"h": "יִתֵּן",
+"g": "to give"
+},
+{
+"h": "לַמּוֹט",
+"g": "to + to be shaken, totter"
+},
+{
+"h": "רַגְלֶךָ",
+"g": "foot + +you/your"
+},
+{
+"h": "אַל־",
+"g": "do not (with a command)"
+},
+{
+"h": "יָנוּם",
+"g": "to slumber"
+},
+{
+"h": "שֹׁמְרֶךָ",
+"g": "to keep, watch + +you/your"
+}
+]
+},
+{
+"c": 121,
+"v": 4,
+"en": "Behold, he who keeps Israel will neither slumber nor sleep.",
+"words": [
+{
+"h": "הִנֵּה",
+"g": "behold, look"
+},
+{
+"h": "לֹא־",
+"g": "not"
+},
+{
+"h": "יָנוּם",
+"g": "to slumber"
+},
+{
+"h": "וְלֹא",
+"g": "and + not"
+},
+{
+"h": "יִישָׁן",
+"g": "to sleep",
+"n": "yishan — 'sleeps'. The psalm says it twice: he neither slumbers (yanum) nor sleeps. Hebrew poetry likes saying things twice, slightly differently."
+},
+{
+"h": "שׁוֹמֵר",
+"g": "to keep, watch"
+},
+{
+"h": "יִשְׂרָאֵל",
+"g": "Israel"
+}
+]
+},
+{
+"c": 121,
+"v": 5,
+"en": "Yahweh is your keeper. Yahweh is your shade on your right hand.",
+"words": [
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "שֹׁמְרֶךָ",
+"g": "to keep, watch + +you/your"
+},
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "צִלְּךָ",
+"g": "shade, shadow + +you/your"
+},
+{
+"h": "עַל־",
+"g": "on, over, against"
+},
+{
+"h": "יַד",
+"g": "hand"
+},
+{
+"h": "יְמִינֶךָ",
+"g": "right hand + +you/your"
+}
+]
+},
+{
+"c": 121,
+"v": 6,
+"en": "The sun will not harm you by day, nor the moon by night.",
+"words": [
+{
+"h": "יוֹמָם",
+"g": "by day"
+},
+{
+"h": "הַשֶּׁמֶשׁ",
+"g": "the + sun"
+},
+{
+"h": "לֹא־",
+"g": "not"
+},
+{
+"h": "יַכֶּכָּה",
+"g": "to strike, attack + +you/your"
+},
+{
+"h": "וְיָרֵחַ",
+"g": "and + moon"
+},
+{
+"h": "בַּלָּיְלָה",
+"g": "in + night"
+}
+]
+},
+{
+"c": 121,
+"v": 7,
+"en": "Yahweh will keep you from all evil. He will keep your soul.",
+"words": [
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "יִשְׁמָרְךָ",
+"g": "to keep, watch + +you/your"
+},
+{
+"h": "מִכָּל־",
+"g": "from + all, every, whole"
+},
+{
+"h": "רָע",
+"g": "evil, wickedness"
+},
+{
+"h": "יִשְׁמֹר",
+"g": "to keep, watch"
+},
+{
+"h": "אֶת־",
+"g": "(object marker)"
+},
+{
+"h": "נַפְשֶׁךָ",
+"g": "soul, life, self + +you/your"
+}
+]
+},
+{
+"c": 121,
+"v": 8,
+"en": "Yahweh will keep your going out and your coming in, from this time forward, and forever more.",
+"words": [
+{
+"h": "יְהוָה",
+"g": "the LORD (YHWH)"
+},
+{
+"h": "יִשְׁמָר־",
+"g": "to keep, watch"
+},
+{
+"h": "צֵאתְךָ",
+"g": "to go out + +you/your"
+},
+{
+"h": "וּבוֹאֶךָ",
+"g": "and + to come, go in + +you/your"
+},
+{
+"h": "מֵעַתָּה",
+"g": "from + now"
+},
+{
+"h": "וְעַד־",
+"g": "and + as far as, until"
+},
+{
+"h": "עוֹלָם",
+"g": "forever"
 }
 ]
 }

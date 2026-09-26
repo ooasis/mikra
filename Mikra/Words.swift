@@ -48,3 +48,16 @@ let wordCardsByID: [String: Card] = Dictionary(uniqueKeysWithValues: wordDeck.ma
 
 /// Everything enrollable by hand: words tapped in the reader, and words taken from the deck.
 let enrolledCardsByID = verseWordCardsByID.merging(wordCardsByID) { a, _ in a }
+
+#if DEBUG
+/// Smallest check that fails if a shuffled set stops covering exactly its band.
+func wordDeckSelfCheck() {
+    assert(wordDeck.count == wordBands.reduce(0) { $0 + $1.count }, "bands don't cover the deck")
+    for band in wordBands {
+        let order = WordDeckView.shuffledOrder(for: band)
+        assert(order.count == band.count, "\(band.title) lost cards in the shuffle")
+        assert(Set(order) == Set(band.start ..< band.start + band.count),
+               "\(band.title) shuffled to the wrong cards")
+    }
+}
+#endif
