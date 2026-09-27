@@ -7,7 +7,7 @@
   - build 4 superseded by build 5 (verse swiping landed after it)
 - [x] Version 1.2 (build 6, uploaded 2026-09-26): dashboard home (words / verses / grammar), pronoun and number decks, 40 grammar lessons with tables, settings (appearance, reading speed), pronunciation after reveal
 - [x] Export compliance key (ITSAppUsesNonExemptEncryption=NO)
-- [x] 6.9" screenshots in appstore/screenshots/ (1320×2868, iPhone 17 Pro Max)
+- [x] Screenshots in appstore/screenshots/, refreshed for 1.2: five screens (home, verse, pronoun deck, grammar lesson, vowel card) × light/dark, 6.9" (1320×2868, iPhone 17 Pro Max simulator) and 6.5" (1284×2778, iPhone 14 Plus simulator); captured with the -openVerse/-showText/-openDeck/-reveal/-openLesson/-openVowel launch hooks
 - [x] Metadata drafts (metadata.md)
 - [x] Privacy policy text (privacy-policy.md)
 

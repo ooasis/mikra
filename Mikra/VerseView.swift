@@ -51,6 +51,9 @@ private struct VersePage: View {
         self.verse = verse
         self.mode = mode
         _stage = State(initialValue: mode == .passive ? .listen : .read)
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("-showText") { _stage = State(initialValue: .read) } // screenshot hook
+        #endif
     }
 
     var body: some View {
