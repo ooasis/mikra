@@ -45,6 +45,7 @@ final class Store: ObservableObject {
         var lastVerseDay: Date? = nil
         var currentBook: String? = nil
         var pace: String? = nil
+        var appearance: String? = nil
     }
 
     @Published private(set) var states: [String: CardState] = [:]
@@ -55,7 +56,8 @@ final class Store: ObservableObject {
     @Published private(set) var currentBook: String = books[0].name
     /// How verses are read aloud. Kept here rather than in UserDefaults, which
     /// would pull in a required-reason API and a privacy manifest.
-    @Published private(set) var pace: Pace = .normal
+    @Published private(set) var pace: Pace = .normal { didSet { Speech.pace = pace } }
+    @Published private(set) var appearance: Appearance = .system
     private var lastStudyDay: Date?
     private var lastVerseDay: Date?
 
@@ -74,7 +76,9 @@ final class Store: ObservableObject {
                 currentBook = saved
             }
             if let saved = snap.pace, let p = Pace(rawValue: saved) { pace = p }
+            if let saved = snap.appearance, let a = Appearance(rawValue: saved) { appearance = a }
         }
+        Speech.pace = pace
     }
 
     /// Verse progress used to be keyed "1:3", from when Jonah was the only text.
@@ -109,6 +113,11 @@ final class Store: ObservableObject {
 
     func setPace(_ p: Pace) {
         pace = p
+        save()
+    }
+
+    func setAppearance(_ a: Appearance) {
+        appearance = a
         save()
     }
 
@@ -215,7 +224,8 @@ final class Store: ObservableObject {
     private func save() {
         let snap = Snapshot(states: states, streak: streak, lastStudyDay: lastStudyDay,
                             verses: verses, tapped: tapped, lastVerseDay: lastVerseDay,
-                            currentBook: currentBook, pace: pace.rawValue)
+                            currentBook: currentBook, pace: pace.rawValue,
+                            appearance: appearance.rawValue)
         try? JSONEncoder().encode(snap).write(to: url)
     }
 }

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Generate Mikra/Words.json: the 300 commonest content words in the Hebrew Bible.
+"""Generate Mikra/Words.json (the 300 commonest content words in the Hebrew Bible)
+and Mikra/Decks.json (the curated Pronouns and Numbers decks).
 
 Counts lemmas across all 39 books of OSHB/WLC (CC BY 4.0), keeps content words
 only (no particles, no proper nouns, no Aramaic), and pairs each with a curated
@@ -172,8 +173,9 @@ def consonants(s):
 
 
 def count_lemmas():
-    """Lemma -> (occurrences, dominant morph code), plus the set occurring in Jonah."""
-    cnt, pos, jonah = Counter(), defaultdict(Counter), set()
+    """Lemma -> (occurrences, dominant morph code), plus the set occurring in Jonah,
+    plus (lemma, consonantal surface form) counts for the curated decks."""
+    cnt, pos, jonah, forms = Counter(), defaultdict(Counter), set(), Counter()
     for book in BOOKS:
         root = ET.parse(fetch(WLC.format(book), f"{book}.xml")).getroot()
         for w in root.iter(NS + "w"):
@@ -182,6 +184,10 @@ def count_lemmas():
                 continue  # Aramaic (Daniel, Ezra) — this is a Hebrew deck
             lemmas = (w.get("lemma", "") or "").split("/")
             morphs = morph.lstrip("H").split("/")
+            # OSHB writes homograph lemmas as "859 a"; the decks count by surface form, not sense
+            tail = re.match(r"^[a-z]?\s*(\d+)", lemmas[-1].strip())
+            if tail:
+                forms[(tail.group(1), consonants((w.text or "").split("/")[-1]))] += 1
             for i, part in enumerate(lemmas):
                 m = re.match(r"^[a-z]?(\d+)([a-z])?$", part.strip())
                 if not m:
@@ -191,11 +197,55 @@ def count_lemmas():
                 pos[num][(morphs[i] if i < len(morphs) else "")[:2]] += 1
                 if book == "Jonah":
                     jonah.add(num)
-    return cnt, {k: v.most_common(1)[0][0] for k, v in pos.items()}, jonah
+    return cnt, {k: v.most_common(1)[0][0] for k, v in pos.items()}, jonah, forms
+
+
+# Curated decks: (deck id, title, deck note, cards). A card is one meaning with all its
+# forms: (card id, gloss, [(form id, Strong's, pointed form, form label)]). Forms that
+# share a Strong's number get their own id so "Learn this" tracks each one.
+DECKS = [
+    ("pronouns", "Pronouns",
+     "The independent pronouns. Hebrew usually folds the subject into the verb, "
+     "so these stand alone for emphasis or in sentences without a verb.",
+     [("i", "I", [("589", "589", "אֲנִי", "I"), ("595", "595", "אָנֹכִי", "I (longer form)")]),
+      ("you", "you", [("859a", "859", "אַתָּה", "m. sg."), ("859c", "859", "אַתְּ", "f. sg."),
+                      ("859d", "859", "אַתֶּם", "m. pl."), ("859e", "859", "אַתֵּנָה", "f. pl.")]),
+      ("he", "he, she, it", [("1931", "1931", "הוּא", "he, it"), ("1931f", "1931", "הִיא", "she, it")]),
+      ("we", "we", [("587", "587", "אֲנַחְנוּ", "we")]),
+      ("they", "they", [("1992", "1992", "הֵם", "m."), ("1992b", "1992", "הֵמָּה", "m. (longer form)"),
+                        ("2007", "2007", "הֵנָּה", "f.")])]),
+    ("numbers", "Numbers",
+     "One to ten, each with both genders. Three to ten swap endings: the ־ָה form "
+     "counts masculine nouns, the bare form counts feminine nouns.",
+     [("1", "one", [("259", "259", "אֶחָד", "m."), ("259f", "259", "אַחַת", "f.")]),
+      ("2", "two", [("8147", "8147", "שְׁנַיִם", "m."), ("8147f", "8147", "שְׁתַּיִם", "f.")]),
+      ("3", "three", [("7969", "7969", "שְׁלֹשָׁה", "m."), ("7969f", "7969", "שָׁלֹשׁ", "f.")]),
+      ("4", "four", [("702", "702", "אַרְבָּעָה", "m."), ("702f", "702", "אַרְבַּע", "f.")]),
+      ("5", "five", [("2568", "2568", "חֲמִשָּׁה", "m."), ("2568f", "2568", "חָמֵשׁ", "f.")]),
+      ("6", "six", [("8337", "8337", "שִׁשָּׁה", "m."), ("8337f", "8337", "שֵׁשׁ", "f.")]),
+      ("7", "seven", [("7651", "7651", "שִׁבְעָה", "m."), ("7651f", "7651", "שֶׁבַע", "f.")]),
+      ("8", "eight", [("8083", "8083", "שְׁמֹנָה", "m."), ("8083f", "8083", "שְׁמֹנֶה", "f.")]),
+      ("9", "nine", [("8672", "8672", "תִּשְׁעָה", "m."), ("8672f", "8672", "תֵּשַׁע", "f.")]),
+      ("10", "ten", [("6235", "6235", "עֲשָׂרָה", "m."), ("6235f", "6235", "עֶשֶׂר", "f.")]),
+      ("100", "hundred", [("3967", "3967", "מֵאָה", "hundred"), ("3967d", "3967", "מָאתַיִם", "two hundred"),
+                          ("3967p", "3967", "מֵאוֹת", "hundreds")]),
+      ("1000", "thousand", [("505", "505", "אֶלֶף", "thousand"), ("505d", "505", "אַלְפַּיִם", "two thousand"),
+                            ("505p", "505", "אֲלָפִים", "thousands")])]),
+]
+
+
+def build_decks(forms):
+    def form(fid, strongs, h, label):
+        return {"s": fid, "h": h, "g": label, "n": forms[(strongs, consonants(h))], "root": [], "conf": []}
+    return [{"id": did, "title": title, "note": note,
+             "cards": [{"s": cid, "h": fs[0][2], "g": gloss, "n": sum(form(*f)["n"] for f in fs),
+                        "root": [], "conf": [], "forms": [form(*f) for f in fs]}
+                       for cid, gloss, fs in cards]}
+            for did, title, note, cards in DECKS]
 
 
 def build():
-    cnt, pos, jonah = count_lemmas()
+    cnt, pos, jonah, forms = count_lemmas()
     strongs_js = open(fetch(STRONGS, "strongs.js"), encoding="utf-8").read()
     lex = json.loads(re.search(r"=\s*(\{.*\})\s*;?\s*(module|$)", strongs_js, re.S).group(1))
 
@@ -246,7 +296,19 @@ def build():
     cards = [{"s": k, "h": lex["H" + k]["lemma"], "g": GLOSS[k], "n": cnt[k],
               "j": k in jonah, "root": root_of[k], "conf": sorted(conf[k], key=lambda y: index[y])}
              for k in deck]
-    return cards, DROP_LINKS - used_drops
+    return cards, DROP_LINKS - used_drops, build_decks(forms)
+
+
+def check_decks(decks):
+    for deck in decks:
+        ids = [f["s"] for c in deck["cards"] for f in c["forms"]]
+        assert len(set(ids)) == len(ids), f"{deck['id']} has duplicate form ids"
+        for c in deck["cards"]:
+            assert c["forms"] and c["g"].strip(), f"{deck['id']}: {c['s']} is blank"
+            for f in c["forms"]:
+                assert f["n"] > 0, f"{deck['id']}: {f['h']} never occurs"
+                assert f["g"].strip() and f["h"].strip(), f"{deck['id']}: {f['s']} is blank"
+    print("decks ok — " + ", ".join(f"{d['title']} {len(d['cards'])}" for d in decks))
 
 
 def check(cards, stale_drops):
@@ -277,10 +339,12 @@ def check(cards, stale_drops):
 
 
 if __name__ == "__main__":
-    cards, stale = build()
+    cards, stale, decks = build()
     check(cards, stale)
+    check_decks(decks)
     if "--check" not in sys.argv:
-        out = os.path.join(HERE, "Mikra", "Words.json")
-        with open(out, "w", encoding="utf-8") as f:
-            json.dump(cards, f, ensure_ascii=False, separators=(",", ":"))
-        print(f"wrote {out}")
+        for name, data in (("Words.json", cards), ("Decks.json", decks)):
+            out = os.path.join(HERE, "Mikra", name)
+            with open(out, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, separators=(",", ":"))
+            print(f"wrote {out}")

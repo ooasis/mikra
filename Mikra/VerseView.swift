@@ -29,7 +29,7 @@ struct VerseView: View {
         .environment(\.layoutDirection, .rightToLeft) // pages advance right-to-left, like Hebrew
         // audio belongs to the pager: a page's own onAppear would fire for the
         // neighbours TabView builds off-screen, and they'd all start talking
-        .onAppear { if mode == .passive { Speech.say(verse: verse, pace: .normal) } }
+        .onAppear { if mode == .passive { Speech.say(verse: verse, pace: Speech.pace) } }
         .onChange(of: index) { Speech.stop() }
     }
 }
@@ -87,7 +87,7 @@ private struct VersePage: View {
             Spacer(minLength: 80)
             Button {
                 // ear first is always full speed — slow practice belongs with the text
-                Speech.say(verse: verse, pace: .normal)
+                Speech.say(verse: verse, pace: store.pace)
             } label: {
                 Image(systemName: "speaker.wave.3.fill")
                     .font(.system(size: 70))

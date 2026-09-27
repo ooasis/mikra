@@ -10,6 +10,9 @@ struct MikraApp: App {
         speechSelfCheck()
         textsSelfCheck()
         wordDeckSelfCheck()
+        grammarSelfCheck()
+        pronounceSelfCheck()
+        assert(decks.map(\.id) == ["pronouns", "numbers"], "Decks.json should bundle Pronouns and Numbers")
         assert(book(named: "Jonah").verses.count == 48, "Texts.json should bundle 48 Jonah verses")
         assert(book(named: "Genesis").verses.count == 31, "Texts.json should bundle Genesis 1")
         assert(book(named: "Psalms").verses.count == 41, "Texts.json should bundle 5 psalms")
@@ -20,6 +23,7 @@ struct MikraApp: App {
         WindowGroup {
             HomeView()
                 .environmentObject(store)
+                .preferredColorScheme(store.appearance.scheme)
         }
     }
 }

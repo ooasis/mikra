@@ -1,301 +1,120 @@
 import SwiftUI
 
+/// Where a dashboard tile leads. Ids rather than values keep routes trivially Hashable.
+enum Route: Hashable {
+    case letters, vowels, bands
+    case deck(String)
+    case book(String)
+    case group(String)
+    case lesson(String)
+    case settings
+}
+
+/// The dashboard: three sections of tiles, each leading to one piece of knowledge.
 struct HomeView: View {
     @EnvironmentObject var store: Store
-    @State private var showSession = false
-    @State private var selected: LetterGroup?
-    @State private var openVerse: VersePresentation?
-    @State private var openDeck: WordBand?
-    @State private var showPicker = false
-    @State private var confirmReset = false
+    @State private var path = NavigationPath()
 
-    struct VersePresentation: Identifiable {
-        let verse: Verse
-        let mode: VerseMode
-        var id: String { verse.id }
-    }
-
-    private let letters = curriculum.filter { $0.kind == .letter }
-    private let vowels = curriculum.filter { $0.kind == .vowel }
-    private var vowelGroups: [LetterGroup] { vowels.map { LetterGroup(id: $0.id, cards: [$0]) } }
-    private var allGroups: [LetterGroup] { letterGroups + vowelGroups }
+    private let columns = Array(repeating: GridItem(.flexible()), count: 3)
 
     var body: some View {
-        VStack(spacing: 0) {
-            HStack {
-                Text("אָלֶף־בֵּית").font(.title)
-                Spacer()
-                Text("\(store.dueCards.count) due · \(store.streak)🔥")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .onLongPressGesture { confirmReset = true }
-                    .confirmationDialog("Reset all progress?", isPresented: $confirmReset, titleVisibility: .visible) {
-                        Button("Reset everything", role: .destructive) { store.resetAll() }
-                    } message: {
-                        Text("Deletes all drill history, verse progress, and your streak. This cannot be undone.")
-                    }
-            }
-            .padding()
-
+        NavigationStack(path: $path) {
             ScrollView {
-                wordsSection
-                readingSection
-                section("Letters — \(learnedIn(letters))/\(letters.count)",
-                        letterGroups, columns: 3)
-                section("Vowels — \(learnedIn(vowels))/\(vowels.count)",
-                        vowelGroups, columns: 4)
-            }
+                VStack(alignment: .leading, spacing: 0) {
+                    HStack {
+                        Text("מִקְרָא").font(.largeTitle.bold())
+                        Spacer()
+                        NavigationLink(value: Route.settings) {
+                            Image(systemName: "gearshape").font(.title3).foregroundStyle(.secondary)
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom, 16)
 
-            Button {
-                showSession = true
-            } label: {
-                Text(store.dueCards.isEmpty ? "Learn" : "Review")
-                    .font(.title2.bold())
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(.blue, in: RoundedRectangle(cornerRadius: 16))
-                    .foregroundStyle(.white)
+                    section("Words") {
+                        NavigationLink(value: Route.letters) { tile("א", "Alphabet") }
+                        NavigationLink(value: Route.vowels) { tile("בָּ", "Vowels") }
+                        ForEach(decks) { d in
+                            NavigationLink(value: Route.deck(d.id)) { tile(d.cards[0].h, d.title) }
+                        }
+                        NavigationLink(value: Route.bands) { tile("דָּבָר", "Common words") }
+                    }
+                    section("Verses") {
+                        ForEach(books) { b in
+                            NavigationLink(value: Route.book(b.name)) { tile(b.heb, b.name) }
+                        }
+                    }
+                    section("Grammar") {
+                        ForEach(grammarGroups) { g in
+                            NavigationLink(value: Route.group(g.id)) { tile(g.glyph, g.title) }
+                        }
+                    }
+                }
+                .padding(.top, 8)
             }
-            .padding()
-            // two fullScreenCovers on one view don't both fire; keep this one here
-            .fullScreenCover(isPresented: $showSession) {
-                SessionView()
-            }
-        }
-        .fullScreenCover(item: $openVerse) { p in
-            VerseView(verse: p.verse, mode: p.mode)
-        }
-        .sheet(item: $selected) { group in
-            if let i = allGroups.firstIndex(where: { $0.id == group.id }) {
-                FlashCardView(groups: allGroups, index: i)
-            } else {
-                FlashCardView(groups: [group], index: 0) // ad-hoc group (DEBUG hook)
+            .toolbar(.hidden, for: .navigationBar) // the Hebrew title above is the header
+            .navigationDestination(for: Route.self) { route in
+                switch route {
+                case .letters: LetterGridView(kind: .letter)
+                case .vowels: LetterGridView(kind: .vowel)
+                case .bands: BandsView()
+                case .deck(let id): DeckGridView(deck: deck(id))
+                case .book(let name): VersePickerView(book: name)
+                case .group(let id): LessonListView(group: grammarGroups.first { $0.id == id }!)
+                case .lesson(let id): LessonView(lesson: lessonsByID[id]!)
+                case .settings: SettingsView()
+                }
             }
         }
         #if DEBUG
-        .onAppear { // UI smoke-test hooks: -openVerse / -openWave
+        .onAppear { // UI smoke-test hooks push the sub-screen; the sub-screen opens its leaf
             let args = ProcessInfo.processInfo.arguments
-            // delay: presenting during the first onAppear races the cold launch and silently no-ops
+            // delay: navigating during the first onAppear races the cold launch and silently no-ops
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                if args.contains("-genesis") { store.setCurrentBook("Genesis") } // modifier for the hooks below
-                if args.contains("-openPicker") {
-                    showPicker = true
-                } else if args.contains("-openVerse") {
-                    openVerse = VersePresentation(verse: store.ritualVerses[0], mode: .passive)
-                } else if args.contains("-openWave") {
-                    openVerse = VersePresentation(verse: store.ritualVerses[0], mode: .wave)
+                let bookName = args.contains("-genesis") ? "Genesis" : books[0].name
+                if args.contains("-openPicker") || args.contains("-openVerse") || args.contains("-openWave") {
+                    path.append(Route.book(bookName))
                 } else if args.contains("-openWords") {
-                    openDeck = wordBands[0]
+                    path.append(Route.bands)
                 } else if args.contains("-openVowel") {
-                    selected = LetterGroup(id: "qamats",
-                                           cards: ["qamats", "cholam", "kubuts", "segol"].compactMap { cardsByID[$0] })
+                    path.append(Route.vowels)
+                } else if args.contains("-openDeck") {
+                    path.append(Route.deck(decks[0].id))
+                } else if args.contains("-openSettings") {
+                    path.append(Route.settings)
+                } else if args.contains("-openLesson") {
+                    path.append(Route.lesson(args.contains("-stems") ? "stems" : "prep-suffixes"))
                 }
             }
         }
         #endif
     }
 
-    // — The daily reading (Assimil waves), through whichever book is current —
-
-    private var readingSection: some View {
-        let current = book(named: store.currentBook)
-        let done = current.verses.filter { store.verses[$0.id]?.passive != nil }.count
-        return VStack(alignment: .leading, spacing: 10) {
-            HStack {
-                Menu {
-                    ForEach(books) { b in
-                        Button {
-                            store.setCurrentBook(b.name)
-                        } label: {
-                            Label(b.name, systemImage: b.name == store.currentBook ? "checkmark" : "")
-                        }
-                    }
-                } label: {
-                    HStack(spacing: 4) {
-                        Text("\(current.heb) — \(current.name)").font(.headline)
-                        Image(systemName: "chevron.down").font(.caption2)
-                    }
-                    .foregroundStyle(.primary)
-                }
-                Spacer()
-                Button {
-                    showPicker = true
-                } label: {
-                    Image(systemName: "square.grid.2x2")
-                        .font(.footnote)
-                        .foregroundStyle(.blue)
-                }
-                .buttonStyle(.plain)
-                Text("\(done)/\(current.verses.count)")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-            }
-
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 12), spacing: 4) {
-                ForEach(Array(current.verses.enumerated()), id: \.element.id) { i, verse in
-                    let p = store.verses[verse.id]
-                    Button {
-                        openVerse = VersePresentation(verse: verse, mode: .passive)
-                    } label: {
-                        RoundedRectangle(cornerRadius: 4)
-                            .fill(verseColor(p, isNext: i == store.verseIndex))
-                            .frame(height: 18)
-                            .overlay {
-                                if i == store.verseIndex {
-                                    RoundedRectangle(cornerRadius: 4).strokeBorder(.blue, lineWidth: 1.5)
-                                }
-                            }
-                    }
-                    .buttonStyle(.plain)
-                    .disabled(p?.passive == nil && i != store.verseIndex)
-                }
-            }
-
-            HStack(spacing: 8) {
-                if let today = store.todaysVerse, !store.verseDoneToday {
-                    readingButton("▶ Today: \(today.ref)", .blue) {
-                        openVerse = VersePresentation(verse: today, mode: .passive)
-                    }
-                } else if store.todaysVerse != nil {
-                    Text("✓ Verse done today")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                        .frame(maxWidth: .infinity)
-                }
-                if let wave = store.waveVerse {
-                    readingButton("🌊 Wave: \(wave.ref)", .teal) {
-                        openVerse = VersePresentation(verse: wave, mode: .wave)
-                    }
-                }
-                if !store.recentVerses.isEmpty {
-                    Button {
-                        Speech.say(store.recentVerses.map(\.hebrew).joined(separator: ". "))
-                    } label: {
-                        Image(systemName: "arrow.trianglehead.2.clockwise")
-                            .padding(10)
-                            .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 10))
-                    }
-                    .buttonStyle(.plain)
-                }
-            }
-        }
-        .padding(.horizontal)
-        .padding(.bottom, 12)
-        // third presentation on this screen; it gets its own node so it actually fires
-        .sheet(isPresented: $showPicker) {
-            VersePickerView(book: store.currentBook) { verse in
-                openVerse = VersePresentation(verse: verse, mode: .passive)
-            }
-        }
-    }
-
-    // — Word deck: browse-only, "Learn this" opts a single card into the SRS —
-
-    private var wordsSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Words — commonest in the Bible").font(.headline).padding(.horizontal)
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), spacing: 10) {
-                ForEach(wordBands) { band in
-                    Button {
-                        openDeck = band
-                    } label: {
-                        VStack(spacing: 3) {
-                            Text(wordDeck[band.start].h)
-                                .font(.system(size: 28))
-                                .minimumScaleFactor(0.6)
-                                .lineLimit(1)
-                            Text(band.title).font(.caption2.bold())
-                            Text("\(band.floor)+ times")
-                                .font(.caption2).foregroundStyle(.secondary)
-                            Text("\(learningIn(band)) learning")
-                                .font(.caption2).foregroundStyle(.tertiary)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 10)
-                        .background(Color(.secondarySystemBackground),
-                                    in: RoundedRectangle(cornerRadius: 12))
-                    }
-                    .buttonStyle(.plain)
-                }
-            }
-            .padding(.horizontal)
-        }
-        .padding(.bottom, 12)
-        // second sheet hangs off this node; two sheets on one view don't both fire
-        .sheet(item: $openDeck) { band in
-            WordDeckView(band: band)
-        }
-    }
-
-    private func learningIn(_ band: WordBand) -> Int {
-        wordDeck[band.start ..< band.start + band.count]
-            .filter { store.tapped.contains($0.id) }.count
-    }
-
-    private func verseColor(_ p: VerseProgress?, isNext: Bool) -> Color {
-        if p?.wave != nil { return .green.opacity(0.6) }
-        if p?.passive != nil { return .blue.opacity(0.45) }
-        return Color(.secondarySystemBackground)
-    }
-
-    private func readingButton(_ label: String, _ color: Color, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Text(label)
-                .font(.subheadline.bold())
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 10)
-                .background(color.opacity(0.15), in: RoundedRectangle(cornerRadius: 10))
-                .foregroundStyle(color)
-        }
-    }
-
-    private func learnedIn(_ cards: [Card]) -> Int {
-        cards.filter { (store.states[$0.id]?.intervalDays ?? 0) >= 1 }.count
-    }
-
-    private func tileColor(_ group: LetterGroup) -> Color {
-        let states = group.cards.map { store.states[$0.id] }
-        if states.allSatisfy({ ($0?.intervalDays ?? 0) >= 1 }) { return .green.opacity(0.2) }
-        if states.contains(where: { $0 != nil }) { return .blue.opacity(0.15) }
-        return Color(.secondarySystemBackground)
-    }
-
-    private func section(_ title: String, _ groups: [LetterGroup], columns: Int) -> some View {
+    private func section<Tiles: View>(_ title: String, @ViewBuilder tiles: () -> Tiles) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title).font(.headline).padding(.horizontal)
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: columns), spacing: 10) {
-                ForEach(groups) { group in
-                    Button {
-                        selected = group
-                    } label: {
-                        VStack(spacing: 2) {
-                            Text(group.cards.map(\.displayGlyph).joined(separator: " "))
-                                .font(.system(size: group.cards[0].kind == .vowel ? 48 : 30))
-                                .minimumScaleFactor(0.6)
-                                .lineLimit(1)
-                            Text(group.cards.map(\.name).joined(separator: " · "))
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
-                                .minimumScaleFactor(0.6)
-                                .lineLimit(1)
-                            Text(group.cards.map { $0.sound.components(separatedBy: " (")[0] }
-                                    .joined(separator: " · "))
-                                .font(.caption2.bold())
-                                .foregroundStyle(.tertiary)
-                                .minimumScaleFactor(0.6)
-                                .lineLimit(1)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 10)
-                        .padding(.horizontal, 4)
-                        .background(tileColor(group), in: RoundedRectangle(cornerRadius: 12))
-                    }
-                    .buttonStyle(.plain)
-                }
-            }
-            .padding(.horizontal)
-            .environment(\.layoutDirection, .rightToLeft) // rows flow right-to-left, like Hebrew
+            LazyVGrid(columns: columns, spacing: 10, content: tiles)
+                .buttonStyle(.plain) // links and buttons alike: no accent tint on the tiles
+                .padding(.horizontal)
         }
-        .padding(.bottom, 12)
+        .padding(.bottom, 20)
+    }
+
+    private func tile(_ glyph: String, _ label: String) -> some View {
+        VStack(spacing: 4) {
+            Text(glyph)
+                .font(.system(size: 30))
+                .minimumScaleFactor(0.5)
+                .lineLimit(1)
+            Text(label)
+                .font(.caption.bold())
+                .foregroundStyle(.secondary)
+                .minimumScaleFactor(0.7)
+                .lineLimit(1)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 12)
+        .padding(.horizontal, 4)
+        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
     }
 }

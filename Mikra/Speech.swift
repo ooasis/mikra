@@ -77,12 +77,15 @@ enum Speech {
         return s
     }()
 
-    static func say(_ text: String, pace: Pace = .normal) {
+    /// The global reading speed, set from Settings (and the reader's pace buttons) via the Store.
+    static var pace: Pace = .normal
+
+    static func say(_ text: String, pace: Pace = Speech.pace) {
         speak([text], pace: pace)
     }
 
     /// Word by word, in order, with the pace's gap after each.
-    static func say(words: [String], pace: Pace) {
+    static func say(words: [String], pace: Pace = Speech.pace) {
         speak(words, pace: pace)
     }
 

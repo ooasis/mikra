@@ -9,8 +9,11 @@ struct WordCard: Codable, Identifiable {
     let n: Int          // occurrences in the Hebrew Bible
     let root: [String]  // same-root siblings, by Strong's number
     let conf: [String]  // look-alikes a beginner mixes up
+    var forms: [WordCard]? = nil // curated decks: every gender/number form of this meaning
 
     var id: String { "w-" + s }
+    /// What "Learn this" enrols and the speaker reads: each form, or the word itself.
+    var units: [WordCard] { forms ?? [self] }
 }
 
 let wordDeck: [WordCard] = {
@@ -41,23 +44,44 @@ let wordBands: [WordBand] = stride(from: 0, to: wordDeck.count, by: wordBandSize
                     start: start, count: end - start, floor: wordDeck[end - 1].n)
 }
 
+/// Curated decks (Pronouns, Numbers) from gen-words.py, shown with the same deck view as the bands.
+struct Deck: Codable, Identifiable {
+    let id: String
+    let title: String
+    let note: String
+    let cards: [WordCard]
+}
+
+let decks: [Deck] = {
+    let url = Bundle.main.url(forResource: "Decks", withExtension: "json")!
+    return try! JSONDecoder().decode([Deck].self, from: Data(contentsOf: url))
+}()
+
+func deck(_ id: String) -> Deck { decks.first { $0.id == id }! }
+
 /// Deck words as SRS cards, for when "Learn this" enrolls one.
-let wordCardsByID: [String: Card] = Dictionary(uniqueKeysWithValues: wordDeck.map {
-    ($0.id, Card(id: $0.id, hebrew: $0.h, name: $0.g, sound: "", kind: .word))
-})
+/// A number that is also in the frequency deck shares its id, so it is one card either way.
+let wordCardsByID: [String: Card] = Dictionary(
+    (wordDeck + decks.flatMap(\.cards).flatMap(\.units)).map {
+        ($0.id, Card(id: $0.id, hebrew: $0.h, name: $0.g, sound: "", kind: .word))
+    }, uniquingKeysWith: { a, _ in a })
 
 /// Everything enrollable by hand: words tapped in the reader, and words taken from the deck.
 let enrolledCardsByID = verseWordCardsByID.merging(wordCardsByID) { a, _ in a }
 
 #if DEBUG
-/// Smallest check that fails if a shuffled set stops covering exactly its band.
+/// Smallest check that fails if a band stops opening exactly its own cards, or a deck is empty.
 func wordDeckSelfCheck() {
     assert(wordDeck.count == wordBands.reduce(0) { $0 + $1.count }, "bands don't cover the deck")
     for band in wordBands {
-        let order = WordDeckView.shuffledOrder(for: band)
-        assert(order.count == band.count, "\(band.title) lost cards in the shuffle")
-        assert(Set(order) == Set(band.start ..< band.start + band.count),
-               "\(band.title) shuffled to the wrong cards")
+        let cards = WordDeckView.cards(for: band)
+        assert(cards.map(\.s) == wordDeck[band.start ..< band.start + band.count].map(\.s),
+               "\(band.title) opens the wrong cards")
+    }
+    for d in decks {
+        assert(!d.cards.isEmpty, "\(d.title) deck is empty")
+        let ids = d.cards.flatMap(\.units).map(\.id)
+        assert(Set(ids).count == ids.count, "\(d.title) has duplicate ids")
     }
 }
 #endif
