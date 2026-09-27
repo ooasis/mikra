@@ -5,6 +5,7 @@
 - [x] Version 1.0 (build 3, uploaded 2026-09-19) — **approved and live on the App Store**
 - [x] Version 1.1 (build 5, uploaded 2026-09-24): word frequency deck, Genesis 1, slow read-aloud, word swipe, verse swipe
   - build 4 superseded by build 5 (verse swiping landed after it)
+- [x] Version 1.2 (build 6, uploaded 2026-09-26): dashboard home (words / verses / grammar), pronoun and number decks, 40 grammar lessons with tables, settings (appearance, reading speed), pronunciation after reveal
 - [x] Export compliance key (ITSAppUsesNonExemptEncryption=NO)
 - [x] 6.9" screenshots in appstore/screenshots/ (1320×2868, iPhone 17 Pro Max)
 - [x] Metadata drafts (metadata.md)
@@ -21,7 +22,7 @@
 - [x] App Privacy: answer "No" to data collection → publish "Data Not Collected".  (done for 1.0)
 - [x] Age rating questionnaire → 4+.  (done for 1.0)
 - [x] 1.0 version page (done for 1.0).
-- [ ] **1.1 version page**: create the 1.1 version in App Store Connect, select build 5 once processed, add “What’s New” text, then submit.
+- [ ] **1.2 version page**: create the 1.2 version in App Store Connect, select build 6 once processed, add “What’s New” text, then submit.
 
 ## Archive & upload
 
@@ -72,7 +73,7 @@ thing by hand; drop the archive in
 
 ## Submit
 - [ ] Add App Review notes from metadata.md.
-- [ ] Submit 1.1 for Review.
+- [ ] Submit 1.2 for Review.
 
 ## Gotchas that cause first-submission rejections
 - Privacy policy URL must load publicly (test in an incognito window).
