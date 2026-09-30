@@ -5,9 +5,10 @@
 - [x] Version 1.0 (build 3, uploaded 2026-09-19) — **approved and live on the App Store**
 - [x] Version 1.1 (build 5, uploaded 2026-09-24): word frequency deck, Genesis 1, slow read-aloud, word swipe, verse swipe
   - build 4 superseded by build 5 (verse swiping landed after it)
-- [x] Version 1.2 (build 6, uploaded 2026-09-26): dashboard home (words / verses / grammar), pronoun and number decks, 40 grammar lessons with tables, settings (appearance, reading speed), pronunciation after reveal
+- [x] Version 1.2 (build 6, uploaded 2026-09-26): dashboard home (words / verses / grammar), pronoun and number decks, 40 grammar lessons with tables, settings (appearance, reading speed), pronunciation after reveal — **approved and live**
+- [x] Version 1.3 (build 7, uploaded 2026-09-29): custom word sets (bookmark on any card; sets open as shuffled flash cards), record yourself reading a verse and play it back, coloured vowel points everywhere, five word bands
 - [x] Export compliance key (ITSAppUsesNonExemptEncryption=NO)
-- [x] Screenshots in appstore/screenshots/, refreshed for 1.2: five screens (home, verse, pronoun deck, grammar lesson, vowel card) × light/dark, 6.9" (1320×2868, iPhone 17 Pro Max simulator) and 6.5" (1284×2778, iPhone 14 Plus simulator); captured with the -openVerse/-showText/-openDeck/-reveal/-openLesson/-openVowel launch hooks
+- [x] Screenshots in appstore/screenshots/: five screens (home, verse, pronoun deck, grammar lesson, vowel card); captured with the -openVerse/-showText/-openDeck/-reveal/-openLesson/-openVowel launch hooks. For 1.3 only the dark 6.5" set (`dark-*-6.5.png`, 1284×2778, iPhone 14 Plus simulator, home seeded with one custom set) was refreshed; the light and 6.9" files still show 1.2
 - [x] Metadata drafts (metadata.md)
 - [x] Privacy policy text (privacy-policy.md)
 
@@ -22,7 +23,12 @@
 - [x] App Privacy: answer "No" to data collection → publish "Data Not Collected".  (done for 1.0)
 - [x] Age rating questionnaire → 4+.  (done for 1.0)
 - [x] 1.0 version page (done for 1.0).
-- [ ] **1.2 version page**: create the 1.2 version in App Store Connect, select build 6 once processed, add “What’s New” text, then submit.
+- [x] 1.2 version page (done, live).
+- [ ] **1.3 version page**: create the 1.3 version in App Store Connect, select build 7 once processed, upload the five `dark-*-6.5.png` screenshots, add “What’s New” (below), then submit.
+
+What’s New for 1.3:
+
+> Make your own word sets: tap the bookmark on any word card to collect it, then open the set from the home screen as shuffled flash cards. Record yourself reading a verse and play it back beside the app’s reading. Vowel points are now coloured everywhere, and the common-words deck has five bands.
 
 ## Archive & upload
 
@@ -73,7 +79,7 @@ thing by hand; drop the archive in
 
 ## Submit
 - [ ] Add App Review notes from metadata.md.
-- [ ] Submit 1.2 for Review.
+- [ ] Submit 1.3 for Review.
 
 ## Gotchas that cause first-submission rejections
 - Privacy policy URL must load publicly (test in an incognito window).
