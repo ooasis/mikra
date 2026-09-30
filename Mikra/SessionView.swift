@@ -28,7 +28,7 @@ struct SessionView: View {
                 if card.kind == .vowel {
                     VowelGlyph(card: card, size: 85)
                 } else {
-                    Text(card.hebrew)
+                    Text(pointed(card.hebrew))
                         .font(.system(size: 120))
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)

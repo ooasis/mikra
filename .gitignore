@@ -3,3 +3,5 @@ Mikra.xcodeproj/
 xcuserdata/
 .wrangler/
 .cache/
+build/
+__pycache__/

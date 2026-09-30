@@ -35,6 +35,23 @@ struct VerseProgress: Codable {
     var wave: Date? = nil    // second wave: read aloud cold, owned
 }
 
+/// A hand-made word set: ids into `wordCardByID`, in the order they were added.
+struct WordSet: Codable, Identifiable {
+    var id = UUID().uuidString
+    var name: String
+    var ids: [String] = []
+}
+
+/// "my-card", then "my-card-2", "my-card-3", … — the first name not already taken.
+func nextSetName(taken: [String]) -> String {
+    var n = 1
+    while true {
+        let name = n == 1 ? "my-card" : "my-card-\(n)"
+        if !taken.contains(name) { return name }
+        n += 1
+    }
+}
+
 final class Store: ObservableObject {
     private struct Snapshot: Codable {
         var states: [String: CardState] = [:]
@@ -46,6 +63,7 @@ final class Store: ObservableObject {
         var currentBook: String? = nil
         var pace: String? = nil
         var appearance: String? = nil
+        var sets: [WordSet]? = nil
     }
 
     @Published private(set) var states: [String: CardState] = [:]
@@ -58,6 +76,7 @@ final class Store: ObservableObject {
     /// would pull in a required-reason API and a privacy manifest.
     @Published private(set) var pace: Pace = .normal { didSet { Speech.pace = pace } }
     @Published private(set) var appearance: Appearance = .system
+    @Published private(set) var sets: [WordSet] = []
     private var lastStudyDay: Date?
     private var lastVerseDay: Date?
 
@@ -77,6 +96,7 @@ final class Store: ObservableObject {
             }
             if let saved = snap.pace, let p = Pace(rawValue: saved) { pace = p }
             if let saved = snap.appearance, let a = Appearance(rawValue: saved) { appearance = a }
+            sets = snap.sets ?? []
         }
         Speech.pace = pace
     }
@@ -186,6 +206,39 @@ final class Store: ObservableObject {
 
     func tapWord(_ w: VerseWord) { enroll(verseWordCardID(w)) }
 
+    // — Custom word sets —
+
+    /// An empty name gets the next "my-card" name.
+    @discardableResult
+    func createSet(named name: String, with cardID: String? = nil) -> WordSet {
+        let trimmed = name.trimmingCharacters(in: .whitespaces)
+        let set = WordSet(name: trimmed.isEmpty ? nextSetName(taken: sets.map(\.name)) : trimmed,
+                          ids: cardID.map { [$0] } ?? [])
+        sets.append(set)
+        save()
+        return set
+    }
+
+    /// Adds the word to the set, or takes it out again if it is already there.
+    func toggle(_ cardID: String, in setID: String) {
+        guard let i = sets.firstIndex(where: { $0.id == setID }) else { return }
+        if let j = sets[i].ids.firstIndex(of: cardID) { sets[i].ids.remove(at: j) } else { sets[i].ids.append(cardID) }
+        save()
+    }
+
+    func renameSet(_ setID: String, to name: String) {
+        guard let i = sets.firstIndex(where: { $0.id == setID }) else { return }
+        let trimmed = name.trimmingCharacters(in: .whitespaces)
+        guard !trimmed.isEmpty else { return }
+        sets[i].name = trimmed
+        save()
+    }
+
+    func deleteSet(_ setID: String) {
+        sets.removeAll { $0.id == setID }
+        save()
+    }
+
     /// Next unseen cards, in curriculum order.
     func newCards(limit: Int) -> [Card] {
         Array(curriculum.filter { states[$0.id] == nil }.prefix(limit))
@@ -204,6 +257,7 @@ final class Store: ObservableObject {
         tapped = []
         currentBook = books[0].name
         pace = .normal
+        sets = []
         lastStudyDay = nil
         lastVerseDay = nil
         try? FileManager.default.removeItem(at: url)
@@ -225,7 +279,7 @@ final class Store: ObservableObject {
         let snap = Snapshot(states: states, streak: streak, lastStudyDay: lastStudyDay,
                             verses: verses, tapped: tapped, lastVerseDay: lastVerseDay,
                             currentBook: currentBook, pace: pace.rawValue,
-                            appearance: appearance.rawValue)
+                            appearance: appearance.rawValue, sets: sets)
         try? JSONEncoder().encode(snap).write(to: url)
     }
 }
@@ -244,5 +298,7 @@ func srsSelfCheck() {
     assert(again.ease < good2.ease, "again lowers ease")
     let easy = SM2.apply(.easy, to: fresh, now: now)
     assert(easy.intervalDays >= 2, "easy skips ahead")
+    assert(nextSetName(taken: []) == "my-card", "first set is my-card")
+    assert(nextSetName(taken: ["my-card", "my-card-2"]) == "my-card-3", "set names count up")
 }
 #endif

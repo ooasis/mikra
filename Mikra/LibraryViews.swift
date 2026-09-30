@@ -93,8 +93,8 @@ struct DeckGridView: View {
                         start = Start(i: i)
                     } label: {
                         VStack(spacing: 2) {
-                            Text(card.h)
-                                .font(.system(size: 30))
+                            Text(pointed(card.h))
+                                .font(.system(size: 40))
                                 .minimumScaleFactor(0.6)
                                 .lineLimit(1)
                             Text(card.g)
@@ -103,9 +103,8 @@ struct DeckGridView: View {
                                 .minimumScaleFactor(0.6)
                                 .lineLimit(1)
                             // the other forms, like a letter tile's dagesh/final variants
-                            Text(card.units.dropFirst().map(\.h).joined(separator: " · "))
-                                .font(.caption2.bold())
-                                .foregroundStyle(.tertiary)
+                            Text(pointed(card.units.dropFirst().map(\.h).joined(separator: " · ")))
+                                .font(.system(size: 18))
                                 .minimumScaleFactor(0.5)
                                 .lineLimit(1)
                         }
@@ -135,10 +134,85 @@ struct DeckGridView: View {
         }
         #if DEBUG
         .onAppear { // UI smoke-test hook
-            guard ProcessInfo.processInfo.arguments.contains("-openDeck") else { return }
+            let args = ProcessInfo.processInfo.arguments
+            guard args.contains("-openDeck"), !args.contains("-grid") else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { start = Start(i: 2) }
         }
         #endif
+    }
+}
+
+/// Editing a custom set (long-press its home tile): prune words, rename, delete.
+/// A row opens the set as a deck at that word; the home tile opens it shuffled.
+struct WordSetView: View {
+    @EnvironmentObject var store: Store
+    @Environment(\.dismiss) private var dismiss
+    let setID: String
+    @State private var start: DeckGridView.Start?
+    @State private var renaming = false
+    @State private var newName = ""
+    @State private var confirmingDelete = false
+
+    private var wordSet: WordSet? { store.sets.first { $0.id == setID } }
+    private var cards: [WordCard] { wordSet?.ids.compactMap { wordCardByID[$0] } ?? [] }
+
+    var body: some View {
+        List {
+            if cards.isEmpty {
+                Text("No words yet — tap the bookmark on any word card to add one.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
+            ForEach(Array(cards.enumerated()), id: \.element.id) { i, card in
+                Button {
+                    start = DeckGridView.Start(i: i)
+                } label: {
+                    HStack {
+                        Text(card.g).foregroundStyle(.secondary)
+                        Spacer()
+                        Text(pointed(card.h)).font(.system(size: 40))
+                    }
+                }
+                .buttonStyle(.plain)
+            }
+            .onDelete { offsets in
+                offsets.map { cards[$0].id }.forEach { store.toggle($0, in: setID) }
+            }
+        }
+        .navigationTitle(wordSet?.name ?? "")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            Menu {
+                Button {
+                    newName = wordSet?.name ?? ""
+                    renaming = true
+                } label: {
+                    Label("Rename", systemImage: "pencil")
+                }
+                Button(role: .destructive) {
+                    confirmingDelete = true
+                } label: {
+                    Label("Delete set", systemImage: "trash")
+                }
+            } label: {
+                Image(systemName: "ellipsis.circle")
+            }
+        }
+        .alert("Rename set", isPresented: $renaming) {
+            TextField("Name", text: $newName)
+            Button("Save") { store.renameSet(setID, to: newName) }
+            Button("Cancel", role: .cancel) {}
+        }
+        .confirmationDialog("Delete this set? The words stay in their decks.",
+                            isPresented: $confirmingDelete, titleVisibility: .visible) {
+            Button("Delete set", role: .destructive) {
+                store.deleteSet(setID)
+                dismiss()
+            }
+        }
+        .sheet(item: $start) { s in
+            WordDeckView(title: wordSet?.name ?? "", cards: cards, shuffle: false, start: s.i)
+        }
     }
 }
 
@@ -155,8 +229,8 @@ struct BandsView: View {
                         openBand = band
                     } label: {
                         VStack(spacing: 3) {
-                            Text(wordDeck[band.start].h)
-                                .font(.system(size: 28))
+                            Text(pointed(wordDeck[band.start].h))
+                                .font(.system(size: 38))
                                 .minimumScaleFactor(0.6)
                                 .lineLimit(1)
                             Text(band.title).font(.caption2.bold())
@@ -221,11 +295,11 @@ struct LessonView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                Text(ltr(lesson.why))
+                Text(pointed(ltr(lesson.why)))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                 ForEach(lesson.body, id: \.self) { paragraph in
-                    Text(ltr(paragraph))
+                    Text(pointed(ltr(paragraph)))
                 }
                 ForEach(lesson.tables ?? [], id: \.self) { table in
                     lessonTable(table)
@@ -236,9 +310,9 @@ struct LessonView: View {
                         Speech.say(e.h)
                     } label: {
                         HStack(alignment: .firstTextBaseline, spacing: 12) {
-                            Text(e.h)
-                                .font(.system(size: 26))
-                                .frame(minWidth: 96, alignment: .trailing)
+                            Text(pointed(e.h))
+                                .font(.system(size: 38))
+                                .frame(minWidth: 130, alignment: .trailing)
                             VStack(alignment: .leading, spacing: 1) {
                                 Text(ltr(e.g)).font(.subheadline)
                                 if let ref = e.ref {
@@ -300,7 +374,7 @@ struct LessonView: View {
                     GridRow {
                         ForEach(Array(row.enumerated()), id: \.offset) { i, cell in
                             if cell.unicodeScalars.contains(where: { (0x05D0...0x05EA).contains($0.value) }) {
-                                Text(ltr(cell)).font(.system(size: 20)).lineSpacing(2)
+                                Text(pointed(ltr(cell))).font(.system(size: 28)).lineSpacing(2)
                             } else {
                                 Text(cell).font(.subheadline)
                                     .foregroundStyle(i == 0 ? .secondary : .primary)

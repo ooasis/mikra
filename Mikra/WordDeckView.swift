@@ -5,8 +5,11 @@ import SwiftUI
 /// Browse-only — nothing is scheduled unless you tap "Learn this".
 struct WordDeckView: View {
     @EnvironmentObject var store: Store
+    @Environment(\.dismiss) private var dismiss
     let title: String
     let note: String?
+    /// Set when the deck is a custom set, so a card can be dropped from it in one tap.
+    let setID: String?
     /// "See also" links can pull a sibling in from the frequency deck, so this grows.
     @State private var cards: [WordCard]
     /// Indices into `cards`, shuffled once when the deck opens and then left alone,
@@ -14,13 +17,18 @@ struct WordDeckView: View {
     @State private var order: [Int]
     @State private var index = 0
     @State private var revealed = false
+    @State private var namingSet = false
+    @State private var newSetName = ""
 
-    init(title: String, note: String? = nil, cards: [WordCard], shuffle: Bool = true, start: Int = 0) {
+    init(title: String, note: String? = nil, cards: [WordCard], shuffle: Bool = true, start: Int = 0,
+         revealed: Bool = false, setID: String? = nil) {
         self.title = title
         self.note = note
+        self.setID = setID
         _cards = State(initialValue: cards)
         _order = State(initialValue: shuffle ? Array(cards.indices).shuffled() : Array(cards.indices))
         _index = State(initialValue: start)
+        _revealed = State(initialValue: revealed)
     }
 
     init(band: WordBand) {
@@ -53,6 +61,13 @@ struct WordDeckView: View {
         .presentationDragIndicator(.visible)
         .safeAreaInset(edge: .bottom) { actionBar }
         .onChange(of: index) { revealed = false }
+        .alert("New set", isPresented: $namingSet) {
+            TextField(nextSetName(taken: store.sets.map(\.name)), text: $newSetName)
+            Button("Create") { store.createSet(named: newSetName, with: card.id) }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Name the set this word starts.")
+        }
         #if DEBUG
         .onAppear { if ProcessInfo.processInfo.arguments.contains("-reveal") { revealed = true } } // UI smoke-test hook
         #endif
@@ -94,7 +109,7 @@ struct WordDeckView: View {
                     VStack(spacing: 10) {
                         ForEach(forms) { f in
                             HStack(alignment: .firstTextBaseline, spacing: 12) {
-                                Text(f.h).font(.system(size: 44)).minimumScaleFactor(0.5).lineLimit(1)
+                                Text(pointed(f.h)).font(.system(size: 60)).minimumScaleFactor(0.5).lineLimit(1)
                                 VStack(alignment: .leading, spacing: 1) {
                                     Text(f.g).font(.subheadline).foregroundStyle(.secondary)
                                     Text(pronounce(f.h)).font(.caption).foregroundStyle(.tertiary)
@@ -105,8 +120,8 @@ struct WordDeckView: View {
                     }
                     .padding(.top, 24)
                 } else {
-                    Text(word.h)
-                        .font(.system(size: 64))
+                    Text(pointed(word.h))
+                        .font(.system(size: 96))
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
                         .padding(.top, 32)
@@ -165,7 +180,7 @@ struct WordDeckView: View {
             }
         } label: {
             HStack(spacing: 8) {
-                Text(wordDeck[wordIndexByStrongs[strongs] ?? 0].h).font(.title3)
+                Text(pointed(wordDeck[wordIndexByStrongs[strongs] ?? 0].h)).font(.system(size: 32))
                 VStack(alignment: .leading, spacing: 1) {
                     Text(wordDeck[wordIndexByStrongs[strongs] ?? 0].g).font(.subheadline)
                     Text(why).font(.caption2).foregroundStyle(.tertiary)
@@ -176,6 +191,54 @@ struct WordDeckView: View {
             .padding(.vertical, 8)
             .padding(.horizontal, 12)
             .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 10))
+        }
+        .buttonStyle(.plain)
+    }
+
+    /// Drops the card from the set and from this deck; the last card closes the deck.
+    private func removeButton(_ setID: String) -> some View {
+        Button {
+            store.toggle(card.id, in: setID)
+            order.remove(at: index)
+            guard !order.isEmpty else { return dismiss() }
+            index = min(index, order.count - 1)
+            revealed = false
+        } label: {
+            Image(systemName: "bookmark.slash")
+                .font(.headline)
+                .foregroundStyle(.red)
+                .padding(.vertical, 14)
+                .padding(.horizontal, 20)
+                .background(Color(.secondarySystemBackground), in: Capsule())
+        }
+        .buttonStyle(.plain)
+    }
+
+    /// Tick a set to put the word in it, tick again to take it out; the last item starts a new set.
+    private var setMenu: some View {
+        let inSets = store.sets.filter { $0.ids.contains(card.id) }
+        return Menu {
+            ForEach(store.sets) { set in
+                Button {
+                    store.toggle(card.id, in: set.id)
+                } label: {
+                    Label(set.name, systemImage: set.ids.contains(card.id) ? "checkmark" : "")
+                }
+            }
+            if !store.sets.isEmpty { Divider() }
+            Button {
+                newSetName = ""
+                namingSet = true
+            } label: {
+                Label("New set…", systemImage: "plus")
+            }
+        } label: {
+            Image(systemName: inSets.isEmpty ? "bookmark" : "bookmark.fill")
+                .font(.headline)
+                .foregroundStyle(inSets.isEmpty ? Color.primary : Color.orange)
+                .padding(.vertical, 14)
+                .padding(.horizontal, 20)
+                .background(Color(.secondarySystemBackground), in: Capsule())
         }
         .buttonStyle(.plain)
     }
@@ -193,6 +256,12 @@ struct WordDeckView: View {
                     .background(Color(.secondarySystemBackground), in: Capsule())
             }
             .buttonStyle(.plain)
+
+            if let setID {
+                removeButton(setID)
+            } else if !card.s.isEmpty { // a lesson phrase has no card to collect
+                setMenu
+            }
 
             if revealed, card.s.isEmpty {
                 // a lesson example is a phrase, not a dictionary word — nothing to enrol

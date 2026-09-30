@@ -30,7 +30,8 @@ struct VerseView: View {
         // audio belongs to the pager: a page's own onAppear would fire for the
         // neighbours TabView builds off-screen, and they'd all start talking
         .onAppear { if mode == .passive { Speech.say(verse: verse, pace: Speech.pace) } }
-        .onChange(of: index) { Speech.stop() }
+        .onChange(of: index) { Speech.stop(); Recorder.shared.stop() }
+        .onDisappear { Recorder.shared.stop() }
     }
 }
 
@@ -39,6 +40,7 @@ private struct VersePage: View {
     let mode: VerseMode
     @EnvironmentObject var store: Store
     @ObservedObject private var monitor = SpeechMonitor.shared
+    @ObservedObject private var recorder = Recorder.shared
     @Environment(\.dismiss) private var dismiss
 
     private enum Stage { case listen, read, check }
@@ -125,11 +127,40 @@ private struct VersePage: View {
         }
     }
 
+    /// Record yourself, then hear it back next to the synthesized reading.
+    private var recordControls: some View {
+        HStack(spacing: 8) {
+            Button {
+                recorder.isRecording ? recorder.stop() : recorder.record(verse)
+            } label: {
+                Label(recorder.isRecording ? "Stop" : "Record me",
+                      systemImage: recorder.isRecording ? "stop.fill" : "mic.fill")
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 11)
+                    .background(recorder.isRecording ? Color.red : Color(.secondarySystemBackground),
+                                in: Capsule())
+                    .foregroundStyle(recorder.isRecording ? .white : .red)
+            }
+            Button {
+                recorder.isPlaying ? recorder.stop() : recorder.play(verse)
+            } label: {
+                Label(recorder.isPlaying ? "Stop" : "Play me",
+                      systemImage: recorder.isPlaying ? "stop.fill" : "play.fill")
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 11)
+                    .background(Color(.secondarySystemBackground), in: Capsule())
+            }
+            .disabled(recorder.isRecording || !Recorder.hasTake(for: verse))
+        }
+        .buttonStyle(.plain)
+        .font(.subheadline)
+    }
+
     private var readStage: some View {
         VStack(alignment: .leading, spacing: 20) {
             if mode == .wave && stage == .read {
                 Text("Second wave — read it aloud, no help.")
-                    .font(.subheadline)
+                    .font(.body)
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity)
                     .multilineTextAlignment(.center)
@@ -141,8 +172,8 @@ private struct VersePage: View {
                         store.tapWord(word)
                         Speech.say(word.h)
                     } label: {
-                        Text(word.h)
-                            .font(.system(size: 32))
+                        Text(pointed(word.h))
+                            .font(.system(size: 56))
                             .foregroundStyle(.primary)
                             .padding(.vertical, 2)
                             .padding(.horizontal, 3)
@@ -163,17 +194,18 @@ private struct VersePage: View {
             .padding(.horizontal, 4)
 
             paceControls
+            recordControls
 
             if stage == .check {
                 Text(verse.en)
-                    .font(.body)
+                    .font(.title2)
                     .foregroundStyle(.secondary)
                     .padding(.top, 8)
             } else if mode == .passive {
                 Text(store.pace.wordByWord
                      ? "Tap any word you don't know — it joins your drills.\nPlay follows along, one word at a time."
                      : "Tap any word you don't know — it joins your drills.")
-                    .font(.footnote)
+                    .font(.subheadline)
                     .foregroundStyle(.tertiary)
                     .frame(maxWidth: .infinity)
                     .multilineTextAlignment(.center)
@@ -262,11 +294,11 @@ private struct WordSheet: View {
                 Text("\(position + 1) / \(words.count)")
                     .font(.caption2)
                     .foregroundStyle(.tertiary)
-                Text(word.h).font(.system(size: 64)).minimumScaleFactor(0.5).lineLimit(1)
-                Text(word.g).font(.title3).multilineTextAlignment(.center)
+                Text(pointed(word.h)).font(.system(size: 88)).minimumScaleFactor(0.5).lineLimit(1)
+                Text(word.g).font(.title2).multilineTextAlignment(.center)
                 if let n = word.n {
                     Text(n)
-                        .font(.footnote)
+                        .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal)

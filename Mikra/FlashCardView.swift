@@ -17,6 +17,7 @@ struct VowelGlyph: View {
                 .foregroundStyle(.secondary)
             if card.id != "cholam" { mark(u) }
         }
+        .foregroundStyle(vowelColor(in: card.hebrew)) // the placeholder circle takes a lighter tint of it
     }
 
     @ViewBuilder
@@ -119,8 +120,8 @@ struct FlashCardView: View {
                                 if card.kind == .vowel {
                                     VowelGlyph(card: card, size: 60)
                                 } else {
-                                    Text(card.hebrew)
-                                        .font(.system(size: cards.count > 2 ? 64 : 80))
+                                    Text(pointed(card.hebrew))
+                                        .font(.system(size: cards.count > 2 ? 80 : 100))
                                 }
                                 Text(card.name).font(.headline)
                                 if let pron = card.namePron {
@@ -140,7 +141,7 @@ struct FlashCardView: View {
                 .environment(\.layoutDirection, .rightToLeft)
 
                 ForEach(cards.filter { $0.note != nil }) { card in
-                    Text(card.note!)
+                    Text(pointed(card.note!))
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
@@ -163,7 +164,7 @@ struct FlashCardView: View {
                                     say(combo.hebrew)
                                 } label: {
                                     VStack(spacing: 2) {
-                                        Text(combo.hebrew).font(.system(size: 34))
+                                        Text(pointed(combo.hebrew)).font(.system(size: 44))
                                         Text(combo.caption).font(.caption2).foregroundStyle(.secondary)
                                     }
                                     .frame(maxWidth: .infinity)
