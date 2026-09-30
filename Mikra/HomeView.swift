@@ -36,7 +36,7 @@ struct HomeView: View {
                     .padding(.horizontal)
                     .padding(.bottom, 12)
 
-                    TextField(Zh.on ? "搜索词义" : "Search words in English", text: $query)
+                    TextField(Zh.on ? "搜索词义（中文或英文）" : "Search words in English or 中文", text: $query)
                         .textFieldStyle(.roundedBorder)
                         .autocorrectionDisabled()
                         .overlay(alignment: .trailing) {
