@@ -18,8 +18,8 @@ targets:
         CODE_SIGN_STYLE: Automatic
         DEVELOPMENT_TEAM: 263U684LP7
         INFOPLIST_KEY_CFBundleDisplayName: Mikra
-        MARKETING_VERSION: "1.2"
-        CURRENT_PROJECT_VERSION: 6
+        MARKETING_VERSION: "1.3"
+        CURRENT_PROJECT_VERSION: 7
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
         INFOPLIST_KEY_NSMicrophoneUsageDescription: Mikra records your voice so you can hear yourself read a verse.
