@@ -197,7 +197,7 @@ private struct VersePage: View {
             recordControls
 
             if stage == .check {
-                Text(verse.en)
+                Text(verse.text)
                     .font(.title2)
                     .foregroundStyle(.secondary)
                     .padding(.top, 8)
@@ -295,9 +295,9 @@ private struct WordSheet: View {
                     .font(.caption2)
                     .foregroundStyle(.tertiary)
                 Text(pointed(word.h)).font(.system(size: 88)).minimumScaleFactor(0.5).lineLimit(1)
-                Text(word.g).font(.title2).multilineTextAlignment(.center)
+                Text(tr(word.g)).font(.title2).multilineTextAlignment(.center)
                 if let n = word.n {
-                    Text(n)
+                    Text(tr(n))
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)

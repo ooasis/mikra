@@ -12,6 +12,7 @@ struct MikraApp: App {
         wordDeckSelfCheck()
         grammarSelfCheck()
         pronounceSelfCheck()
+        zhSelfCheck()
         assert(decks.map(\.id) == ["pronouns", "numbers"], "Decks.json should bundle Pronouns and Numbers")
         assert(book(named: "Jonah").verses.count == 48, "Texts.json should bundle 48 Jonah verses")
         assert(book(named: "Genesis").verses.count == 31, "Texts.json should bundle Genesis 1")

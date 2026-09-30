@@ -30,6 +30,17 @@ struct SettingsView: View {
                 .pickerStyle(.segmented)
             }
             Section {
+                Picker("Meanings", selection: Binding(get: { store.language },
+                                                      set: { store.setLanguage($0) })) {
+                    ForEach(Language.allCases) { Text($0.label).tag($0) }
+                }
+                .pickerStyle(.segmented)
+            } header: {
+                Text("Meanings")
+            } footer: {
+                Text("Word meanings, verse translations, and grammar lessons. Hebrew and readings stay the same.")
+            }
+            Section {
                 Picker("Reading speed", selection: Binding(get: { store.pace },
                                                            set: { store.setPace($0) })) {
                     ForEach(Pace.allCases) { Text($0.label).tag($0) }

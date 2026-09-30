@@ -37,7 +37,7 @@ struct SessionView: View {
 
                 if isRevealed {
                     VStack(spacing: 8) {
-                        Text(card.name).font(.title).bold()
+                        Text(tr(card.name)).font(.title).bold()
                         if !card.sound.isEmpty {
                             Text(card.sound).font(.title3).foregroundStyle(.secondary)
                         }

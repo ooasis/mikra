@@ -2,8 +2,8 @@
 """Generate Mikra/Texts.json — the reading texts, with per-word glosses and notes.
 
 Hebrew and morphology from OSHB/WLC (CC BY 4.0), glosses from Strong's with
-curated overrides, English from the WEB (public domain) remapped to Hebrew
-versification. Supersedes gen-jonah.py.
+curated overrides, English from the WEB and Chinese from the Union Version
+(和合本, both public domain) remapped to Hebrew versification. Supersedes gen-jonah.py.
 
     ./gen-text.py           # write Mikra/Texts.json
     ./gen-text.py --check   # run the self-check only
@@ -17,6 +17,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 CACHE = os.path.join(HERE, ".cache")
 WLC = "https://raw.githubusercontent.com/openscriptures/morphhb/master/wlc/{}.xml"
 WEB = "https://bible-api.com/{}+{}?translation=web"
+CUV = "https://api.getbible.net/v2/cus/{}/{}.json"  # simplified Chinese Union Version
+CUV_BOOK = {"Jonah": 32, "Genesis": 1, "Psalms": 19}
 STRONGS = "https://raw.githubusercontent.com/openscriptures/strongs/master/hebrew/strongs-hebrew-dictionary.js"
 
 # The texts we ship: display name, Hebrew name, morphhb file, chapters, expected verses.
@@ -40,7 +42,9 @@ def fetch(url, name):
     if not os.path.exists(path):
         os.makedirs(CACHE, exist_ok=True)
         print(f"  downloading {name}", file=sys.stderr)
-        urllib.request.urlretrieve(url, path)
+        req = urllib.request.Request(url, headers={"User-Agent": "mikra-gen"})  # getbible refuses the default
+        with urllib.request.urlopen(req) as r, open(path, "wb") as f:
+            f.write(r.read())
     return path
 
 
@@ -309,9 +313,20 @@ def english(book, chapters):
     return text
 
 
+def chinese(book, chapters):
+    """CUV text keyed by (chapter, verse); its verse numbers follow the English ones."""
+    text = {}
+    for c in chapters:
+        path = fetch(CUV.format(CUV_BOOK[book], c), f"cuv-{book}-{c}.json")
+        for v in json.load(open(path, encoding="utf-8"))["verses"]:
+            text[(v["chapter"], v["verse"])] = re.sub(r"\s+", "", v["text"]).strip()
+    return text
+
+
 def build_book(name, heb, osis, chapters):
     tree = ET.parse(fetch(WLC.format(osis), f"{osis}.xml"))
     web = english(name, chapters)
+    cuv = chinese(name, chapters)
     verses, unknown, unmatched = [], Counter(), []
     for velem in tree.iter(NS + "verse"):
         _, c, v = velem.get("osisID").split(".")
@@ -342,7 +357,8 @@ def build_book(name, heb, osis, chapters):
                 unmatched.append((name, nc, nv, skel))
             else:
                 spot["n"] = note
-        verses.append({"c": c, "v": v, "en": web[remap(name, c, v)], "words": words})
+        verses.append({"c": c, "v": v, "en": web[remap(name, c, v)], "zh": cuv[remap(name, c, v)],
+                       "words": words})
     return {"name": name, "heb": heb, "verses": verses}, unknown, unmatched
 
 
@@ -360,6 +376,7 @@ def check(books, unknown, unmatched):
         for verse in vs:
             where = f"{book['name']} {verse['c']}:{verse['v']}"
             assert verse["en"].strip(), f"{where} has no English"
+            assert verse["zh"].strip(), f"{where} has no Chinese"
             assert verse["words"], f"{where} has no words"
             for w in verse["words"]:
                 assert w["h"].strip(), f"{where} has an empty word"

@@ -64,6 +64,7 @@ final class Store: ObservableObject {
         var pace: String? = nil
         var appearance: String? = nil
         var sets: [WordSet]? = nil
+        var language: String? = nil
     }
 
     @Published private(set) var states: [String: CardState] = [:]
@@ -76,6 +77,8 @@ final class Store: ObservableObject {
     /// would pull in a required-reason API and a privacy manifest.
     @Published private(set) var pace: Pace = .normal { didSet { Speech.pace = pace } }
     @Published private(set) var appearance: Appearance = .system
+    /// Which language meanings are shown in; Zh.on mirrors it for the views' `tr`.
+    @Published private(set) var language: Language = .en { didSet { Zh.on = language == .zh } }
     @Published private(set) var sets: [WordSet] = []
     private var lastStudyDay: Date?
     private var lastVerseDay: Date?
@@ -97,8 +100,10 @@ final class Store: ObservableObject {
             if let saved = snap.pace, let p = Pace(rawValue: saved) { pace = p }
             if let saved = snap.appearance, let a = Appearance(rawValue: saved) { appearance = a }
             sets = snap.sets ?? []
+            if let saved = snap.language, let l = Language(rawValue: saved) { language = l }
         }
         Speech.pace = pace
+        Zh.on = language == .zh
     }
 
     /// Verse progress used to be keyed "1:3", from when Jonah was the only text.
@@ -138,6 +143,11 @@ final class Store: ObservableObject {
 
     func setAppearance(_ a: Appearance) {
         appearance = a
+        save()
+    }
+
+    func setLanguage(_ l: Language) {
+        language = l
         save()
     }
 
@@ -258,6 +268,7 @@ final class Store: ObservableObject {
         currentBook = books[0].name
         pace = .normal
         sets = []
+        language = .en
         lastStudyDay = nil
         lastVerseDay = nil
         try? FileManager.default.removeItem(at: url)
@@ -279,7 +290,7 @@ final class Store: ObservableObject {
         let snap = Snapshot(states: states, streak: streak, lastStudyDay: lastStudyDay,
                             verses: verses, tapped: tapped, lastVerseDay: lastVerseDay,
                             currentBook: currentBook, pace: pace.rawValue,
-                            appearance: appearance.rawValue, sets: sets)
+                            appearance: appearance.rawValue, sets: sets, language: language.rawValue)
         try? JSONEncoder().encode(snap).write(to: url)
     }
 }

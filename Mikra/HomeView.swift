@@ -36,7 +36,7 @@ struct HomeView: View {
                     .padding(.horizontal)
                     .padding(.bottom, 12)
 
-                    TextField("Search words in English", text: $query)
+                    TextField(Zh.on ? "搜索词义" : "Search words in English", text: $query)
                         .textFieldStyle(.roundedBorder)
                         .autocorrectionDisabled()
                         .overlay(alignment: .trailing) {
@@ -96,7 +96,7 @@ struct HomeView: View {
             }
             .toolbar(.hidden, for: .navigationBar) // the Hebrew title above is the header
             .sheet(item: $pick) { w in
-                WordDeckView(title: w.g, cards: [w], shuffle: false, revealed: true)
+                WordDeckView(title: tr(w.g), cards: [w], shuffle: false, revealed: true)
             }
             .navigationDestination(for: Route.self) { route in
                 switch route {
@@ -151,7 +151,7 @@ struct HomeView: View {
             ForEach(hits) { w in
                 Button { pick = w } label: {
                     HStack {
-                        Text(w.g).foregroundStyle(.secondary)
+                        Text(tr(w.g)).foregroundStyle(.secondary)
                         Spacer()
                         Text(pointed(w.h)).font(.system(size: 48))
                     }

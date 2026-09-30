@@ -97,7 +97,7 @@ struct DeckGridView: View {
                                 .font(.system(size: 40))
                                 .minimumScaleFactor(0.6)
                                 .lineLimit(1)
-                            Text(card.g)
+                            Text(tr(card.g))
                                 .font(.caption2)
                                 .foregroundStyle(.secondary)
                                 .minimumScaleFactor(0.6)
@@ -168,7 +168,7 @@ struct WordSetView: View {
                     start = DeckGridView.Start(i: i)
                 } label: {
                     HStack {
-                        Text(card.g).foregroundStyle(.secondary)
+                        Text(tr(card.g)).foregroundStyle(.secondary)
                         Spacer()
                         Text(pointed(card.h)).font(.system(size: 40))
                     }
@@ -277,8 +277,8 @@ struct LessonListView: View {
         List(lessons(in: group)) { lesson in
             NavigationLink(value: Route.lesson(lesson.id)) {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(lesson.title)
-                    Text(lesson.why).font(.caption).foregroundStyle(.secondary)
+                    Text(tr(lesson.title))
+                    Text(tr(lesson.why)).font(.caption).foregroundStyle(.secondary)
                 }
             }
         }
@@ -295,11 +295,11 @@ struct LessonView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                Text(pointed(ltr(lesson.why)))
+                Text(pointed(ltr(tr(lesson.why))))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                 ForEach(lesson.body, id: \.self) { paragraph in
-                    Text(pointed(ltr(paragraph)))
+                    Text(pointed(ltr(tr(paragraph))))
                 }
                 ForEach(lesson.tables ?? [], id: \.self) { table in
                     lessonTable(table)
@@ -314,7 +314,7 @@ struct LessonView: View {
                                 .font(.system(size: 38))
                                 .frame(minWidth: 130, alignment: .trailing)
                             VStack(alignment: .leading, spacing: 1) {
-                                Text(ltr(e.g)).font(.subheadline)
+                                Text(ltr(tr(e.g))).font(.subheadline)
                                 if let ref = e.ref {
                                     Text(ref).font(.caption2).foregroundStyle(.tertiary)
                                 }
@@ -333,7 +333,7 @@ struct LessonView: View {
             }
             .padding()
         }
-        .navigationTitle(lesson.title)
+        .navigationTitle(tr(lesson.title))
         .navigationBarTitleDisplayMode(.inline)
         .safeAreaInset(edge: .bottom) {
             Button {
@@ -352,7 +352,7 @@ struct LessonView: View {
             .background(.bar)
         }
         .sheet(isPresented: $practising) {
-            WordDeckView(title: lesson.title, cards: lesson.examples.map(\.card), shuffle: false)
+            WordDeckView(title: tr(lesson.title), cards: lesson.examples.map(\.card), shuffle: false)
         }
     }
 
@@ -362,11 +362,11 @@ struct LessonView: View {
 
     private func lessonTable(_ table: LessonTable) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(table.title).font(.subheadline.bold())
+            Text(tr(table.title)).font(.subheadline.bold())
             Grid(alignment: .leading, horizontalSpacing: 12, verticalSpacing: 10) {
                 GridRow {
                     ForEach(table.columns, id: \.self) { col in
-                        Text(col).font(.caption.bold()).foregroundStyle(.secondary)
+                        Text(tr(col)).font(.caption.bold()).foregroundStyle(.secondary)
                     }
                 }
                 Divider()
@@ -376,7 +376,7 @@ struct LessonView: View {
                             if cell.unicodeScalars.contains(where: { (0x05D0...0x05EA).contains($0.value) }) {
                                 Text(pointed(ltr(cell))).font(.system(size: 28)).lineSpacing(2)
                             } else {
-                                Text(cell).font(.subheadline)
+                                Text(tr(cell)).font(.subheadline)
                                     .foregroundStyle(i == 0 ? .secondary : .primary)
                             }
                         }

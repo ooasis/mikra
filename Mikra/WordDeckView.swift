@@ -111,7 +111,7 @@ struct WordDeckView: View {
                             HStack(alignment: .firstTextBaseline, spacing: 12) {
                                 Text(pointed(f.h)).font(.system(size: 60)).minimumScaleFactor(0.5).lineLimit(1)
                                 VStack(alignment: .leading, spacing: 1) {
-                                    Text(f.g).font(.subheadline).foregroundStyle(.secondary)
+                                    Text(tr(f.g)).font(.subheadline).foregroundStyle(.secondary)
                                     Text(pronounce(f.h)).font(.caption).foregroundStyle(.tertiary)
                                 }
                                 .opacity(showBack ? 1 : 0)
@@ -128,7 +128,7 @@ struct WordDeckView: View {
                 }
 
                 if showBack {
-                    Text(word.g)
+                    Text(tr(word.g))
                         .font(.title2.weight(.medium))
                         .multilineTextAlignment(.center)
                     if word.forms == nil {
@@ -182,7 +182,7 @@ struct WordDeckView: View {
             HStack(spacing: 8) {
                 Text(pointed(wordDeck[wordIndexByStrongs[strongs] ?? 0].h)).font(.system(size: 32))
                 VStack(alignment: .leading, spacing: 1) {
-                    Text(wordDeck[wordIndexByStrongs[strongs] ?? 0].g).font(.subheadline)
+                    Text(tr(wordDeck[wordIndexByStrongs[strongs] ?? 0].g)).font(.subheadline)
                     Text(why).font(.caption2).foregroundStyle(.tertiary)
                 }
                 Spacer()

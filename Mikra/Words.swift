@@ -100,13 +100,16 @@ func pointed(_ hebrew: String) -> AttributedString {
 
 /// Words whose gloss has a word starting with `query` ("go" finds "gods" and "go in", not "ago"),
 /// in deck order so the commonest come first. A word in two decks appears once.
+/// Chinese has no word boundaries, so a Chinese query matches anywhere in the Chinese gloss.
 func searchWords(_ query: String) -> [WordCard] {
     let q = query.trimmingCharacters(in: .whitespaces)
     guard !q.isEmpty else { return [] }
+    let chinese = q.unicodeScalars.contains { (0x4E00...0x9FFF).contains($0.value) }
     let pattern = "\\b" + NSRegularExpression.escapedPattern(for: q)
     var seen = Set<String>()
     return (wordDeck + decks.flatMap(\.cards)).filter {
-        $0.g.range(of: pattern, options: [.regularExpression, .caseInsensitive]) != nil
+        (chinese ? (Zh.strings[$0.g] ?? "").contains(q)
+                 : $0.g.range(of: pattern, options: [.regularExpression, .caseInsensitive]) != nil)
             && seen.insert($0.id).inserted
     }
 }
@@ -136,6 +139,7 @@ func wordDeckSelfCheck() {
     }
     assert(searchWords("say").first?.s == "559", "search misses 'to say'")
     assert(!searchWords("od").contains { $0.s == "430" }, "search matches mid-word")
+    assert(searchWords("说").first?.s == "559", "Chinese search misses 'to say'")
     for d in decks {
         assert(!d.cards.isEmpty, "\(d.title) deck is empty")
         let ids = d.cards.flatMap(\.units).map(\.id)

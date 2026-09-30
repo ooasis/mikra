@@ -11,14 +11,17 @@ struct Verse: Codable, Identifiable {
     let c: Int
     let v: Int
     let en: String
+    var zh: String? = nil // Union Version line; older Texts.json had none
     let words: [VerseWord]
     var book: String = "" // stamped in after decoding; the JSON groups verses under a book
     // `book` is absent from the JSON, so it must stay out of the decoder's required keys
-    private enum CodingKeys: String, CodingKey { case c, v, en, words }
+    private enum CodingKeys: String, CodingKey { case c, v, en, zh, words }
 
     var id: String { "\(book) \(c):\(v)" }
     var ref: String { id }
     var hebrew: String { words.map(\.h).joined(separator: " ") }
+    /// The translation in the chosen language.
+    var text: String { Zh.on ? zh ?? en : en }
 }
 
 struct BookText: Identifiable, Codable {
@@ -33,7 +36,7 @@ let books: [BookText] = {
     let raw = try! JSONDecoder().decode([BookText].self, from: Data(contentsOf: url))
     return raw.map { book in
         BookText(name: book.name, heb: book.heb, verses: book.verses.map {
-            Verse(c: $0.c, v: $0.v, en: $0.en, words: $0.words, book: book.name)
+            Verse(c: $0.c, v: $0.v, en: $0.en, zh: $0.zh, words: $0.words, book: book.name)
         })
     }
 }()
