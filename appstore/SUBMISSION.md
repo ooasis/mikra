@@ -8,7 +8,7 @@
 - [x] Version 1.2 (build 6, uploaded 2026-09-26): dashboard home (words / verses / grammar), pronoun and number decks, 40 grammar lessons with tables, settings (appearance, reading speed), pronunciation after reveal — **approved and live**
 - [x] Version 1.3 (build 7, uploaded 2026-09-29): custom word sets (bookmark on any card; sets open as shuffled flash cards), record yourself reading a verse and play it back, coloured vowel points everywhere, five word bands
 - [x] Export compliance key (ITSAppUsesNonExemptEncryption=NO)
-- [x] Screenshots in appstore/screenshots/: five screens (home, verse, pronoun deck, grammar lesson, vowel card); captured with the -openVerse/-showText/-openDeck/-reveal/-openLesson/-openVowel launch hooks. For 1.3 only the dark 6.5" set (`dark-*-6.5.png`, 1284×2778, iPhone 14 Plus simulator, home seeded with one custom set) was refreshed; the light and 6.9" files still show 1.2
+- [x] Screenshots in appstore/screenshots/: five screens (home, verse, pronoun deck, grammar lesson, vowel card); captured with the -openVerse/-openDeck/-reveal/-openLesson/-openVowel launch hooks. For 1.3 only the dark 6.5" set (`dark-*-6.5.png`, 1284×2778, iPhone 14 Plus simulator, home seeded with one custom set) was refreshed; the light and 6.9" files still show 1.2
 - [x] Metadata drafts (metadata.md)
 - [x] Privacy policy text (privacy-policy.md)
 

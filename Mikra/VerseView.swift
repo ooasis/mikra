@@ -2,6 +2,13 @@ import SwiftUI
 
 enum VerseMode { case passive, wave }
 
+/// What sits under each word of a verse: nothing, its meaning, or how to say it.
+enum VerseHelp: String, CaseIterable, Identifiable {
+    case none, meaning, reading
+    var id: String { rawValue }
+    var label: String { rawValue.capitalized }
+}
+
 /// One verse per page; swipe to move through the book.
 struct VerseView: View {
     let verse: Verse
@@ -43,7 +50,8 @@ private struct VersePage: View {
     @ObservedObject private var recorder = Recorder.shared
     @Environment(\.dismiss) private var dismiss
 
-    private enum Stage { case listen, read, check }
+    /// Passive reading shows text and translation at once; the wave hides the translation until Check.
+    private enum Stage { case read, check }
     @State private var stage: Stage
     /// Which word's sheet is open. By index, since a verse can repeat a word.
     private struct WordPick: Identifiable { let index: Int; var id: Int { index } }
@@ -52,10 +60,7 @@ private struct VersePage: View {
     init(verse: Verse, mode: VerseMode) {
         self.verse = verse
         self.mode = mode
-        _stage = State(initialValue: mode == .passive ? .listen : .read)
-        #if DEBUG
-        if ProcessInfo.processInfo.arguments.contains("-showText") { _stage = State(initialValue: .read) } // screenshot hook
-        #endif
+        _stage = State(initialValue: mode == .passive ? .check : .read)
     }
 
     var body: some View {
@@ -70,14 +75,7 @@ private struct VersePage: View {
             }
             .padding()
 
-            ScrollView {
-                switch stage {
-                case .listen:
-                    listenStage
-                case .read, .check:
-                    readStage
-                }
-            }
+            ScrollView { readStage }
 
             footer
         }
@@ -85,23 +83,6 @@ private struct VersePage: View {
             WordSheet(words: verse.words, index: pick.index)
                 .presentationDetents([.height(320)])
         }
-    }
-
-    private var listenStage: some View {
-        VStack(spacing: 24) {
-            Spacer(minLength: 80)
-            Button {
-                // ear first is always full speed — slow practice belongs with the text
-                Speech.say(verse: verse, pace: store.pace)
-            } label: {
-                Image(systemName: "speaker.wave.3.fill")
-                    .font(.system(size: 70))
-            }
-            Text("Ear first: just listen.\nReplay until the sounds feel familiar.")
-                .multilineTextAlignment(.center)
-                .foregroundStyle(.secondary)
-        }
-        .frame(maxWidth: .infinity)
     }
 
     /// Each button plays the verse at its own pace — tapping the current one replays,
@@ -172,26 +153,42 @@ private struct VersePage: View {
                         store.tapWord(word)
                         Speech.say(word.h)
                     } label: {
-                        Text(pointed(word.h))
-                            .font(.system(size: 56))
-                            .foregroundStyle(.primary)
-                            .padding(.vertical, 2)
-                            .padding(.horizontal, 3)
-                            .background(monitor.spokenWord == i ? Color.yellow.opacity(0.45) : .clear,
-                                        in: RoundedRectangle(cornerRadius: 6))
-                            .animation(.easeOut(duration: 0.12), value: monitor.spokenWord == i)
-                            .overlay(alignment: .bottom) {
-                                if word.n != nil {
-                                    Circle().fill(.orange).frame(width: 5, height: 5).offset(y: 4)
-                                } else if store.tapped.contains(verseWordCardID(word)) {
-                                    Circle().fill(.blue.opacity(0.5)).frame(width: 4, height: 4).offset(y: 4)
+                        VStack(spacing: 2) {
+                            Text(pointed(word.h))
+                                .font(.system(size: 56))
+                                .foregroundStyle(.primary)
+                                .padding(.vertical, 2)
+                                .padding(.horizontal, 3)
+                                .background(monitor.spokenWord == i ? Color.yellow.opacity(0.45) : .clear,
+                                            in: RoundedRectangle(cornerRadius: 6))
+                                .animation(.easeOut(duration: 0.12), value: monitor.spokenWord == i)
+                                .overlay(alignment: .bottom) {
+                                    if word.n != nil {
+                                        Circle().fill(.orange).frame(width: 5, height: 5).offset(y: 4)
+                                    } else if store.tapped.contains(verseWordCardID(word)) {
+                                        Circle().fill(.blue.opacity(0.5)).frame(width: 4, height: 4).offset(y: 4)
+                                    }
                                 }
+                            if let help = help(for: word) {
+                                Text(help)
+                                    .font(.caption2)
+                                    .foregroundStyle(.secondary)
+                                    .multilineTextAlignment(.center)
+                                    .lineLimit(2)
+                                    .frame(maxWidth: 96)
                             }
+                        }
                     }
                     .buttonStyle(.plain)
                 }
             }
             .padding(.horizontal, 4)
+
+            Picker("Under each word", selection: Binding(get: { store.verseHelp },
+                                                          set: { store.setVerseHelp($0) })) {
+                ForEach(VerseHelp.allCases) { Text($0.label).tag($0) }
+            }
+            .pickerStyle(.segmented)
 
             paceControls
             recordControls
@@ -201,27 +198,23 @@ private struct VersePage: View {
                     .font(.title2)
                     .foregroundStyle(.secondary)
                     .padding(.top, 8)
-            } else if mode == .passive {
-                Text(store.pace.wordByWord
-                     ? "Tap any word you don't know — it joins your drills.\nPlay follows along, one word at a time."
-                     : "Tap any word you don't know — it joins your drills.")
-                    .font(.subheadline)
-                    .foregroundStyle(.tertiary)
-                    .frame(maxWidth: .infinity)
-                    .multilineTextAlignment(.center)
             }
         }
         .padding()
     }
 
+    private func help(for word: VerseWord) -> String? {
+        switch store.verseHelp {
+        case .none: return nil
+        case .meaning: return tr(word.g)
+        case .reading: return pronounce(word.h)
+        }
+    }
+
     private var footer: some View {
         VStack {
             switch (mode, stage) {
-            case (.passive, .listen):
-                bigButton("Show the text") { stage = .read }
-            case (.passive, .read):
-                bigButton("I read it aloud — check meaning") { stage = .check }
-            case (.passive, .check):
+            case (.passive, .read), (.passive, .check):
                 bigButton("Done ✓") {
                     store.completePassive(verse)
                     dismiss()
@@ -252,8 +245,6 @@ private struct VersePage: View {
                     }
                 }
                 .padding()
-            case (.wave, .listen):
-                EmptyView() // unreachable
             }
         }
     }

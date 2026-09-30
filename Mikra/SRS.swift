@@ -65,6 +65,7 @@ final class Store: ObservableObject {
         var appearance: String? = nil
         var sets: [WordSet]? = nil
         var language: String? = nil
+        var verseHelp: String? = nil
     }
 
     @Published private(set) var states: [String: CardState] = [:]
@@ -79,6 +80,7 @@ final class Store: ObservableObject {
     @Published private(set) var appearance: Appearance = .system
     /// Which language meanings are shown in; Zh.on mirrors it for the views' `tr`.
     @Published private(set) var language: Language = .en { didSet { Zh.on = language == .zh } }
+    @Published private(set) var verseHelp: VerseHelp = .none
     @Published private(set) var sets: [WordSet] = []
     private var lastStudyDay: Date?
     private var lastVerseDay: Date?
@@ -101,6 +103,7 @@ final class Store: ObservableObject {
             if let saved = snap.appearance, let a = Appearance(rawValue: saved) { appearance = a }
             sets = snap.sets ?? []
             if let saved = snap.language, let l = Language(rawValue: saved) { language = l }
+            if let saved = snap.verseHelp, let h = VerseHelp(rawValue: saved) { verseHelp = h }
         }
         Speech.pace = pace
         Zh.on = language == .zh
@@ -148,6 +151,11 @@ final class Store: ObservableObject {
 
     func setLanguage(_ l: Language) {
         language = l
+        save()
+    }
+
+    func setVerseHelp(_ h: VerseHelp) {
+        verseHelp = h
         save()
     }
 
@@ -269,6 +277,7 @@ final class Store: ObservableObject {
         pace = .normal
         sets = []
         language = .en
+        verseHelp = .none
         lastStudyDay = nil
         lastVerseDay = nil
         try? FileManager.default.removeItem(at: url)
@@ -290,7 +299,8 @@ final class Store: ObservableObject {
         let snap = Snapshot(states: states, streak: streak, lastStudyDay: lastStudyDay,
                             verses: verses, tapped: tapped, lastVerseDay: lastVerseDay,
                             currentBook: currentBook, pace: pace.rawValue,
-                            appearance: appearance.rawValue, sets: sets, language: language.rawValue)
+                            appearance: appearance.rawValue, sets: sets, language: language.rawValue,
+                            verseHelp: verseHelp.rawValue)
         try? JSONEncoder().encode(snap).write(to: url)
     }
 }
