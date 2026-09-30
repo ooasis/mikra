@@ -34,9 +34,6 @@ struct VerseView: View {
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
         .environment(\.layoutDirection, .rightToLeft) // pages advance right-to-left, like Hebrew
-        // audio belongs to the pager: a page's own onAppear would fire for the
-        // neighbours TabView builds off-screen, and they'd all start talking
-        .onAppear { if mode == .passive { Speech.say(verse: verse, pace: Speech.pace) } }
         .onChange(of: index) { Speech.stop(); Recorder.shared.stop() }
         .onDisappear { Recorder.shared.stop() }
     }
@@ -189,6 +186,7 @@ private struct VersePage: View {
                 ForEach(VerseHelp.allCases) { Text($0.label).tag($0) }
             }
             .pickerStyle(.segmented)
+            .padding(.top, 6)
 
             paceControls
             recordControls
@@ -321,7 +319,7 @@ struct VerseFlow: Layout {
         let arrangement = arrange(subviews, in: bounds.width)
         for (i, p) in arrangement.points.enumerated() {
             subviews[i].place(at: CGPoint(x: bounds.maxX - p.x, y: bounds.minY + p.y),
-                              anchor: .topTrailing, proposal: .unspecified)
+                              anchor: .topTrailing, proposal: ProposedViewSize(width: bounds.width, height: nil))
         }
     }
 
@@ -330,7 +328,8 @@ struct VerseFlow: Layout {
         var points: [CGPoint] = []
         var x: CGFloat = 0, y: CGFloat = 0, rowHeight: CGFloat = 0
         for sv in subviews {
-            let size = sv.sizeThatFits(.unspecified)
+            // propose the row width, so a caption that wraps is measured as tall as it is drawn
+            let size = sv.sizeThatFits(ProposedViewSize(width: width, height: nil))
             if x > 0, x + size.width > width {
                 x = 0
                 y += rowHeight + spacing
