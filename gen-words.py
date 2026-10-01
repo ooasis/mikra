@@ -534,7 +534,10 @@ def count_lemmas():
             # OSHB writes homograph lemmas as "859 a"; the decks count by surface form, not sense
             tail = re.match(r"^[a-z]?\s*(\d+)", lemmas[-1].strip())
             if tail:
-                forms[(tail.group(1), consonants((w.text or "").split("/")[-1]))] += 1
+                parts = (w.text or "").split("/")
+                forms[(tail.group(1), consonants(parts[-1]))] += 1
+                if len(parts) > 1:  # also as written with its prefixes, so כַּאֲשֶׁר can be a card
+                    forms[(tail.group(1), consonants("".join(parts)))] += 1
             for i, part in enumerate(lemmas):
                 # OSHB writes homographs as "1121 a"; the deck is keyed by Strong's number, so the letter is dropped
                 m = re.match(r"^[a-z]?\s*(\d+)\s*([a-z])?$", part.strip())
@@ -592,7 +595,8 @@ DECKS = [
       ("between", "between", [("996", "996", "בֵּין", "between")]),
       ("for-sake", "for the sake of, so that", [("4616", "4616", "לְמַעַן", "for the sake of, so that")]),
       ("obj", "(object marker)", [("853", "853", "אֵת", "marks the object")]),
-      ("which", "which, who, that", [("834", "834", "אֲשֶׁר", "which, who, that")]),
+      ("which", "which, who, that", [("834", "834", "אֲשֶׁר", "which, who, that"),
+                                       ("834k", "834", "כַּאֲשֶׁר", "as, when, just as")]),
       ("not", "not", [("3808", "3808", "לֹא", "not (facts)"), ("408", "408", "אַל", "do not (commands)")]),
       ("is", "there is", [("3426", "3426", "יֵשׁ", "there is")]),
       ("isnt", "there is not", [("369", "369", "אֵין", "there is not")]),
