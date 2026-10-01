@@ -6,7 +6,7 @@
 - [x] Version 1.1 (build 5, uploaded 2026-09-24): word frequency deck, Genesis 1, slow read-aloud, word swipe, verse swipe
   - build 4 superseded by build 5 (verse swiping landed after it)
 - [x] Version 1.2 (build 6, uploaded 2026-09-26): dashboard home (words / verses / grammar), pronoun and number decks, 40 grammar lessons with tables, settings (appearance, reading speed), pronunciation after reveal — **approved and live**
-- [x] Version 1.3 (build 8, uploaded 2026-09-30; build 7 superseded): custom word sets (bookmark on any card; sets open as shuffled flash cards), Chinese meanings (Settings → Meanings), verse page opens on text + translation with a None/Meaning/Reading picker under each word, record yourself reading a verse and play it back, coloured vowel points everywhere, five word bands
+- [x] Version 1.3 (build 9, uploaded 2026-09-30; builds 7 and 8 superseded — build 9 fixes the word deck, which had been missing son, house, people, city, eye and 155 other common words): custom word sets (bookmark on any card; sets open as shuffled flash cards), Chinese meanings (Settings → Meanings), verse page opens on text + translation with a None/Meaning/Reading picker under each word, record yourself reading a verse and play it back, coloured vowel points everywhere, five word bands
 - [x] Export compliance key (ITSAppUsesNonExemptEncryption=NO)
 - [x] Screenshots in appstore/screenshots/: one set only — dark mode, 6.5" (`dark-*-6.5.png`, 1284×2778, iPhone 14 Plus simulator), five screens (home, verse, pronoun deck, grammar lesson, vowel card), captured with the -openVerse/-openDeck/-reveal/-openLesson/-openVowel launch hooks with the home seeded with one custom set and the verse in Meaning mode. Upload the same five for the 6.9" slot; App Store Connect accepts 6.5" there. The light and 6.9" sets were dropped for 1.3.
 - [x] Metadata drafts (metadata.md)
@@ -24,7 +24,7 @@
 - [x] Age rating questionnaire → 4+.  (done for 1.0)
 - [x] 1.0 version page (done for 1.0).
 - [x] 1.2 version page (done, live).
-- [ ] **1.3 version page**: create the 1.3 version in App Store Connect, select build 8 once processed (not build 7), replace the screenshots with the five `dark-*-6.5.png`, paste “What’s New” (below), then submit.
+- [ ] **1.3 version page**: create the 1.3 version in App Store Connect, select build 9 once processed (not build 7 or 8), replace the screenshots with the five `dark-*-6.5.png`, paste “What’s New” (below), then submit.
 
 What’s New for 1.3:
 
