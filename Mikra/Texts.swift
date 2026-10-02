@@ -45,21 +45,6 @@ func book(named name: String) -> BookText {
     books.first { $0.name == name } ?? books[0]
 }
 
-/// Tapped words become SRS cards, keyed by pointed surface form.
-/// The "j-" prefix predates the second book — it is kept so saved progress still resolves.
-func verseWordCardID(_ w: VerseWord) -> String { "j-" + w.h }
-
-let verseWordCardsByID: [String: Card] = {
-    var dict: [String: Card] = [:]
-    for book in books {
-        for word in book.verses.flatMap(\.words) where dict[verseWordCardID(word)] == nil {
-            dict[verseWordCardID(word)] = Card(id: verseWordCardID(word), hebrew: word.h,
-                                               name: word.g, sound: "", kind: .word)
-        }
-    }
-    return dict
-}()
-
 #if DEBUG
 /// Smallest check that fails if a verse loses its book, which would send the
 /// reader's pager to the wrong book and open it at the wrong verse.

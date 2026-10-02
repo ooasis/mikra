@@ -61,7 +61,7 @@ struct SettingsView: View {
         .confirmationDialog("Reset all progress?", isPresented: $confirmReset, titleVisibility: .visible) {
             Button("Reset everything", role: .destructive) { store.resetAll() }
         } message: {
-            Text("Deletes all drill history, verse progress, and your streak. This cannot be undone.")
+            Text("Deletes verse progress, your word sets, and settings. This cannot be undone.")
         }
     }
 }

@@ -1,35 +1,5 @@
 import Foundation
 
-struct CardState: Codable {
-    var ease = 2.5
-    var intervalDays = 0.0
-    var due = Date.distantPast
-    var reps = 0
-}
-
-enum Grade { case again, good, easy }
-
-enum SM2 {
-    static func apply(_ grade: Grade, to state: CardState, now: Date = Date()) -> CardState {
-        var s = state
-        s.reps += 1
-        switch grade {
-        case .again:
-            s.ease = max(1.3, s.ease - 0.2)
-            s.intervalDays = 0
-            s.due = now.addingTimeInterval(10 * 60)
-        case .good:
-            s.intervalDays = s.intervalDays < 1 ? 1 : s.intervalDays * s.ease
-            s.due = now.addingTimeInterval(s.intervalDays * 86400)
-        case .easy:
-            s.ease += 0.05
-            s.intervalDays = max(2, s.intervalDays * s.ease * 1.3)
-            s.due = now.addingTimeInterval(s.intervalDays * 86400)
-        }
-        return s
-    }
-}
-
 struct VerseProgress: Codable {
     var passive: Date? = nil // Assimil first wave: listened + read + understood
     var wave: Date? = nil    // second wave: read aloud cold, owned
@@ -54,11 +24,7 @@ func nextSetName(taken: [String]) -> String {
 
 final class Store: ObservableObject {
     private struct Snapshot: Codable {
-        var states: [String: CardState] = [:]
-        var streak = 0
-        var lastStudyDay: Date? = nil
         var verses: [String: VerseProgress]? = nil
-        var tapped: Set<String>? = nil
         var lastVerseDay: Date? = nil
         var currentBook: String? = nil
         var pace: String? = nil
@@ -68,10 +34,7 @@ final class Store: ObservableObject {
         var verseHelp: String? = nil
     }
 
-    @Published private(set) var states: [String: CardState] = [:]
-    @Published private(set) var streak = 0
     @Published private(set) var verses: [String: VerseProgress] = [:]
-    @Published private(set) var tapped: Set<String> = []
     /// The book the daily ritual follows. Other books are readable, but don't drive Today or the wave.
     @Published private(set) var currentBook: String = books[0].name
     /// How verses are read aloud. Kept here rather than in UserDefaults, which
@@ -82,7 +45,6 @@ final class Store: ObservableObject {
     @Published private(set) var language: Language = .en { didSet { Zh.on = language == .zh } }
     @Published private(set) var verseHelp: VerseHelp = .none
     @Published private(set) var sets: [WordSet] = []
-    private var lastStudyDay: Date?
     private var lastVerseDay: Date?
 
     private let url = URL.documentsDirectory.appending(path: "mikra.json")
@@ -90,11 +52,7 @@ final class Store: ObservableObject {
     init() {
         if let data = try? Data(contentsOf: url),
            let snap = try? JSONDecoder().decode(Snapshot.self, from: data) {
-            states = snap.states
-            streak = snap.streak
-            lastStudyDay = snap.lastStudyDay
             verses = Self.bookQualified(snap.verses ?? [:])
-            tapped = snap.tapped ?? []
             lastVerseDay = snap.lastVerseDay
             if let saved = snap.currentBook, books.contains(where: { $0.name == saved }) {
                 currentBook = saved
@@ -117,20 +75,6 @@ final class Store: ObservableObject {
             out[key.contains(" ") ? key : "Jonah " + key] = progress
         }
         return out
-    }
-
-    func grade(_ card: Card, _ grade: Grade) {
-        states[card.id] = SM2.apply(grade, to: states[card.id] ?? CardState())
-        bumpStreak()
-        save()
-    }
-
-    var dueCards: [Card] {
-        let now = Date()
-        let drills = curriculum.filter { (states[$0.id]?.due ?? .distantFuture) <= now }
-        let words = tapped.compactMap { enrolledCardsByID[$0] }
-            .filter { (states[$0.id]?.due ?? .distantPast) <= now }
-        return drills + words
     }
 
     // — The daily reading (Assimil waves), through whichever book is current —
@@ -203,7 +147,6 @@ final class Store: ObservableObject {
         verses[verse.id] = p
         // only the ritual's own next verse spends the day; a freely picked verse doesn't
         if isNew && wasTodays { lastVerseDay = Calendar.current.startOfDay(for: Date()) }
-        bumpStreak()
         save()
     }
 
@@ -211,18 +154,8 @@ final class Store: ObservableObject {
         var p = verses[verse.id] ?? VerseProgress()
         p.wave = Date()
         verses[verse.id] = p
-        bumpStreak()
         save()
     }
-
-    /// Hand-picked words become SRS cards: tapped in the reader, or taken from the word deck.
-    func enroll(_ id: String) {
-        guard !tapped.contains(id) else { return }
-        tapped.insert(id)
-        save()
-    }
-
-    func tapWord(_ w: VerseWord) { enroll(verseWordCardID(w)) }
 
     // — Custom word sets —
 
@@ -257,47 +190,20 @@ final class Store: ObservableObject {
         save()
     }
 
-    /// Next unseen cards, in curriculum order.
-    func newCards(limit: Int) -> [Card] {
-        Array(curriculum.filter { states[$0.id] == nil }.prefix(limit))
-    }
-
-    /// Graded at least once and scheduled a day or more out.
-    var learnedCount: Int {
-        states.values.filter { $0.intervalDays >= 1 }.count
-    }
-
-    /// Wipes all progress (drills, verses, streak) — irreversible.
+    /// Wipes all progress (verses, sets, settings) — irreversible.
     func resetAll() {
-        states = [:]
-        streak = 0
         verses = [:]
-        tapped = []
         currentBook = books[0].name
         pace = .normal
         sets = []
         language = .en
         verseHelp = .none
-        lastStudyDay = nil
         lastVerseDay = nil
         try? FileManager.default.removeItem(at: url)
     }
 
-    private func bumpStreak() {
-        let today = Calendar.current.startOfDay(for: Date())
-        guard lastStudyDay != today else { return }
-        if let last = lastStudyDay,
-           Calendar.current.date(byAdding: .day, value: 1, to: last) == today {
-            streak += 1
-        } else {
-            streak = 1
-        }
-        lastStudyDay = today
-    }
-
     private func save() {
-        let snap = Snapshot(states: states, streak: streak, lastStudyDay: lastStudyDay,
-                            verses: verses, tapped: tapped, lastVerseDay: lastVerseDay,
+        let snap = Snapshot(verses: verses, lastVerseDay: lastVerseDay,
                             currentBook: currentBook, pace: pace.rawValue,
                             appearance: appearance.rawValue, sets: sets, language: language.rawValue,
                             verseHelp: verseHelp.rawValue)
@@ -306,19 +212,8 @@ final class Store: ObservableObject {
 }
 
 #if DEBUG
-/// Smallest check that fails if the scheduler breaks.
-func srsSelfCheck() {
-    let now = Date()
-    let fresh = CardState()
-    let good = SM2.apply(.good, to: fresh, now: now)
-    assert(good.intervalDays == 1 && good.due > now, "first good -> 1 day")
-    let good2 = SM2.apply(.good, to: good, now: now)
-    assert(good2.intervalDays > good.intervalDays, "interval grows")
-    let again = SM2.apply(.again, to: good2, now: now)
-    assert(again.intervalDays == 0 && again.due < now.addingTimeInterval(3600), "again -> relearn soon")
-    assert(again.ease < good2.ease, "again lowers ease")
-    let easy = SM2.apply(.easy, to: fresh, now: now)
-    assert(easy.intervalDays >= 2, "easy skips ahead")
+/// Smallest check that fails if set naming breaks.
+func storeSelfCheck() {
     assert(nextSetName(taken: []) == "my-card", "first set is my-card")
     assert(nextSetName(taken: ["my-card", "my-card-2"]) == "my-card-3", "set names count up")
 }

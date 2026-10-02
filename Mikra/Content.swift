@@ -1,6 +1,6 @@
 import Foundation
 
-enum Kind { case letter, vowel, word }
+enum Kind { case letter, vowel }
 
 struct Card: Identifiable {
     let id: String
@@ -17,7 +17,6 @@ struct Card: Identifiable {
         switch kind {
         case .letter: return "Name it and say its sound"
         case .vowel:  return "Say the syllable aloud"
-        case .word:   return "Read it aloud — what does it mean?"
         }
     }
     var speechText: String { tts ?? hebrew }
@@ -81,27 +80,6 @@ let curriculum: [Card] = [
     Card(id: "kubuts", hebrew: "בֻּ", name: "Kubuts", sound: "bu (u as in flute)", kind: .vowel, namePron: "koo-BOOTS", note: "Three diagonal dots → u. In the Bible often written as vav with a middle dot: בּוּ.", tts: "קֻבּוּץ"),
     Card(id: "sheva", hebrew: "בְּ", name: "Sheva", sound: "b / be (very short or silent)", kind: .vowel, namePron: "sh'VAH", tts: "שְׁוָא"),
 
-    // — First real Bible words —
-    Card(id: "w-el", hebrew: "אֵל", name: "God", sound: "el", kind: .word),
-    Card(id: "w-ben", hebrew: "בֵּן", name: "son", sound: "ben", kind: .word),
-    Card(id: "w-yom", hebrew: "יוֹם", name: "day", sound: "yom", kind: .word),
-    Card(id: "w-or", hebrew: "אוֹר", name: "light", sound: "or", kind: .word),
-    Card(id: "w-lev", hebrew: "לֵב", name: "heart", sound: "lev", kind: .word),
-    Card(id: "w-am", hebrew: "עַם", name: "people", sound: "am", kind: .word),
-    Card(id: "w-yam", hebrew: "יָם", name: "sea", sound: "yam", kind: .word, note: "Jonah will need this one."),
-    Card(id: "w-ish", hebrew: "אִישׁ", name: "man", sound: "ish", kind: .word),
-    Card(id: "w-tov", hebrew: "טוֹב", name: "good", sound: "tov", kind: .word),
-    Card(id: "w-shem", hebrew: "שֵׁם", name: "name", sound: "shem", kind: .word),
-    Card(id: "w-yad", hebrew: "יָד", name: "hand", sound: "yad", kind: .word),
-    Card(id: "w-ir", hebrew: "עִיר", name: "city", sound: "ir", kind: .word, note: "Jonah goes to a big one."),
-    Card(id: "w-melekh", hebrew: "מֶלֶךְ", name: "king", sound: "melekh", kind: .word),
-    Card(id: "w-rosh", hebrew: "רֹאשׁ", name: "head", sound: "rosh", kind: .word),
-    Card(id: "w-bayit", hebrew: "בַּיִת", name: "house", sound: "bayit", kind: .word),
-    Card(id: "w-eretz", hebrew: "אֶרֶץ", name: "land, earth", sound: "erets", kind: .word),
-    Card(id: "w-isha", hebrew: "אִשָּׁה", name: "woman", sound: "isha", kind: .word),
-    Card(id: "w-davar", hebrew: "דָּבָר", name: "word, thing", sound: "davar", kind: .word),
-    Card(id: "w-elohim", hebrew: "אֱלֹהִים", name: "God", sound: "elohim", kind: .word),
-    Card(id: "w-shalom", hebrew: "שָׁלוֹם", name: "peace", sound: "shalom", kind: .word),
 ]
 
 let cardsByID = Dictionary(uniqueKeysWithValues: curriculum.map { ($0.id, $0) })

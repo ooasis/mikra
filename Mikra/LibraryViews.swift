@@ -2,15 +2,13 @@ import SwiftUI
 
 // The dashboard's sub-screens: each lists one kind of knowledge and opens its leaf view.
 
-/// The letter or vowel tiles, coloured by drill progress; a tile opens the flash cards.
+/// The letter or vowel tiles; a tile opens the flash cards.
 struct LetterGridView: View {
-    @EnvironmentObject var store: Store
     let kind: Kind
     @State private var selected: LetterGroup?
 
     private var groups: [LetterGroup] { kind == .vowel ? vowelGroups : letterGroups }
     private var allGroups: [LetterGroup] { letterGroups + vowelGroups }
-    private var cards: [Card] { curriculum.filter { $0.kind == kind } }
 
     var body: some View {
         ScrollView {
@@ -40,7 +38,7 @@ struct LetterGridView: View {
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 10)
                         .padding(.horizontal, 4)
-                        .background(tileColor(group), in: RoundedRectangle(cornerRadius: 12))
+                        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
                     }
                     .buttonStyle(.plain)
                 }
@@ -49,7 +47,7 @@ struct LetterGridView: View {
             .padding(.top, 8)
             .environment(\.layoutDirection, .rightToLeft) // rows flow right-to-left, like Hebrew
         }
-        .navigationTitle("\(kind == .vowel ? "Vowels" : "Letters") — \(learned)/\(cards.count)")
+        .navigationTitle(kind == .vowel ? "Vowels" : "Letters")
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $selected) { group in
             FlashCardView(groups: allGroups, index: allGroups.firstIndex { $0.id == group.id } ?? 0)
@@ -61,17 +59,6 @@ struct LetterGridView: View {
         }
         #endif
     }
-
-    private var learned: Int {
-        cards.filter { (store.states[$0.id]?.intervalDays ?? 0) >= 1 }.count
-    }
-
-    private func tileColor(_ group: LetterGroup) -> Color {
-        let states = group.cards.map { store.states[$0.id] }
-        if states.allSatisfy({ ($0?.intervalDays ?? 0) >= 1 }) { return .green.opacity(0.2) }
-        if states.contains(where: { $0 != nil }) { return .blue.opacity(0.15) }
-        return Color(.secondarySystemBackground)
-    }
 }
 
 let vowelGroups: [LetterGroup] = curriculum.filter { $0.kind == .vowel }
@@ -79,7 +66,6 @@ let vowelGroups: [LetterGroup] = curriculum.filter { $0.kind == .vowel }
 
 /// A curated deck (Pronouns, Numbers) as tiles, like the alphabet; a tile opens the deck at that word.
 struct DeckGridView: View {
-    @EnvironmentObject var store: Store
     let deck: Deck
     @State private var start: Start?
 
@@ -111,9 +97,7 @@ struct DeckGridView: View {
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 10)
                         .padding(.horizontal, 4)
-                        .background(card.units.allSatisfy { store.tapped.contains($0.id) }
-                                        ? Color.blue.opacity(0.15) : Color(.secondarySystemBackground),
-                                    in: RoundedRectangle(cornerRadius: 12))
+                        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
                     }
                     .buttonStyle(.plain)
                 }
@@ -142,13 +126,13 @@ struct DeckGridView: View {
     }
 }
 
-/// Editing a custom set (long-press its home tile): prune words, rename, delete.
-/// A row opens the set as a deck at that word; the home tile opens it shuffled.
+/// A custom set as a list: a row opens the deck at that word, the shuffle button opens it
+/// reshuffled; swipe to prune, and the menu renames or deletes.
 struct WordSetView: View {
     @EnvironmentObject var store: Store
     @Environment(\.dismiss) private var dismiss
     let setID: String
-    @State private var start: DeckGridView.Start?
+    @State private var start: DeckGridView.Start? // -1 opens the deck shuffled
     @State private var renaming = false
     @State private var newName = ""
     @State private var confirmingDelete = false
@@ -182,6 +166,12 @@ struct WordSetView: View {
         .navigationTitle(wordSet?.name ?? "")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            Button {
+                start = DeckGridView.Start(i: -1)
+            } label: {
+                Image(systemName: "shuffle")
+            }
+            .disabled(cards.isEmpty)
             Menu {
                 Button {
                     newName = wordSet?.name ?? ""
@@ -211,14 +201,13 @@ struct WordSetView: View {
             }
         }
         .sheet(item: $start) { s in
-            WordDeckView(title: wordSet?.name ?? "", cards: cards, shuffle: false, start: s.i)
+            WordDeckView(title: wordSet?.name ?? "", cards: cards, shuffle: s.i < 0, start: max(s.i, 0), setID: setID)
         }
     }
 }
 
 /// The frequency deck's bands; a band opens its deck.
 struct BandsView: View {
-    @EnvironmentObject var store: Store
     @State private var openBand: WordBand?
 
     var body: some View {
@@ -236,8 +225,6 @@ struct BandsView: View {
                             Text(band.title).font(.caption2.bold())
                             Text("\(band.floor)+ times")
                                 .font(.caption2).foregroundStyle(.secondary)
-                            Text("\(learningIn(band)) learning")
-                                .font(.caption2).foregroundStyle(.tertiary)
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 10)
@@ -261,11 +248,6 @@ struct BandsView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { openBand = wordBands[0] }
         }
         #endif
-    }
-
-    private func learningIn(_ band: WordBand) -> Int {
-        wordDeck[band.start ..< band.start + band.count]
-            .filter { store.tapped.contains($0.id) }.count
     }
 }
 

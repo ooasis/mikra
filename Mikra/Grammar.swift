@@ -6,7 +6,7 @@ struct LessonExample: Codable, Hashable {
     let g: String        // gloss or reading
     var ref: String? = nil // "Jonah 1:3" when the example is in the bundled texts
 
-    /// The deck view shows a lesson's examples as cards; an empty Strong's marks them unenrollable.
+    /// The deck view shows a lesson's examples as cards; an empty Strong's keeps them out of word sets.
     var card: WordCard { WordCard(s: "", h: h, g: g, n: 0, root: [], conf: []) }
 }
 

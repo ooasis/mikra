@@ -147,7 +147,6 @@ private struct VersePage: View {
                 ForEach(Array(verse.words.enumerated()), id: \.offset) { i, word in
                     Button {
                         picked = WordPick(index: i)
-                        store.tapWord(word)
                         Speech.say(word.h)
                     } label: {
                         VStack(spacing: 2) {
@@ -162,8 +161,6 @@ private struct VersePage: View {
                                 .overlay(alignment: .bottom) {
                                     if word.n != nil {
                                         Circle().fill(.orange).frame(width: 5, height: 5).offset(y: 4)
-                                    } else if store.tapped.contains(verseWordCardID(word)) {
-                                        Circle().fill(.blue.opacity(0.5)).frame(width: 4, height: 4).offset(y: 4)
                                     }
                                 }
                             if let help = help(for: word) {

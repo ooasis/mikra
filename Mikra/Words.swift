@@ -9,6 +9,7 @@ struct WordCard: Codable, Identifiable {
     let n: Int          // occurrences in the Hebrew Bible
     let root: [String]  // same-root siblings, by Strong's number
     let conf: [String]  // look-alikes a beginner mixes up
+    var p: String? = nil // part of speech (noun, verb, …); forms carry none
     var forms: [WordCard]? = nil // curated decks: every gender/number form of this meaning
 
     var id: String { "w-" + s }
@@ -114,19 +115,9 @@ func searchWords(_ query: String) -> [WordCard] {
     }
 }
 
-/// Deck words as SRS cards, for when "Learn this" enrolls one.
-/// A number that is also in the frequency deck shares its id, so it is one card either way.
-let wordCardsByID: [String: Card] = Dictionary(
-    (wordDeck + decks.flatMap(\.cards).flatMap(\.units)).map {
-        ($0.id, Card(id: $0.id, hebrew: $0.h, name: $0.g, sound: "", kind: .word))
-    }, uniquingKeysWith: { a, _ in a })
-
 /// Deck words by id, for the custom sets, which store only ids.
 let wordCardByID: [String: WordCard] = Dictionary(
     (wordDeck + decks.flatMap(\.cards)).map { ($0.id, $0) }, uniquingKeysWith: { a, _ in a })
-
-/// Everything enrollable by hand: words tapped in the reader, and words taken from the deck.
-let enrolledCardsByID = verseWordCardsByID.merging(wordCardsByID) { a, _ in a }
 
 #if DEBUG
 /// Smallest check that fails if a band stops opening exactly its own cards, or a deck is empty.

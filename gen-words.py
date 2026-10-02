@@ -626,11 +626,21 @@ DECKS = [
 ]
 
 
-def build_decks(forms):
+# Part of speech from the dominant OSHB morph code: its first letter is the class,
+# the second refines adjectives into numbers.
+def part_of_speech(code):
+    if code[:1] == "A" and code[1:2] in ("c", "o"):
+        return "number"
+    return {"N": "noun", "V": "verb", "A": "adjective", "P": "pronoun", "D": "adverb",
+            "R": "preposition", "C": "conjunction", "T": "particle"}.get(code[:1])
+
+
+def build_decks(forms, pos):
     def form(fid, strongs, h, label):
         return {"s": fid, "h": h, "g": label, "n": forms[(strongs, consonants(h))], "root": [], "conf": []}
     return [{"id": did, "title": title, "note": note,
              "cards": [{"s": cid, "h": fs[0][2], "g": gloss, "n": sum(form(*f)["n"] for f in fs),
+                        "p": part_of_speech(pos.get(fs[0][1], "")),
                         "root": [], "conf": [], "forms": [form(*f) for f in fs]}
                        for cid, gloss, fs in cards]}
             for did, title, note, cards in DECKS]
@@ -685,10 +695,10 @@ def build():
                 conf[a].append(b)
                 conf[b].append(a)
 
-    cards = [{"s": k, "h": lex["H" + k]["lemma"], "g": GLOSS[k], "n": cnt[k],
+    cards = [{"s": k, "h": lex["H" + k]["lemma"], "g": GLOSS[k], "n": cnt[k], "p": part_of_speech(pos[k]),
               "j": k in jonah, "root": root_of[k], "conf": sorted(conf[k], key=lambda y: index[y])}
              for k in deck]
-    return cards, DROP_LINKS - used_drops, build_decks(forms)
+    return cards, DROP_LINKS - used_drops, build_decks(forms, pos)
 
 
 def check_decks(decks):

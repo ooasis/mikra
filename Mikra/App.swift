@@ -6,7 +6,7 @@ struct MikraApp: App {
 
     init() {
         #if DEBUG
-        srsSelfCheck()
+        storeSelfCheck()
         speechSelfCheck()
         textsSelfCheck()
         wordDeckSelfCheck()

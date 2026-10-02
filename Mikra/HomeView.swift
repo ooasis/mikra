@@ -8,7 +8,7 @@ enum Route: Hashable {
     case book(String)
     case group(String)
     case lesson(String)
-    case settings
+    case settings, scan
 }
 
 /// The dashboard: three sections of tiles, each leading to one piece of knowledge.
@@ -17,7 +17,6 @@ struct HomeView: View {
     @State private var path = NavigationPath()
     @State private var query = ""
     @State private var pick: WordCard?
-    @State private var openSet: WordSet?
     @FocusState private var focused: Bool
 
     private let columns = Array(repeating: GridItem(.flexible()), count: 3)
@@ -61,19 +60,13 @@ struct HomeView: View {
                                 NavigationLink(value: Route.deck(d.id)) { tile(d.cards[0].h, d.title) }
                             }
                             NavigationLink(value: Route.bands) { tile("דָּבָר", "Common words") }
+                            NavigationLink(value: Route.scan) { tile("📷", "Scan notes") }
                             ForEach(store.sets) { set in
-                                // your own sets follow the built-in decks: tap for flash cards,
-                                // reshuffled each time like a band; long-press to edit
-                                Button {
-                                    if set.ids.isEmpty { path.append(Route.set(set.id)) } else { openSet = set }
-                                } label: {
+                                // your own sets follow the built-in decks: tap for the word list,
+                                // which starts the flash cards from a word or shuffled
+                                NavigationLink(value: Route.set(set.id)) {
                                     tile(set.ids.first.flatMap { wordCardByID[$0]?.h } ?? "＋", set.name,
                                          custom: true)
-                                }
-                                .contextMenu {
-                                    NavigationLink(value: Route.set(set.id)) {
-                                        Label("Edit set", systemImage: "pencil")
-                                    }
                                 }
                             }
                         }
@@ -90,10 +83,8 @@ struct HomeView: View {
                     }
                 }
                 .padding(.top, 8)
-                .sheet(item: $openSet) { set in // its own node: two sheets on one view, only one fires
-                    WordDeckView(title: set.name, cards: set.ids.compactMap { wordCardByID[$0] }, setID: set.id)
-                }
             }
+            .scrollDismissesKeyboard(.immediately)
             .toolbar(.hidden, for: .navigationBar) // the Hebrew title above is the header
             .sheet(item: $pick) { w in
                 WordDeckView(title: tr(w.g), cards: [w], shuffle: false, revealed: true)
@@ -109,6 +100,7 @@ struct HomeView: View {
                 case .group(let id): LessonListView(group: grammarGroups.first { $0.id == id }!)
                 case .lesson(let id): LessonView(lesson: lessonsByID[id]!)
                 case .settings: SettingsView()
+                case .scan: ScanView()
                 }
             }
         }
@@ -130,7 +122,9 @@ struct HomeView: View {
                 } else if args.contains("-openDeck") {
                     path.append(Route.deck(decks[0].id))
                 } else if args.contains("-openSet"), let set = store.sets.first {
-                    if args.contains("-edit") { path.append(Route.set(set.id)) } else { openSet = set }
+                    path.append(Route.set(set.id))
+                } else if args.contains(where: { $0.hasPrefix("-scan") }) {
+                    path.append(Route.scan)
                 } else if args.contains("-openSettings") {
                     path.append(Route.settings)
                 } else if args.contains("-openLesson") {

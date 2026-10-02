@@ -38,11 +38,14 @@ final class SpeechMonitor: NSObject, ObservableObject, AVSpeechSynthesizerDelega
 
     private var indices: [ObjectIdentifier: Int] = [:]
     private var lastIndex: Int?
+    /// Whoever is waiting for the current speech to end, however it ends.
+    fileprivate var finished: (() -> Void)?
 
     fileprivate func track(_ utterances: [AVSpeechUtterance], wordByWord: Bool) {
         indices = [:]
         lastIndex = nil
         publish(nil)
+        done() // new speech supersedes whatever was being waited on
         guard wordByWord else { return }
         for (i, u) in utterances.enumerated() { indices[ObjectIdentifier(u)] = i }
         lastIndex = utterances.count - 1
@@ -56,17 +59,24 @@ final class SpeechMonitor: NSObject, ObservableObject, AVSpeechSynthesizerDelega
         }
     }
 
+    private func done() {
+        let f = finished
+        finished = nil
+        f?()
+    }
+
     func speechSynthesizer(_ synth: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
         publish(indices[ObjectIdentifier(utterance)])
     }
 
     /// Clear only after the final word, so the highlight doesn't flicker off between words.
     func speechSynthesizer(_ synth: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        if indices[ObjectIdentifier(utterance)] == lastIndex { publish(nil) }
+        if indices[ObjectIdentifier(utterance)] == lastIndex { publish(nil); done() }
     }
 
     func speechSynthesizer(_ synth: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
         publish(nil)
+        done()
     }
 }
 
@@ -103,7 +113,16 @@ enum Speech {
         synth.stopSpeaking(at: .immediate)
     }
 
-    private static func speak(_ chunks: [String], pace: Pace) {
+    /// Speaks one word and returns once it has been heard — or cut off by a stop.
+    /// The caller owns any pause after it; the synth's own delay is avoided because
+    /// stopping inside it is a known way to wedge the synthesizer.
+    static func say(word: String) async {
+        speak([word], pace: pace, gap: 0)
+        guard synth.isSpeaking else { return } // muted in tests: nothing to wait for
+        await withCheckedContinuation { c in SpeechMonitor.shared.finished = { c.resume() } }
+    }
+
+    private static func speak(_ chunks: [String], pace: Pace, gap: TimeInterval? = nil) {
         #if DEBUG
         // simulator TTS can hang view presentation; UI smoke tests pass -muteTTS
         if ProcessInfo.processInfo.arguments.contains("-muteTTS") {
@@ -116,7 +135,7 @@ enum Speech {
             let u = AVSpeechUtterance(string: chunk)
             u.voice = AVSpeechSynthesisVoice(language: "he-IL")
             u.rate = AVSpeechUtteranceDefaultSpeechRate * pace.rate
-            u.postUtteranceDelay = pace.gap
+            u.postUtteranceDelay = gap ?? pace.gap
             return u
         }
         SpeechMonitor.shared.track(utterances, wordByWord: pace.wordByWord && chunks.count > 1)

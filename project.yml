@@ -22,4 +22,5 @@ targets:
         CURRENT_PROJECT_VERSION: 9
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
+        INFOPLIST_KEY_NSCameraUsageDescription: Mikra photographs your notes to turn the Hebrew words on them into cards.
         INFOPLIST_KEY_NSMicrophoneUsageDescription: Mikra records your voice so you can hear yourself read a verse.
