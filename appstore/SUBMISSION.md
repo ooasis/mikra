@@ -8,7 +8,7 @@
 - [x] Version 1.2 (build 6, uploaded 2026-09-26): dashboard home (words / verses / grammar), pronoun and number decks, 40 grammar lessons with tables, settings (appearance, reading speed), pronunciation after reveal — **approved and live**
 - [x] Version 1.3 (build 9, uploaded 2026-09-30; builds 7 and 8 superseded — build 9 fixes the word deck, which had been missing son, house, people, city, eye and 155 other common words): custom word sets (bookmark on any card; sets open as shuffled flash cards), Chinese meanings (Settings → Meanings), verse page opens on text + translation with a None/Meaning/Reading picker under each word, record yourself reading a verse and play it back, coloured vowel points everywhere, five word bands
 - [x] Export compliance key (ITSAppUsesNonExemptEncryption=NO)
-- [x] Screenshots in appstore/screenshots/: one set only — dark mode, 6.5" (`dark-*-6.5.png`, 1284×2778, iPhone 14 Plus simulator), five screens (home, verse, pronoun deck, grammar lesson, vowel card), captured with the -openVerse/-openDeck/-reveal/-openLesson/-openVowel launch hooks with the home seeded with one custom set and the verse in Meaning mode. Upload the same five for the 6.9" slot; App Store Connect accepts 6.5" there. The light and 6.9" sets were dropped for 1.3.
+- [x] Screenshots in appstore/screenshots/: one set only — dark mode, 6.5" (`dark-*-6.5.png`, 1284×2778, iPhone 14 Plus simulator), six screens (home, verse, pronoun deck, grammar lesson, vowel card, scan notes), captured 2026-10-02 for 1.4 with the -openVerse/-openDeck/-reveal/-openLesson/-openVowel/-scanText= launch hooks, the home seeded with one custom set, the verse in Meaning mode, and `simctl status_bar override --time 9:41 --batteryState discharging --batteryLevel 100 --wifiBars 3 --cellularBars 4`. Upload the same five for the 6.9" slot; App Store Connect accepts 6.5" there. The light and 6.9" sets were dropped for 1.3.
 - [x] Metadata drafts (metadata.md)
 - [x] Privacy policy text (privacy-policy.md)
 
@@ -25,7 +25,7 @@
 - [x] 1.0 version page (done for 1.0).
 - [x] 1.2 version page (done, live).
 - [x] Version 1.4 (build 10, uploaded 2026-10-02): Scan notes (photograph or paste a word list in English, 中文 or Hebrew; the words Mikra knows become a new set or join an existing one), part of speech on every word card, custom sets open as a list with a shuffle button, "See also" words read aloud in place with their pronunciation, listening test on word decks; "Learn this" and the spaced-repetition review removed.
-- [ ] **1.4 version page**: create the 1.4 version in App Store Connect, select build 10 once processed, paste “What’s New” (below), then submit. Screenshots still show 1.3; the home screen gained a Scan notes tile, so recapture if time allows.
+- [ ] **1.4 version page**: create the 1.4 version in App Store Connect, select build 10 once processed, upload the six `dark-*-6.5.png` screenshots (the 6.9" slot accepts them), paste “What’s New” (below), then submit.
 
 What’s New for 1.4:
 
