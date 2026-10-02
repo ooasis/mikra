@@ -24,7 +24,16 @@
 - [x] Age rating questionnaire → 4+.  (done for 1.0)
 - [x] 1.0 version page (done for 1.0).
 - [x] 1.2 version page (done, live).
-- [ ] **1.3 version page**: create the 1.3 version in App Store Connect, select build 9 once processed (not build 7 or 8), replace the screenshots with the five `dark-*-6.5.png`, paste “What’s New” (below), then submit.
+- [x] Version 1.4 (build 10, uploaded 2026-10-02): Scan notes (photograph or paste a word list in English, 中文 or Hebrew; the words Mikra knows become a new set or join an existing one), part of speech on every word card, custom sets open as a list with a shuffle button, "See also" words read aloud in place with their pronunciation, listening test on word decks; "Learn this" and the spaced-repetition review removed.
+- [ ] **1.4 version page**: create the 1.4 version in App Store Connect, select build 10 once processed, paste “What’s New” (below), then submit. Screenshots still show 1.3; the home screen gained a Scan notes tile, so recapture if time allows.
+
+What’s New for 1.4:
+
+> • Scan notes: photograph a word list, or paste one, in English, Chinese or Hebrew. Every word Mikra knows becomes a card in a new set, or joins one of yours.
+> • Each word card now shows its part of speech.
+> • Your word sets open as a list; tap a word to study from there, or shuffle the whole set.
+> • “See also” words are read aloud in place, with how to say them.
+> • Removed “Learn this”, which no longer led anywhere.
 
 What’s New for 1.3:
 
@@ -83,7 +92,7 @@ thing by hand; drop the archive in
 
 ## Submit
 - [ ] Add App Review notes from metadata.md.
-- [ ] Submit 1.3 for Review.
+- [ ] Submit 1.4 for Review.
 
 ## Gotchas that cause first-submission rejections
 - Privacy policy URL must load publicly (test in an incognito window).
