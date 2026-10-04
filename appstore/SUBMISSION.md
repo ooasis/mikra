@@ -25,7 +25,15 @@
 - [x] 1.0 version page (done for 1.0).
 - [x] 1.2 version page (done, live).
 - [x] Version 1.4 (build 10, uploaded 2026-10-02): Scan notes (photograph or paste a word list in English, 中文 or Hebrew; the words Mikra knows become a new set or join an existing one), part of speech on every word card, custom sets open as a list with a shuffle button, "See also" words read aloud in place with their pronunciation, listening test on word decks; "Learn this" and the spaced-repetition review removed.
-- [ ] **1.4 version page**: create the 1.4 version in App Store Connect, select build 10 once processed, upload the six `dark-*-6.5.png` screenshots (the 6.9" slot accepts them), paste “What’s New” (below), then submit.
+- [x] Version 1.5 (build 11, uploaded 2026-10-03): the whole Hebrew Bible (39 books, "Old Testament" tile), Daily phrases (81 everyday Modern Hebrew phrases in 8 sets, read like verses), add words to a set by search or scan from the set's own screen, gender and number (or verb stem) on every word card, Practice screen.
+- [ ] **1.5 version page**: create the 1.5 version in App Store Connect, select build 11 once processed, paste “What’s New” (below), then submit. Screenshots still show 1.4; the home screen's Verses section changed (Old Testament + Daily phrases tiles), so recapture if time allows.
+
+What’s New for 1.5:
+
+> • The whole Hebrew Bible: every book, chapter by chapter, with word-by-word meanings.
+> • Daily phrases: everyday Hebrew — good morning, how are you, what’s the weather today — read, heard and tapped word by word like a verse.
+> • Add words to a set from the set itself: search and tap, or scan your notes.
+> • Word cards now show gender and number, or the verb’s stem, beside the part of speech.
 
 What’s New for 1.4:
 
@@ -92,7 +100,7 @@ thing by hand; drop the archive in
 
 ## Submit
 - [ ] Add App Review notes from metadata.md.
-- [ ] Submit 1.4 for Review.
+- [ ] Submit 1.5 for Review.
 
 ## Gotchas that cause first-submission rejections
 - Privacy policy URL must load publicly (test in an incognito window).
