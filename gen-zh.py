@@ -22,13 +22,19 @@ def needed():
     """Every English string the app can show in Chinese, in a stable order."""
     keys = []
     for w in load("Words.json"):
-        keys.append(w["g"])
+        keys += [w["g"], w.get("p"), w.get("f")]
     for deck in load("Decks.json"):
         for card in deck["cards"]:
-            keys.append(card["g"])
+            keys += [card["g"], card.get("p"), card.get("f")]
             keys += [f["g"] for f in card.get("forms", [])]
-    for book in load("Texts.json"):
-        for verse in book["verses"]:
+    for entry in load("Texts.json"):  # the book index; the verses sit in Texts/<file>.json
+        if not entry["notes"]:
+            continue  # the whole Tanakh is readable, but only the course chapters get Chinese glosses
+        verses = load(f"Texts/{entry['file']}.json")["verses"]
+        course = {v["c"] for v in verses if any("n" in w for w in v["words"])}
+        for verse in verses:
+            if verse["c"] not in course:
+                continue
             for w in verse["words"]:
                 keys += w["g"].split(" + ")  # "and + to be" is translated a piece at a time
                 if "n" in w:

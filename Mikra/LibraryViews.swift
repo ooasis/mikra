@@ -136,6 +136,12 @@ struct WordSetView: View {
     @State private var renaming = false
     @State private var newName = ""
     @State private var confirmingDelete = false
+    @State private var adding: Adding?
+
+    enum Adding: String, Identifiable { // one sheet: two on the same view and only one fires
+        case search, scan
+        var id: String { rawValue }
+    }
 
     private var wordSet: WordSet? { store.sets.first { $0.id == setID } }
     private var cards: [WordCard] { wordSet?.ids.compactMap { wordCardByID[$0] } ?? [] }
@@ -143,7 +149,8 @@ struct WordSetView: View {
     var body: some View {
         List {
             if cards.isEmpty {
-                Text("No words yet — tap the bookmark on any word card to add one.")
+                Text(ui("No words yet — tap + to search or scan, or the bookmark on any word card.",
+                        "还没有词 — 点 + 搜索或扫描，或点任意词卡上的书签。"))
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             }
@@ -166,6 +173,12 @@ struct WordSetView: View {
         .navigationTitle(wordSet?.name ?? "")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            Menu {
+                Button { adding = .search } label: { Label(ui("Search words", "搜索词"), systemImage: "magnifyingglass") }
+                Button { adding = .scan } label: { Label(ui("Scan notes", "扫描笔记"), systemImage: "camera") }
+            } label: {
+                Image(systemName: "plus")
+            }
             Button {
                 start = DeckGridView.Start(i: -1)
             } label: {
@@ -203,6 +216,66 @@ struct WordSetView: View {
         .sheet(item: $start) { s in
             WordDeckView(title: wordSet?.name ?? "", cards: cards, shuffle: s.i < 0, start: max(s.i, 0), setID: setID)
         }
+        .sheet(item: $adding) { a in
+            NavigationStack {
+                switch a {
+                case .search: AddWordsView(setID: setID)
+                case .scan: ScanView(setID: setID)
+                }
+            }
+        }
+        #if DEBUG
+        .onAppear { // -addWords opens the search sheet for UI smoke tests
+            if ProcessInfo.processInfo.arguments.contains("-addWords") {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { adding = .search }
+            }
+        }
+        #endif
+    }
+}
+
+/// Search words into a set: a tap adds the word and clears the search for the next one;
+/// the sheet stays up until Done.
+struct AddWordsView: View {
+    @EnvironmentObject var store: Store
+    @Environment(\.dismiss) private var dismiss
+    let setID: String
+    @State private var query = ""
+    @FocusState private var focused: Bool
+
+    private var ids: [String] { store.sets.first { $0.id == setID }?.ids ?? [] }
+
+    var body: some View {
+        VStack(spacing: 0) {
+            TextField(Zh.on ? "搜索词义（中文或英文）" : "Search words in English or 中文", text: $query)
+                .autocorrectionDisabled()
+                .focused($focused)
+                .padding(10)
+                .background(Theme.surface, in: RoundedRectangle(cornerRadius: Theme.radius))
+                .padding()
+            List(searchWords(query)) { w in
+                let present = ids.contains(w.id)
+                Button {
+                    if !present { store.toggle(w.id, in: setID) }
+                    query = ""
+                    focused = true
+                } label: {
+                    HStack {
+                        Image(systemName: present ? "checkmark" : "plus").foregroundStyle(Theme.accent).frame(width: 20)
+                        Text(tr(w.g)).foregroundStyle(.secondary)
+                        Spacer()
+                        Text(pointed(w.h)).font(.system(size: 32))
+                    }
+                }
+                .buttonStyle(.plain)
+                .disabled(present)
+            }
+            .listStyle(.plain)
+        }
+        .navigationTitle(ui("Add words · \(ids.count)", "添加词 · \(ids.count)"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar { Button(ui("Done", "完成")) { dismiss() } }
+        .onAppear { focused = true }
     }
 }
 
@@ -256,14 +329,29 @@ struct LessonListView: View {
     let group: GrammarGroup
 
     var body: some View {
-        List(lessons(in: group)) { lesson in
-            NavigationLink(value: Route.lesson(lesson.id)) {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(tr(lesson.title))
-                    Text(tr(lesson.why)).font(.caption).foregroundStyle(.secondary)
+        ScrollView {
+            VStack(spacing: 0) {
+                ForEach(lessons(in: group)) { lesson in
+                    NavigationLink(value: Route.lesson(lesson.id)) {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 3) {
+                                Text(tr(lesson.title)).font(.body.weight(.medium)).foregroundStyle(Theme.text)
+                                Text(tr(lesson.why)).font(.caption).foregroundStyle(Theme.neutral500)
+                            }
+                            Spacer()
+                            Image(systemName: "chevron.right").font(.caption.weight(.semibold)).foregroundStyle(Theme.neutral700)
+                        }
+                        .padding(.horizontal)
+                        .padding(.vertical, 12)
+                        .contentShape(.rect)
+                    }
+                    .buttonStyle(.plain)
+                    FadingRule()
                 }
             }
+            .padding(.top, 8)
         }
+        .background(Theme.ground)
         .navigationTitle(group.title)
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -279,14 +367,14 @@ struct LessonView: View {
             VStack(alignment: .leading, spacing: 16) {
                 Text(pointed(ltr(tr(lesson.why))))
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Theme.neutral400)
                 ForEach(lesson.body, id: \.self) { paragraph in
-                    Text(pointed(ltr(tr(paragraph))))
+                    Text(pointed(ltr(tr(paragraph)))).foregroundStyle(Theme.text)
                 }
                 ForEach(lesson.tables ?? [], id: \.self) { table in
                     lessonTable(table)
                 }
-                Text("Examples").font(.headline).padding(.top, 8)
+                Text(ui("Examples", "例子")).font(.subheadline.weight(.medium)).padding(.top, 8)
                 ForEach(lesson.examples, id: \.self) { e in
                     Button {
                         Speech.say(e.h)
@@ -296,42 +384,35 @@ struct LessonView: View {
                                 .font(.system(size: 38))
                                 .frame(minWidth: 130, alignment: .trailing)
                             VStack(alignment: .leading, spacing: 1) {
-                                Text(ltr(tr(e.g))).font(.subheadline)
+                                Text(ltr(tr(e.g))).font(.subheadline).foregroundStyle(Theme.text)
                                 if let ref = e.ref {
-                                    Text(ref).font(.caption2).foregroundStyle(.tertiary)
+                                    Text(ref).font(.caption2).foregroundStyle(Theme.neutral500)
                                 }
                             }
                             Spacer()
                             Image(systemName: "speaker.wave.2")
                                 .font(.caption)
-                                .foregroundStyle(.tertiary)
+                                .foregroundStyle(Theme.neutral500)
                         }
                         .padding(.vertical, 8)
                         .padding(.horizontal, 12)
-                        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 10))
+                        .overlay(RoundedRectangle(cornerRadius: Theme.radius).strokeBorder(Theme.divider))
+                        .contentShape(.rect)
                     }
                     .buttonStyle(.plain)
                 }
             }
             .padding()
         }
+        .background(Theme.ground)
         .navigationTitle(tr(lesson.title))
         .navigationBarTitleDisplayMode(.inline)
         .safeAreaInset(edge: .bottom) {
-            Button {
-                practising = true
-            } label: {
-                Text("Practice")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
-                    .background(.blue, in: Capsule())
-                    .foregroundStyle(.white)
-            }
-            .buttonStyle(.plain)
-            .padding(.horizontal)
-            .padding(.bottom, 8)
-            .background(.bar)
+            Button { practising = true } label: { Label(ui("Practice", "练习"), systemImage: "play") }
+                .buttonStyle(OutlineButtonStyle())
+                .padding(.horizontal)
+                .padding(.vertical, 8)
+                .background(Theme.bg)
         }
         .sheet(isPresented: $practising) {
             WordDeckView(title: tr(lesson.title), cards: lesson.examples.map(\.card), shuffle: false)
@@ -344,14 +425,14 @@ struct LessonView: View {
 
     private func lessonTable(_ table: LessonTable) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(tr(table.title)).font(.subheadline.bold())
+            Text(tr(table.title)).font(.subheadline.weight(.medium))
             Grid(alignment: .leading, horizontalSpacing: 12, verticalSpacing: 10) {
                 GridRow {
                     ForEach(table.columns, id: \.self) { col in
-                        Text(tr(col)).font(.caption.bold()).foregroundStyle(.secondary)
+                        Text(tr(col)).font(.caption.weight(.medium)).foregroundStyle(Theme.neutral500)
                     }
                 }
-                Divider()
+                FadingRule()
                 ForEach(table.rows, id: \.self) { row in
                     GridRow {
                         ForEach(Array(row.enumerated()), id: \.offset) { i, cell in
@@ -359,7 +440,7 @@ struct LessonView: View {
                                 Text(pointed(ltr(cell))).font(.system(size: 28)).lineSpacing(2)
                             } else {
                                 Text(tr(cell)).font(.subheadline)
-                                    .foregroundStyle(i == 0 ? .secondary : .primary)
+                                    .foregroundStyle(i == 0 ? Theme.neutral400 : Theme.text)
                             }
                         }
                     }
@@ -367,7 +448,7 @@ struct LessonView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(12)
-            .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 10))
+            .cardSurface()
         }
         .padding(.top, 4)
     }

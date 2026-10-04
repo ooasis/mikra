@@ -24,33 +24,74 @@ struct Verse: Codable, Identifiable {
     var text: String { Zh.on ? zh ?? en : en }
 }
 
+/// One entry of Texts.json, the book index. The verses live in Texts/<file>.json and are
+/// decoded the first time a book is opened: the whole Tanakh is 21 MB of JSON.
 struct BookText: Identifiable, Codable {
     let name: String
     let heb: String
-    let verses: [Verse]
+    let file: String
+    let part: String // Torah, Prophets, Writings
+    let count: Int   // verses
+    let notes: Int   // micro-notes; the books that have any are the course, shown on the home screen
     var id: String { name }
+    var verses: [Verse] { versesOf(self) }
 }
 
+/// One situation of everyday Modern Hebrew (gen-phrases.py → Phrases.json): a chapter of the
+/// "Daily phrases" pseudo-book, so the reader pages through a set like a chapter.
+struct PhraseSet: Identifiable, Codable {
+    let c: Int
+    let name: String
+    let zh: String
+    let heb: String // the tile glyph
+    var id: Int { c }
+    var title: String { Zh.on ? zh : name }
+    var verses: [Verse] { book(named: phraseBook).verses.filter { $0.c == c } }
+}
+
+let phraseBook = "Daily phrases"
+
+let phraseSets: [PhraseSet] = {
+    struct File: Decodable { let sets: [PhraseSet] }
+    let url = Bundle.main.url(forResource: "Phrases", withExtension: "json")!
+    return try! JSONDecoder().decode(File.self, from: Data(contentsOf: url)).sets
+}()
+
+/// The Tanakh index plus the phrase book, which no book list shows (its part is not a Tanakh part).
 let books: [BookText] = {
     let url = Bundle.main.url(forResource: "Texts", withExtension: "json")!
-    let raw = try! JSONDecoder().decode([BookText].self, from: Data(contentsOf: url))
-    return raw.map { book in
-        BookText(name: book.name, heb: book.heb, verses: book.verses.map {
-            Verse(c: $0.c, v: $0.v, en: $0.en, zh: $0.zh, words: $0.words, book: book.name)
-        })
-    }
+    let tanakh = try! JSONDecoder().decode([BookText].self, from: Data(contentsOf: url))
+    struct File: Decodable { let verses: [Verse] }
+    let phrases = Bundle.main.url(forResource: "Phrases", withExtension: "json")!
+    let count = try! JSONDecoder().decode(File.self, from: Data(contentsOf: phrases)).verses.count
+    return tanakh + [BookText(name: phraseBook, heb: "עִבְרִית", file: "Phrases", part: "Modern", count: count, notes: 0)]
 }()
 
 func book(named name: String) -> BookText {
     books.first { $0.name == name } ?? books[0]
 }
 
+private var loaded: [String: [Verse]] = [:] // main thread only, like the views that read it
+
+private func versesOf(_ book: BookText) -> [Verse] {
+    if let verses = loaded[book.name] { return verses }
+    struct File: Decodable { let verses: [Verse] }
+    let url = Bundle.main.url(forResource: book.file, withExtension: "json")!
+    let verses = try! JSONDecoder().decode(File.self, from: Data(contentsOf: url)).verses.map {
+        Verse(c: $0.c, v: $0.v, en: $0.en, zh: $0.zh, words: $0.words, book: book.name)
+    }
+    loaded[book.name] = verses
+    return verses
+}
+
 #if DEBUG
 /// Smallest check that fails if a verse loses its book, which would send the
 /// reader's pager to the wrong book and open it at the wrong verse.
 func textsSelfCheck() {
-    for book in books {
-        assert(!book.verses.isEmpty, "\(book.name) has no verses")
+    assert(books.count == 40 && books.dropLast().reduce(0) { $0 + $1.count } == 23213, "Texts.json should index the whole Tanakh")
+    assert(phraseSets.allSatisfy { !$0.verses.isEmpty }, "a phrase set has no phrases")
+    for book in books where book.notes > 0 { // the course books; decoding all 39 would slow every debug launch
+        assert(book.verses.count == book.count, "\(book.name): \(book.verses.count) verses, index says \(book.count)")
         for (i, verse) in book.verses.enumerated() {
             assert(verse.book == book.name, "\(verse.id) is not stamped with \(book.name)")
             assert(Mikra.book(named: verse.book).verses.firstIndex { $0.id == verse.id } == i,

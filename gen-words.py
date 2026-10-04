@@ -523,6 +523,8 @@ def count_lemmas():
     """Lemma -> (occurrences, dominant morph code), plus the set occurring in Jonah,
     plus (lemma, consonantal surface form) counts for the curated decks."""
     cnt, pos, jonah, forms = Counter(), defaultdict(Counter), set(), Counter()
+    full = defaultdict(Counter)  # lemma -> full morph codes, for gender/number/stem
+    plain = defaultdict(Counter)  # (lemma, consonants of the bare word) -> morph codes, for the number of the dictionary form
     for book in BOOKS:
         root = ET.parse(fetch(WLC.format(book), f"{book}.xml")).getroot()
         for w in root.iter(NS + "w"):
@@ -538,6 +540,9 @@ def count_lemmas():
                 forms[(tail.group(1), consonants(parts[-1]))] += 1
                 if len(parts) > 1:  # also as written with its prefixes, so כַּאֲשֶׁר can be a card
                     forms[(tail.group(1), consonants("".join(parts)))] += 1
+                i = len(lemmas) - 1  # the word proper: after any prefixes, before any suffix
+                if i < len(parts) and i < len(morphs):
+                    plain[(tail.group(1), consonants(parts[i]))][morphs[i]] += 1
             for i, part in enumerate(lemmas):
                 # OSHB writes homographs as "1121 a"; the deck is keyed by Strong's number, so the letter is dropped
                 m = re.match(r"^[a-z]?\s*(\d+)\s*([a-z])?$", part.strip())
@@ -546,9 +551,10 @@ def count_lemmas():
                 num = m.group(1)
                 cnt[num] += 1
                 pos[num][(morphs[i] if i < len(morphs) else "")[:2]] += 1
+                full[num][morphs[i] if i < len(morphs) else ""] += 1
                 if book == "Jonah":
                     jonah.add(num)
-    return cnt, {k: v.most_common(1)[0][0] for k, v in pos.items()}, jonah, forms
+    return cnt, {k: v.most_common(1)[0][0] for k, v in pos.items()}, jonah, forms, full, plain
 
 
 # Curated decks: (deck id, title, deck note, cards). A card is one meaning with all its
@@ -635,19 +641,43 @@ def part_of_speech(code):
             "R": "preposition", "C": "conjunction", "T": "particle"}.get(code[:1])
 
 
-def build_decks(forms, pos):
+# Gender and number for nouns and adjectives, the stem for verbs, each the commonest over the
+# lemma's occurrences (OSHB codes: Ncmsa = noun common masculine singular absolute; Vqp3ms = qal).
+GENDER = {"m": "masculine", "f": "feminine", "b": "masculine or feminine", "c": "common gender"}
+NUMBER = {"s": "singular", "p": "plural", "d": "dual"}
+STEM = {"q": "qal", "N": "niphal", "p": "piel", "P": "pual", "h": "hiphil", "H": "hophal", "t": "hitpael"}
+
+
+def features(codes, own):
+    """`codes`: morphs of every occurrence of the lemma; `own`: of the occurrences spelled like the
+    card's form, so בֵּן is singular although בָּנִים is commoner, and אֱלֹהִים is plural."""
+    def commonest(picks):
+        c = Counter(p for p in picks if p)
+        return c.most_common(1)[0][0] if c else None
+    cls = commonest(m[:1] for m in codes.elements())
+    if cls in ("N", "A"):
+        words = [m for m in codes.elements() if m[:1] == cls and len(m) >= 4]
+        mine = [m for m in own.elements() if m[:1] == cls and len(m) >= 4] or words
+        g, n = commonest(GENDER.get(m[2]) for m in words), commonest(NUMBER.get(m[3]) for m in mine)
+        return " ".join(x for x in (g, n) if x) or None
+    if cls == "V":
+        return commonest(STEM.get(m[1:2]) for m in codes.elements() if m[:1] == "V")
+    return None
+
+
+def build_decks(forms, pos, full, plain):
     def form(fid, strongs, h, label):
         return {"s": fid, "h": h, "g": label, "n": forms[(strongs, consonants(h))], "root": [], "conf": []}
     return [{"id": did, "title": title, "note": note,
              "cards": [{"s": cid, "h": fs[0][2], "g": gloss, "n": sum(form(*f)["n"] for f in fs),
-                        "p": part_of_speech(pos.get(fs[0][1], "")),
+                        "p": part_of_speech(pos.get(fs[0][1], "")), "f": features(full.get(fs[0][1], Counter()), plain.get((fs[0][1], consonants(fs[0][2])), Counter())),
                         "root": [], "conf": [], "forms": [form(*f) for f in fs]}
                        for cid, gloss, fs in cards]}
             for did, title, note, cards in DECKS]
 
 
 def build():
-    cnt, pos, jonah, forms = count_lemmas()
+    cnt, pos, jonah, forms, full, plain = count_lemmas()
     strongs_js = open(fetch(STRONGS, "strongs.js"), encoding="utf-8").read()
     lex = json.loads(re.search(r"=\s*(\{.*\})\s*;?\s*(module|$)", strongs_js, re.S).group(1))
 
@@ -696,9 +726,10 @@ def build():
                 conf[b].append(a)
 
     cards = [{"s": k, "h": lex["H" + k]["lemma"], "g": GLOSS[k], "n": cnt[k], "p": part_of_speech(pos[k]),
+              "f": features(full[k], plain.get((k, consonants(lex["H" + k]["lemma"])), Counter())),
               "j": k in jonah, "root": root_of[k], "conf": sorted(conf[k], key=lambda y: index[y])}
              for k in deck]
-    return cards, DROP_LINKS - used_drops, build_decks(forms, pos)
+    return cards, DROP_LINKS - used_drops, build_decks(forms, pos, full, plain)
 
 
 def check_decks(decks):

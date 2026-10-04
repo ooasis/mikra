@@ -10,6 +10,7 @@ struct WordCard: Codable, Identifiable {
     let root: [String]  // same-root siblings, by Strong's number
     let conf: [String]  // look-alikes a beginner mixes up
     var p: String? = nil // part of speech (noun, verb, …); forms carry none
+    var f: String? = nil // gender and number ("feminine plural") or the verb stem ("qal")
     var forms: [WordCard]? = nil // curated decks: every gender/number form of this meaning
 
     var id: String { "w-" + s }

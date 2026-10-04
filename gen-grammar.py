@@ -7,6 +7,7 @@ against Texts.json: every example with a `ref` must occur in that verse.
     ./gen-grammar.py           # write Mikra/Grammar.json
     ./gen-grammar.py --check   # validate only
 """
+import glob
 import json, os, sys, unicodedata
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -1067,8 +1068,10 @@ def consonants(s):
 
 def check(lessons):
     """Every cited example really occurs in its verse, ids are unique, nothing is blank."""
-    books = {b["name"]: {(v["c"], v["v"]): v for v in b["verses"]}
-             for b in json.load(open(os.path.join(HERE, "Mikra", "Texts.json"), encoding="utf-8"))}
+    books = {}
+    for p in glob.glob(os.path.join(HERE, "Mikra", "Texts", "*.json")):
+        b = json.load(open(p, encoding="utf-8"))
+        books[b["name"]] = {(v["c"], v["v"]): v for v in b["verses"]}
     ids = [l["id"] for l in lessons]
     assert len(set(ids)) == len(ids), "duplicate lesson ids"
     cited = 0

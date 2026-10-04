@@ -1,6 +1,7 @@
 import SwiftUI
 
-/// A deck of pointed words: one per page, tap to reveal the gloss. Serves the
+/// A deck of pointed words as flip cards: Hebrew on the front, tap to turn it over, swipe for
+/// the next. Got it marks a card known; the listening test skips known cards. Serves the
 /// frequency bands, the curated decks, and a lesson's examples.
 struct WordDeckView: View {
     @EnvironmentObject var store: Store
@@ -10,8 +11,7 @@ struct WordDeckView: View {
     /// Set when the deck is a custom set, so a card can be dropped from it in one tap.
     let setID: String?
     private let cards: [WordCard]
-    /// Indices into `cards`, shuffled once when the deck opens and then left alone,
-    /// so paging back and forth keeps the same order until you close it.
+    /// Indices into `cards`, shuffled once when the deck opens and then left alone.
     @State private var order: [Int]
     @State private var index = 0
     @State private var revealed = false
@@ -53,7 +53,7 @@ struct WordDeckView: View {
         VStack(spacing: 0) {
             header
             TabView(selection: $index) {
-                ForEach(Array(order.enumerated()), id: \.element) { i, word in
+                ForEach(Array(order.enumerated()), id: \.offset) { i, word in
                     page(cards[word], showBack: revealed && i == index)
                         .environment(\.layoutDirection, .leftToRight) // content stays LTR
                         .tag(i)
@@ -62,6 +62,8 @@ struct WordDeckView: View {
             .tabViewStyle(.page(indexDisplayMode: .never))
             .environment(\.layoutDirection, .rightToLeft) // pages advance right-to-left, like Hebrew
         }
+        .background(Theme.ground)
+        .presentationBackground(Theme.bg)
         .presentationDragIndicator(.visible)
         .safeAreaInset(edge: .bottom) { actionBar }
         .onChange(of: index) {
@@ -69,12 +71,12 @@ struct WordDeckView: View {
             if listening, index != playing { stopListening() } // you paged: you drive now
         }
         .onDisappear { stopListening() }
-        .alert("New set", isPresented: $namingSet) {
+        .alert(ui("New set", "新词集"), isPresented: $namingSet) {
             TextField(nextSetName(taken: store.sets.map(\.name)), text: $newSetName)
-            Button("Create") { store.createSet(named: newSetName, with: card.id) }
-            Button("Cancel", role: .cancel) {}
+            Button(ui("Create", "创建")) { store.createSet(named: newSetName, with: card.id) }
+            Button(ui("Cancel", "取消"), role: .cancel) {}
         } message: {
-            Text("Name the set this word starts.")
+            Text(ui("Name the set this word starts.", "给这个词开启的新词集起个名字。"))
         }
         #if DEBUG
         .onAppear { if ProcessInfo.processInfo.arguments.contains("-reveal") { revealed = true } } // UI smoke-test hook
@@ -83,8 +85,12 @@ struct WordDeckView: View {
 
     /// Nothing speaks on its own — a word is only pronounced when you ask for it.
     private func reveal() {
-        revealed = true
+        withAnimation(.easeOut(duration: 0.15)) { revealed = true }
         if !listening { say() } // mid-test, revealing shows the gloss without cutting the run
+    }
+
+    private func flip() {
+        if revealed { withAnimation(.easeOut(duration: 0.15)) { revealed = false } } else { reveal() }
     }
 
     private func say() {
@@ -97,7 +103,7 @@ struct WordDeckView: View {
         listening = true
         paused = false
         run = Task { @MainActor in
-            for i in start ..< order.count {
+            for i in start ..< order.count where !store.known.contains(cards[order[i]].id) { // Got it: skipped
                 playing = i
                 withAnimation { index = i }
                 await Speech.say(word: cards[order[i]].units.map(\.h).joined(separator: " "))
@@ -126,19 +132,15 @@ struct WordDeckView: View {
     /// and again to resume. Hold for the pause length and Stop.
     private var listenButton: some View {
         Menu {
-            if listening { Button("Stop", systemImage: "stop.fill", role: .destructive) { stopListening() } }
-            Picker("Pause between words", selection: $listenGap) {
-                Text("Normal · 2 s").tag(2.0)
-                Text("Think · 4 s").tag(4.0)
-                Text("Long · 7 s").tag(7.0)
+            if listening { Button(ui("Stop", "停止"), systemImage: "stop.fill", role: .destructive) { stopListening() } }
+            Picker(ui("Pause between words", "词与词之间停顿"), selection: $listenGap) {
+                Text(ui("Normal · 2 s", "普通 · 2 秒")).tag(2.0)
+                Text(ui("Think · 4 s", "思考 · 4 秒")).tag(4.0)
+                Text(ui("Long · 7 s", "长 · 7 秒")).tag(7.0)
             }
         } label: {
             Image(systemName: !listening ? "headphones" : paused ? "play.fill" : "pause.fill")
-                .font(.headline)
-                .foregroundStyle(listening ? Color.orange : Color.primary)
-                .padding(.vertical, 14)
-                .padding(.horizontal, 20)
-                .background(Color(.secondarySystemBackground), in: Capsule())
+                .iconChrome(listening ? Theme.accent : Theme.text)
         } primaryAction: {
             if !listening { listen() } else if paused { listen(from: playing) } else { pauseListening() }
         }
@@ -146,25 +148,26 @@ struct WordDeckView: View {
     }
 
     private var header: some View {
-        VStack(spacing: 4) {
-            HStack {
-                Text(title).font(.headline)
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(alignment: .firstTextBaseline) {
+                Text(title).font(.title2.weight(.medium))
                 Spacer()
-                Text("\(index + 1) of \(order.count)" + (card.n > 0 ? " · \(card.n)×" : ""))
+                Text("\(index + 1) / \(order.count)" + (card.n > 0 ? " · \(card.n)×" : ""))
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Theme.neutral500)
             }
+            ProgressLine(fraction: Double(index + 1) / Double(max(order.count, 1)))
             if index == 0, let note {
                 Text(note)
                     .font(.caption2)
-                    .foregroundStyle(.tertiary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundStyle(Theme.neutral500)
             }
         }
         .padding(.horizontal)
         .padding(.top, 20)
     }
 
+    /// The card: a surface that lights its edge when turned over.
     private func page(_ word: WordCard, showBack: Bool) -> some View {
         ScrollView {
             VStack(spacing: 14) {
@@ -173,10 +176,10 @@ struct WordDeckView: View {
                     VStack(spacing: 10) {
                         ForEach(forms) { f in
                             HStack(alignment: .firstTextBaseline, spacing: 12) {
-                                Text(pointed(f.h)).font(.system(size: 60)).minimumScaleFactor(0.5).lineLimit(1)
+                                Text(pointed(f.h)).font(.system(size: 56)).minimumScaleFactor(0.5).lineLimit(1)
                                 VStack(alignment: .leading, spacing: 1) {
-                                    Text(tr(f.g)).font(.subheadline).foregroundStyle(.secondary)
-                                    Text(pronounce(f.h)).font(.caption).foregroundStyle(.tertiary)
+                                    Text(tr(f.g)).font(.subheadline).foregroundStyle(Theme.neutral400)
+                                    Text(pronounce(f.h)).font(.caption).foregroundStyle(Theme.neutral500)
                                 }
                                 .opacity(showBack ? 1 : 0)
                             }
@@ -188,7 +191,7 @@ struct WordDeckView: View {
                         .font(.system(size: 96))
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
-                        .padding(.top, 32)
+                        .padding(.top, 40)
                 }
 
                 if showBack {
@@ -198,35 +201,39 @@ struct WordDeckView: View {
                     if (word.forms?.count ?? 0) < 2 {
                         Text(pronounce(word.h))
                             .font(.callout)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Theme.neutral500)
                     }
-                    if let p = word.p {
-                        Text(tr(p)).font(.caption).foregroundStyle(.tertiary)
+                    if word.p != nil || word.f != nil { // "noun · feminine plural", "verb · qal"
+                        Text([word.p, word.f].compactMap { $0 }.map(tr).joined(separator: " · "))
+                            .font(.caption).foregroundStyle(Theme.neutral500)
                     }
 
                     if !word.root.isEmpty || !word.conf.isEmpty {
                         seeAlso(word).padding(.top, 8)
                     }
                 } else {
-                    Text("Tap to reveal")
+                    Label(ui("Tap to flip", "点按翻面"), systemImage: "hand.tap")
                         .font(.footnote)
-                        .foregroundStyle(.tertiary)
-                        .padding(.top, 8)
+                        .foregroundStyle(Theme.neutral500)
+                        .padding(.top, 12)
                 }
             }
             .frame(maxWidth: .infinity)
-            .padding(.horizontal, 24)
+            .padding(.horizontal, 20)
             .padding(.bottom, 24)
-            .contentShape(.rect)
-            .onTapGesture { reveal() }
         }
+        .cardSurface(lit: showBack)
+        .contentShape(.rect)
+        .onTapGesture { flip() }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 14)
     }
 
     private func seeAlso(_ word: WordCard) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("See also").font(.caption.bold()).foregroundStyle(.secondary)
-            ForEach(word.root, id: \.self) { link($0, "same root") }
-            ForEach(word.conf, id: \.self) { link($0, "don’t confuse") }
+            Text(ui("See also", "另见")).font(.caption.weight(.medium)).foregroundStyle(Theme.neutral400)
+            ForEach(word.root, id: \.self) { link($0, ui("same root", "同根")) }
+            ForEach(word.conf, id: \.self) { link($0, ui("don’t confuse", "别混淆")) }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -242,15 +249,15 @@ struct WordDeckView: View {
                 Text(pointed(w.h)).font(.system(size: 32))
                 VStack(alignment: .leading, spacing: 1) {
                     Text(tr(w.g)).font(.subheadline)
-                    Text(pronounce(w.h)).font(.caption).foregroundStyle(.secondary)
-                    Text(why).font(.caption2).foregroundStyle(.tertiary)
+                    Text(pronounce(w.h)).font(.caption).foregroundStyle(Theme.neutral500)
+                    Text(why).font(.caption2).foregroundStyle(Theme.neutral500)
                 }
                 Spacer()
-                Image(systemName: "speaker.wave.2").font(.caption).foregroundStyle(.tertiary)
+                Image(systemName: "speaker.wave.2").font(.caption).foregroundStyle(Theme.neutral500)
             }
             .padding(.vertical, 8)
             .padding(.horizontal, 12)
-            .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 10))
+            .overlay(RoundedRectangle(cornerRadius: Theme.radius).strokeBorder(Theme.divider))
         }
         .buttonStyle(.plain)
     }
@@ -265,13 +272,8 @@ struct WordDeckView: View {
             revealed = false
         } label: {
             Image(systemName: "bookmark.slash")
-                .font(.headline)
-                .foregroundStyle(.red)
-                .padding(.vertical, 14)
-                .padding(.horizontal, 20)
-                .background(Color(.secondarySystemBackground), in: Capsule())
         }
-        .buttonStyle(.plain)
+        .buttonStyle(IconButtonStyle(tint: Theme.accent300))
     }
 
     /// Tick a set to put the word in it, tick again to take it out; the last item starts a new set.
@@ -290,32 +292,22 @@ struct WordDeckView: View {
                 newSetName = ""
                 namingSet = true
             } label: {
-                Label("New set…", systemImage: "plus")
+                Label(ui("New set…", "新词集…"), systemImage: "plus")
             }
         } label: {
             Image(systemName: inSets.isEmpty ? "bookmark" : "bookmark.fill")
-                .font(.headline)
-                .foregroundStyle(inSets.isEmpty ? Color.primary : Color.orange)
-                .padding(.vertical, 14)
-                .padding(.horizontal, 20)
-                .background(Color(.secondarySystemBackground), in: Capsule())
+                .iconChrome(inSets.isEmpty ? Theme.text : Theme.accent)
         }
         .buttonStyle(.plain)
     }
 
-    /// Thumb-reachable, like the flash cards' replay bar — the card sits too high to tap one-handed.
+    /// Thumb-reachable: the tools on the left, Got it on the right.
     private var actionBar: some View {
-        HStack(spacing: 10) {
-            Button {
-                say()
-            } label: {
-                Image(systemName: "speaker.wave.2.fill")
-                    .font(.headline)
-                    .padding(.vertical, 14)
-                    .padding(.horizontal, 20)
-                    .background(Color(.secondarySystemBackground), in: Capsule())
-            }
-            .buttonStyle(.plain)
+        let known = store.known.contains(card.id)
+        return HStack(spacing: 8) {
+            Button { say() } label: { Image(systemName: "speaker.wave.2.fill") }
+                .buttonStyle(IconButtonStyle())
+                .accessibilityLabel(ui("Play", "朗读"))
 
             if let setID {
                 listenButton
@@ -324,24 +316,19 @@ struct WordDeckView: View {
                 setMenu
             }
 
-            if revealed {
-                Spacer()
-            } else {
-                Button {
-                    reveal()
-                } label: {
-                    Text("Reveal")
-                        .font(.headline)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(.blue, in: Capsule())
-                        .foregroundStyle(.white)
+            Spacer()
+
+            if !card.s.isEmpty {
+                Button { store.toggleKnown(card.id) } label: {
+                    Image(systemName: known ? "checkmark.circle.fill" : "checkmark.circle")
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(IconButtonStyle(tint: known ? Theme.accent : Theme.text))
+                .accessibilityLabel(ui("Got it", "记住了"))
             }
         }
         .padding(.horizontal)
+        .padding(.top, 8)
         .padding(.bottom, 8)
-        .background(.bar)
+        .background(Theme.bg)
     }
 }

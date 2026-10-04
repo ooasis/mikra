@@ -1,0 +1,1408 @@
+{
+ "name": "Daily phrases",
+ "heb": "עִבְרִית",
+ "sets": [
+  {
+   "c": 1,
+   "name": "Greetings",
+   "zh": "问候",
+   "heb": "שָׁלוֹם"
+  },
+  {
+   "c": 2,
+   "name": "Politeness",
+   "zh": "礼貌用语",
+   "heb": "תּוֹדָה"
+  },
+  {
+   "c": 3,
+   "name": "Getting acquainted",
+   "zh": "初次见面",
+   "heb": "נָעִים"
+  },
+  {
+   "c": 4,
+   "name": "Weather",
+   "zh": "天气",
+   "heb": "גֶּשֶׁם"
+  },
+  {
+   "c": 5,
+   "name": "Food and drink",
+   "zh": "饮食",
+   "heb": "אֹכֶל"
+  },
+  {
+   "c": 6,
+   "name": "Getting around",
+   "zh": "问路",
+   "heb": "אֵיפֹה"
+  },
+  {
+   "c": 7,
+   "name": "Time",
+   "zh": "时间",
+   "heb": "שָׁעָה"
+  },
+  {
+   "c": 8,
+   "name": "Feelings",
+   "zh": "心情",
+   "heb": "לֵב"
+  }
+ ],
+ "verses": [
+  {
+   "c": 1,
+   "v": 1,
+   "en": "Hello",
+   "zh": "你好",
+   "words": [
+    {
+     "h": "שָׁלוֹם",
+     "g": "peace; hello, goodbye"
+    }
+   ]
+  },
+  {
+   "c": 1,
+   "v": 2,
+   "en": "Good morning",
+   "zh": "早上好",
+   "words": [
+    {
+     "h": "בּוֹקֶר",
+     "g": "morning"
+    },
+    {
+     "h": "טוֹב",
+     "g": "good"
+    }
+   ]
+  },
+  {
+   "c": 1,
+   "v": 3,
+   "en": "Good evening",
+   "zh": "晚上好",
+   "words": [
+    {
+     "h": "עֶרֶב",
+     "g": "evening"
+    },
+    {
+     "h": "טוֹב",
+     "g": "good"
+    }
+   ]
+  },
+  {
+   "c": 1,
+   "v": 4,
+   "en": "Good night",
+   "zh": "晚安",
+   "words": [
+    {
+     "h": "לַיְלָה",
+     "g": "night"
+    },
+    {
+     "h": "טוֹב",
+     "g": "good"
+    }
+   ]
+  },
+  {
+   "c": 1,
+   "v": 5,
+   "en": "How are you? (to a man)",
+   "zh": "你好吗？（对男性）",
+   "words": [
+    {
+     "h": "מַה",
+     "g": "what"
+    },
+    {
+     "h": "שְּׁלוֹמְךָ",
+     "g": "your well-being (to a man)"
+    }
+   ]
+  },
+  {
+   "c": 1,
+   "v": 6,
+   "en": "How are you? (to a woman)",
+   "zh": "你好吗？（对女性）",
+   "words": [
+    {
+     "h": "מַה",
+     "g": "what"
+    },
+    {
+     "h": "שְּׁלוֹמֵךְ",
+     "g": "your well-being (to a woman)"
+    }
+   ]
+  },
+  {
+   "c": 1,
+   "v": 7,
+   "en": "Fine, thanks",
+   "zh": "很好，谢谢",
+   "words": [
+    {
+     "h": "טוֹב",
+     "g": "good, fine"
+    },
+    {
+     "h": "תּוֹדָה",
+     "g": "thanks"
+    }
+   ]
+  },
+  {
+   "c": 1,
+   "v": 8,
+   "en": "What's new?",
+   "zh": "最近怎么样？",
+   "words": [
+    {
+     "h": "מַה",
+     "g": "what"
+    },
+    {
+     "h": "נִשְׁמָע",
+     "g": "is heard"
+    }
+   ]
+  },
+  {
+   "c": 1,
+   "v": 9,
+   "en": "See you",
+   "zh": "再见",
+   "words": [
+    {
+     "h": "לְהִתְרָאוֹת",
+     "g": "to see each other; see you"
+    }
+   ]
+  },
+  {
+   "c": 1,
+   "v": 10,
+   "en": "Shabbat shalom",
+   "zh": "安息日平安",
+   "words": [
+    {
+     "h": "שַׁבָּת",
+     "g": "Sabbath"
+    },
+    {
+     "h": "שָׁלוֹם",
+     "g": "peace"
+    }
+   ]
+  },
+  {
+   "c": 2,
+   "v": 1,
+   "en": "Thank you very much",
+   "zh": "非常感谢",
+   "words": [
+    {
+     "h": "תּוֹדָה",
+     "g": "thanks"
+    },
+    {
+     "h": "רַבָּה",
+     "g": "much, great (f)"
+    }
+   ]
+  },
+  {
+   "c": 2,
+   "v": 2,
+   "en": "Please / You're welcome",
+   "zh": "请；不客气",
+   "words": [
+    {
+     "h": "בְּבַקָּשָׁה",
+     "g": "please; you're welcome"
+    }
+   ]
+  },
+  {
+   "c": 2,
+   "v": 3,
+   "en": "Sorry / Excuse me",
+   "zh": "对不起；打扰一下",
+   "words": [
+    {
+     "h": "סְלִיחָה",
+     "g": "forgiveness; sorry, excuse me"
+    }
+   ]
+  },
+  {
+   "c": 2,
+   "v": 4,
+   "en": "No problem",
+   "zh": "没问题",
+   "words": [
+    {
+     "h": "אֵין",
+     "g": "there is no"
+    },
+    {
+     "h": "בְּעָיָה",
+     "g": "problem"
+    }
+   ]
+  },
+  {
+   "c": 2,
+   "v": 5,
+   "en": "Enjoy your meal",
+   "zh": "祝好胃口",
+   "words": [
+    {
+     "h": "בְּתֵאָבוֹן",
+     "g": "with appetite"
+    }
+   ]
+  },
+  {
+   "c": 2,
+   "v": 6,
+   "en": "Cheers",
+   "zh": "干杯",
+   "words": [
+    {
+     "h": "לְחַיִּים",
+     "g": "to life"
+    }
+   ]
+  },
+  {
+   "c": 2,
+   "v": 7,
+   "en": "Congratulations",
+   "zh": "恭喜",
+   "words": [
+    {
+     "h": "מַזָּל",
+     "g": "luck, fortune"
+    },
+    {
+     "h": "טוֹב",
+     "g": "good"
+    }
+   ]
+  },
+  {
+   "c": 2,
+   "v": 8,
+   "en": "Good luck",
+   "zh": "祝成功",
+   "words": [
+    {
+     "h": "בְּהַצְלָחָה",
+     "g": "with success"
+    }
+   ]
+  },
+  {
+   "c": 2,
+   "v": 9,
+   "en": "Well done",
+   "zh": "真棒",
+   "words": [
+    {
+     "h": "כָּל",
+     "g": "all"
+    },
+    {
+     "h": "הַכָּבוֹד",
+     "g": "the honour"
+    }
+   ]
+  },
+  {
+   "c": 2,
+   "v": 10,
+   "en": "Yes",
+   "zh": "是",
+   "words": [
+    {
+     "h": "כֵּן",
+     "g": "yes"
+    }
+   ]
+  },
+  {
+   "c": 2,
+   "v": 11,
+   "en": "No",
+   "zh": "不",
+   "words": [
+    {
+     "h": "לֹא",
+     "g": "no, not"
+    }
+   ]
+  },
+  {
+   "c": 3,
+   "v": 1,
+   "en": "What's your name? (to a man)",
+   "zh": "你叫什么名字？（对男性）",
+   "words": [
+    {
+     "h": "מַה",
+     "g": "what"
+    },
+    {
+     "h": "שִּׁמְךָ",
+     "g": "your name (to a man)"
+    }
+   ]
+  },
+  {
+   "c": 3,
+   "v": 2,
+   "en": "What's your name? (to a woman)",
+   "zh": "你叫什么名字？（对女性）",
+   "words": [
+    {
+     "h": "מַה",
+     "g": "what"
+    },
+    {
+     "h": "שְּׁמֵךְ",
+     "g": "your name (to a woman)"
+    }
+   ]
+  },
+  {
+   "c": 3,
+   "v": 3,
+   "en": "My name is David",
+   "zh": "我叫大卫",
+   "words": [
+    {
+     "h": "קוֹרְאִים",
+     "g": "they call"
+    },
+    {
+     "h": "לִי",
+     "g": "to me"
+    },
+    {
+     "h": "דָּוִד",
+     "g": "David"
+    }
+   ]
+  },
+  {
+   "c": 3,
+   "v": 4,
+   "en": "Nice to meet you",
+   "zh": "很高兴认识你",
+   "words": [
+    {
+     "h": "נָעִים",
+     "g": "pleasant"
+    },
+    {
+     "h": "מְאֹד",
+     "g": "very"
+    }
+   ]
+  },
+  {
+   "c": 3,
+   "v": 5,
+   "en": "Where are you from? (to a man)",
+   "zh": "你从哪里来？（对男性）",
+   "words": [
+    {
+     "h": "מֵאַיִן",
+     "g": "from where"
+    },
+    {
+     "h": "אַתָּה",
+     "g": "you (m)"
+    }
+   ]
+  },
+  {
+   "c": 3,
+   "v": 6,
+   "en": "I'm from China",
+   "zh": "我来自中国",
+   "words": [
+    {
+     "h": "אֲנִי",
+     "g": "I"
+    },
+    {
+     "h": "מִסִּין",
+     "g": "from China"
+    }
+   ]
+  },
+  {
+   "c": 3,
+   "v": 7,
+   "en": "I'm learning Hebrew (m)",
+   "zh": "我在学希伯来语（男）",
+   "words": [
+    {
+     "h": "אֲנִי",
+     "g": "I"
+    },
+    {
+     "h": "לוֹמֵד",
+     "g": "learning (m)"
+    },
+    {
+     "h": "עִבְרִית",
+     "g": "Hebrew"
+    }
+   ]
+  },
+  {
+   "c": 3,
+   "v": 8,
+   "en": "Do you speak English? (to a man)",
+   "zh": "你会说英语吗？（对男性）",
+   "words": [
+    {
+     "h": "אַתָּה",
+     "g": "you (m)"
+    },
+    {
+     "h": "מְדַבֵּר",
+     "g": "speaking (m)"
+    },
+    {
+     "h": "אַנְגְּלִית",
+     "g": "English"
+    }
+   ]
+  },
+  {
+   "c": 3,
+   "v": 9,
+   "en": "I don't understand (m)",
+   "zh": "我不明白（男）",
+   "words": [
+    {
+     "h": "אֲנִי",
+     "g": "I"
+    },
+    {
+     "h": "לֹא",
+     "g": "not"
+    },
+    {
+     "h": "מֵבִין",
+     "g": "understanding (m)"
+    }
+   ]
+  },
+  {
+   "c": 3,
+   "v": 10,
+   "en": "Once more, please",
+   "zh": "请再说一遍",
+   "words": [
+    {
+     "h": "עוֹד",
+     "g": "again, more"
+    },
+    {
+     "h": "פַּעַם",
+     "g": "time, occasion"
+    },
+    {
+     "h": "בְּבַקָּשָׁה",
+     "g": "please"
+    }
+   ]
+  },
+  {
+   "c": 3,
+   "v": 11,
+   "en": "Slowly, please",
+   "zh": "请慢一点",
+   "words": [
+    {
+     "h": "לְאַט",
+     "g": "slowly"
+    },
+    {
+     "h": "בְּבַקָּשָׁה",
+     "g": "please"
+    }
+   ]
+  },
+  {
+   "c": 4,
+   "v": 1,
+   "en": "What's the weather today?",
+   "zh": "今天天气怎么样？",
+   "words": [
+    {
+     "h": "מַה",
+     "g": "what"
+    },
+    {
+     "h": "מֶּזֶג",
+     "g": "temperament; weather (with אֲוִיר)"
+    },
+    {
+     "h": "הָאֲוִיר",
+     "g": "the air"
+    },
+    {
+     "h": "הַיּוֹם",
+     "g": "today"
+    }
+   ]
+  },
+  {
+   "c": 4,
+   "v": 2,
+   "en": "It's hot today",
+   "zh": "今天很热",
+   "words": [
+    {
+     "h": "חַם",
+     "g": "hot"
+    },
+    {
+     "h": "הַיּוֹם",
+     "g": "today"
+    }
+   ]
+  },
+  {
+   "c": 4,
+   "v": 3,
+   "en": "It's cold outside",
+   "zh": "外面很冷",
+   "words": [
+    {
+     "h": "קַר",
+     "g": "cold"
+    },
+    {
+     "h": "בַּחוּץ",
+     "g": "outside"
+    }
+   ]
+  },
+  {
+   "c": 4,
+   "v": 4,
+   "en": "It's raining",
+   "zh": "下雨了",
+   "words": [
+    {
+     "h": "יוֹרֵד",
+     "g": "coming down (m)"
+    },
+    {
+     "h": "גֶּשֶׁם",
+     "g": "rain"
+    }
+   ]
+  },
+  {
+   "c": 4,
+   "v": 5,
+   "en": "The sun is shining",
+   "zh": "阳光灿烂",
+   "words": [
+    {
+     "h": "הַשֶּׁמֶשׁ",
+     "g": "the sun"
+    },
+    {
+     "h": "זוֹרַחַת",
+     "g": "shining (f)"
+    }
+   ]
+  },
+  {
+   "c": 4,
+   "v": 6,
+   "en": "There's a strong wind",
+   "zh": "风很大",
+   "words": [
+    {
+     "h": "יֵשׁ",
+     "g": "there is"
+    },
+    {
+     "h": "רוּחַ",
+     "g": "wind"
+    },
+    {
+     "h": "חֲזָקָה",
+     "g": "strong (f)"
+    }
+   ]
+  },
+  {
+   "c": 4,
+   "v": 7,
+   "en": "It's a beautiful day today",
+   "zh": "今天天气很好",
+   "words": [
+    {
+     "h": "יוֹם",
+     "g": "day"
+    },
+    {
+     "h": "יָפֶה",
+     "g": "beautiful"
+    },
+    {
+     "h": "הַיּוֹם",
+     "g": "today"
+    }
+   ]
+  },
+  {
+   "c": 4,
+   "v": 8,
+   "en": "Tomorrow will be cold",
+   "zh": "明天会冷",
+   "words": [
+    {
+     "h": "מָחָר",
+     "g": "tomorrow"
+    },
+    {
+     "h": "יִהְיֶה",
+     "g": "will be"
+    },
+    {
+     "h": "קַר",
+     "g": "cold"
+    }
+   ]
+  },
+  {
+   "c": 4,
+   "v": 9,
+   "en": "There's snow on the mountain",
+   "zh": "山上有雪",
+   "words": [
+    {
+     "h": "יֵשׁ",
+     "g": "there is"
+    },
+    {
+     "h": "שֶׁלֶג",
+     "g": "snow"
+    },
+    {
+     "h": "בָּהָר",
+     "g": "on the mountain"
+    }
+   ]
+  },
+  {
+   "c": 5,
+   "v": 1,
+   "en": "I'm hungry (m)",
+   "zh": "我饿了（男）",
+   "words": [
+    {
+     "h": "אֲנִי",
+     "g": "I"
+    },
+    {
+     "h": "רָעֵב",
+     "g": "hungry (m)"
+    }
+   ]
+  },
+  {
+   "c": 5,
+   "v": 2,
+   "en": "I'm thirsty (m)",
+   "zh": "我渴了（男）",
+   "words": [
+    {
+     "h": "אֲנִי",
+     "g": "I"
+    },
+    {
+     "h": "צָמֵא",
+     "g": "thirsty (m)"
+    }
+   ]
+  },
+  {
+   "c": 5,
+   "v": 3,
+   "en": "Water, please",
+   "zh": "请给我水",
+   "words": [
+    {
+     "h": "מַיִם",
+     "g": "water"
+    },
+    {
+     "h": "בְּבַקָּשָׁה",
+     "g": "please"
+    }
+   ]
+  },
+  {
+   "c": 5,
+   "v": 4,
+   "en": "Can I have the menu?",
+   "zh": "可以给我菜单吗？",
+   "words": [
+    {
+     "h": "אֶפְשָׁר",
+     "g": "is it possible"
+    },
+    {
+     "h": "אֶת",
+     "g": "(object marker)"
+    },
+    {
+     "h": "הַתַּפְרִיט",
+     "g": "the menu"
+    }
+   ]
+  },
+  {
+   "c": 5,
+   "v": 5,
+   "en": "Coffee without sugar",
+   "zh": "咖啡不加糖",
+   "words": [
+    {
+     "h": "קָפֶה",
+     "g": "coffee"
+    },
+    {
+     "h": "בְּלִי",
+     "g": "without"
+    },
+    {
+     "h": "סֻכָּר",
+     "g": "sugar"
+    }
+   ]
+  },
+  {
+   "c": 5,
+   "v": 6,
+   "en": "This is very tasty",
+   "zh": "这很好吃",
+   "words": [
+    {
+     "h": "זֶה",
+     "g": "this"
+    },
+    {
+     "h": "טָעִים",
+     "g": "tasty"
+    },
+    {
+     "h": "מְאֹד",
+     "g": "very"
+    }
+   ]
+  },
+  {
+   "c": 5,
+   "v": 7,
+   "en": "I don't eat meat (m)",
+   "zh": "我不吃肉（男）",
+   "words": [
+    {
+     "h": "אֲנִי",
+     "g": "I"
+    },
+    {
+     "h": "לֹא",
+     "g": "not"
+    },
+    {
+     "h": "אוֹכֵל",
+     "g": "eating (m)"
+    },
+    {
+     "h": "בָּשָׂר",
+     "g": "meat"
+    }
+   ]
+  },
+  {
+   "c": 5,
+   "v": 8,
+   "en": "How much does it cost?",
+   "zh": "这个多少钱？",
+   "words": [
+    {
+     "h": "כַּמָּה",
+     "g": "how much"
+    },
+    {
+     "h": "זֶה",
+     "g": "this"
+    },
+    {
+     "h": "עוֹלֶה",
+     "g": "costs"
+    }
+   ]
+  },
+  {
+   "c": 5,
+   "v": 9,
+   "en": "The bill, please",
+   "zh": "请结账",
+   "words": [
+    {
+     "h": "הַחֶשְׁבּוֹן",
+     "g": "the bill"
+    },
+    {
+     "h": "בְּבַקָּשָׁה",
+     "g": "please"
+    }
+   ]
+  },
+  {
+   "c": 5,
+   "v": 10,
+   "en": "Bread and butter",
+   "zh": "面包和黄油",
+   "words": [
+    {
+     "h": "לֶחֶם",
+     "g": "bread"
+    },
+    {
+     "h": "וְחֶמְאָה",
+     "g": "and butter"
+    }
+   ]
+  },
+  {
+   "c": 6,
+   "v": 1,
+   "en": "Where is the restroom?",
+   "zh": "洗手间在哪里？",
+   "words": [
+    {
+     "h": "אֵיפֹה",
+     "g": "where"
+    },
+    {
+     "h": "הַשֵּׁרוּתִים",
+     "g": "the restroom"
+    }
+   ]
+  },
+  {
+   "c": 6,
+   "v": 2,
+   "en": "Where is the station?",
+   "zh": "车站在哪里？",
+   "words": [
+    {
+     "h": "אֵיפֹה",
+     "g": "where"
+    },
+    {
+     "h": "הַתַּחֲנָה",
+     "g": "the station, stop"
+    }
+   ]
+  },
+  {
+   "c": 6,
+   "v": 3,
+   "en": "To the right",
+   "zh": "向右",
+   "words": [
+    {
+     "h": "יָמִינָה",
+     "g": "to the right"
+    }
+   ]
+  },
+  {
+   "c": 6,
+   "v": 4,
+   "en": "To the left",
+   "zh": "向左",
+   "words": [
+    {
+     "h": "שְׂמֹאלָה",
+     "g": "to the left"
+    }
+   ]
+  },
+  {
+   "c": 6,
+   "v": 5,
+   "en": "Straight ahead",
+   "zh": "直走",
+   "words": [
+    {
+     "h": "יָשָׁר",
+     "g": "straight"
+    }
+   ]
+  },
+  {
+   "c": 6,
+   "v": 6,
+   "en": "Is it far?",
+   "zh": "远吗？",
+   "words": [
+    {
+     "h": "זֶה",
+     "g": "this"
+    },
+    {
+     "h": "רָחוֹק",
+     "g": "far"
+    }
+   ]
+  },
+  {
+   "c": 6,
+   "v": 7,
+   "en": "It's close",
+   "zh": "很近",
+   "words": [
+    {
+     "h": "זֶה",
+     "g": "this"
+    },
+    {
+     "h": "קָרוֹב",
+     "g": "near"
+    }
+   ]
+  },
+  {
+   "c": 6,
+   "v": 8,
+   "en": "I'm going home (m)",
+   "zh": "我回家（男）",
+   "words": [
+    {
+     "h": "אֲנִי",
+     "g": "I"
+    },
+    {
+     "h": "הוֹלֵךְ",
+     "g": "going (m)"
+    },
+    {
+     "h": "הַבַּיְתָה",
+     "g": "homeward"
+    }
+   ]
+  },
+  {
+   "c": 6,
+   "v": 9,
+   "en": "How long does it take?",
+   "zh": "需要多长时间？",
+   "words": [
+    {
+     "h": "כַּמָּה",
+     "g": "how much"
+    },
+    {
+     "h": "זְמַן",
+     "g": "time"
+    },
+    {
+     "h": "זֶה",
+     "g": "this"
+    },
+    {
+     "h": "לוֹקֵחַ",
+     "g": "takes"
+    }
+   ]
+  },
+  {
+   "c": 6,
+   "v": 10,
+   "en": "Stop here, please",
+   "zh": "请在这里停",
+   "words": [
+    {
+     "h": "עֲצֹר",
+     "g": "stop! (to a man)"
+    },
+    {
+     "h": "כָּאן",
+     "g": "here"
+    },
+    {
+     "h": "בְּבַקָּשָׁה",
+     "g": "please"
+    }
+   ]
+  },
+  {
+   "c": 7,
+   "v": 1,
+   "en": "What time is it?",
+   "zh": "现在几点？",
+   "words": [
+    {
+     "h": "מַה",
+     "g": "what"
+    },
+    {
+     "h": "הַשָּׁעָה",
+     "g": "the hour"
+    }
+   ]
+  },
+  {
+   "c": 7,
+   "v": 2,
+   "en": "It's three o'clock",
+   "zh": "现在三点",
+   "words": [
+    {
+     "h": "הַשָּׁעָה",
+     "g": "the hour"
+    },
+    {
+     "h": "שָׁלוֹשׁ",
+     "g": "three"
+    }
+   ]
+  },
+  {
+   "c": 7,
+   "v": 3,
+   "en": "What day is it today?",
+   "zh": "今天星期几？",
+   "words": [
+    {
+     "h": "אֵיזֶה",
+     "g": "which"
+    },
+    {
+     "h": "יוֹם",
+     "g": "day"
+    },
+    {
+     "h": "הַיּוֹם",
+     "g": "today"
+    }
+   ]
+  },
+  {
+   "c": 7,
+   "v": 4,
+   "en": "Today is Sunday",
+   "zh": "今天是星期日",
+   "words": [
+    {
+     "h": "הַיּוֹם",
+     "g": "today"
+    },
+    {
+     "h": "יוֹם",
+     "g": "day"
+    },
+    {
+     "h": "רִאשׁוֹן",
+     "g": "first"
+    }
+   ]
+  },
+  {
+   "c": 7,
+   "v": 5,
+   "en": "Tomorrow",
+   "zh": "明天",
+   "words": [
+    {
+     "h": "מָחָר",
+     "g": "tomorrow"
+    }
+   ]
+  },
+  {
+   "c": 7,
+   "v": 6,
+   "en": "Yesterday",
+   "zh": "昨天",
+   "words": [
+    {
+     "h": "אֶתְמוֹל",
+     "g": "yesterday"
+    }
+   ]
+  },
+  {
+   "c": 7,
+   "v": 7,
+   "en": "I'm late (m)",
+   "zh": "我迟到了（男）",
+   "words": [
+    {
+     "h": "אֲנִי",
+     "g": "I"
+    },
+    {
+     "h": "מְאֻחָר",
+     "g": "late (m)"
+    }
+   ]
+  },
+  {
+   "c": 7,
+   "v": 8,
+   "en": "In a little while",
+   "zh": "马上",
+   "words": [
+    {
+     "h": "עוֹד",
+     "g": "more"
+    },
+    {
+     "h": "מְעַט",
+     "g": "a little"
+    }
+   ]
+  },
+  {
+   "c": 7,
+   "v": 9,
+   "en": "Let's meet in the morning",
+   "zh": "我们早上见",
+   "words": [
+    {
+     "h": "נִפָּגֵשׁ",
+     "g": "we will meet"
+    },
+    {
+     "h": "בַּבֹּקֶר",
+     "g": "in the morning"
+    }
+   ]
+  },
+  {
+   "c": 7,
+   "v": 10,
+   "en": "Next week",
+   "zh": "下周",
+   "words": [
+    {
+     "h": "בְּשָׁבוּעַ",
+     "g": "in the week"
+    },
+    {
+     "h": "הַבָּא",
+     "g": "the coming (m)"
+    }
+   ]
+  },
+  {
+   "c": 8,
+   "v": 1,
+   "en": "I'm tired (m)",
+   "zh": "我累了（男）",
+   "words": [
+    {
+     "h": "אֲנִי",
+     "g": "I"
+    },
+    {
+     "h": "עָיֵף",
+     "g": "tired (m)"
+    }
+   ]
+  },
+  {
+   "c": 8,
+   "v": 2,
+   "en": "I'm happy (m)",
+   "zh": "我很高兴（男）",
+   "words": [
+    {
+     "h": "אֲנִי",
+     "g": "I"
+    },
+    {
+     "h": "שָׂמֵחַ",
+     "g": "happy (m)"
+    }
+   ]
+  },
+  {
+   "c": 8,
+   "v": 3,
+   "en": "I don't feel well (m)",
+   "zh": "我不舒服（男）",
+   "words": [
+    {
+     "h": "אֲנִי",
+     "g": "I"
+    },
+    {
+     "h": "לֹא",
+     "g": "not"
+    },
+    {
+     "h": "מַרְגִּישׁ",
+     "g": "feeling (m)"
+    },
+    {
+     "h": "טוֹב",
+     "g": "good"
+    }
+   ]
+  },
+  {
+   "c": 8,
+   "v": 4,
+   "en": "Everything is fine",
+   "zh": "一切都好",
+   "words": [
+    {
+     "h": "הַכֹּל",
+     "g": "everything"
+    },
+    {
+     "h": "בְּסֵדֶר",
+     "g": "in order; okay"
+    }
+   ]
+  },
+  {
+   "c": 8,
+   "v": 5,
+   "en": "I love you (man to woman)",
+   "zh": "我爱你（男对女）",
+   "words": [
+    {
+     "h": "אֲנִי",
+     "g": "I"
+    },
+    {
+     "h": "אוֹהֵב",
+     "g": "loving (m)"
+    },
+    {
+     "h": "אוֹתָךְ",
+     "g": "you (f, object)"
+    }
+   ]
+  },
+  {
+   "c": 8,
+   "v": 6,
+   "en": "I have to go (m)",
+   "zh": "我得走了（男）",
+   "words": [
+    {
+     "h": "אֲנִי",
+     "g": "I"
+    },
+    {
+     "h": "צָרִיךְ",
+     "g": "need (m)"
+    },
+    {
+     "h": "לָלֶכֶת",
+     "g": "to go"
+    }
+   ]
+  },
+  {
+   "c": 8,
+   "v": 7,
+   "en": "Come here (to a man)",
+   "zh": "过来（对男性）",
+   "words": [
+    {
+     "h": "בּוֹא",
+     "g": "come! (to a man)"
+    },
+    {
+     "h": "הֵנָּה",
+     "g": "here, hither"
+    }
+   ]
+  },
+  {
+   "c": 8,
+   "v": 8,
+   "en": "One moment, please",
+   "zh": "请稍等",
+   "words": [
+    {
+     "h": "רֶגַע",
+     "g": "moment"
+    },
+    {
+     "h": "בְּבַקָּשָׁה",
+     "g": "please"
+    }
+   ]
+  },
+  {
+   "c": 8,
+   "v": 9,
+   "en": "Don't worry (to a man)",
+   "zh": "别担心（对男性）",
+   "words": [
+    {
+     "h": "אַל",
+     "g": "don't"
+    },
+    {
+     "h": "תִּדְאַג",
+     "g": "you will worry (m)"
+    }
+   ]
+  },
+  {
+   "c": 8,
+   "v": 10,
+   "en": "I miss you (man to man)",
+   "zh": "我想你（男对男）",
+   "words": [
+    {
+     "h": "אֲנִי",
+     "g": "I"
+    },
+    {
+     "h": "מִתְגַּעְגֵּעַ",
+     "g": "longing (m)"
+    },
+    {
+     "h": "אֵלֶיךָ",
+     "g": "to you (m)"
+    }
+   ]
+  }
+ ]
+}

@@ -6,6 +6,10 @@ import VisionKit
 /// Scan handwritten or printed notes: the Hebrew words Mikra already knows become a new set.
 /// Words it does not know are listed greyed out — nothing is made up from OCR.
 struct ScanView: View {
+    /// Preset text to match instead of scanning (a verse's Hebrew), and the name a new set takes.
+    var text: String? = nil
+    var setName: String? = nil
+    var setID: String? = nil // add to this set rather than offering a new one
     @EnvironmentObject var store: Store
     @Environment(\.dismiss) private var dismiss
     @State private var photo: PhotosPickerItem?
@@ -66,13 +70,15 @@ struct ScanView: View {
         .onChange(of: target) { // what the set already holds is not offered again
             chosen = Set((hits ?? []).compactMap(\.card?.id)).subtracting(targetSet?.ids ?? [])
         }
-        .navigationTitle("Scan notes")
+        .navigationTitle(text == nil ? "Scan notes" : ui("Words of this verse", "本节的词"))
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear { if let setID { target = setID } }
+        .onAppear { if let text, hits == nil { show(matchWords(in: text)) } }
         .overlay { if working { ProgressView("Reading…") } }
         .toolbar {
             if hits != nil {
                 Button(targetSet == nil ? "Create set (\(chosen.count))" : "Add (\(chosen.count))") {
-                    let setID = targetSet?.id ?? store.createSet(named: "").id
+                    let setID = targetSet?.id ?? store.createSet(named: setName ?? "").id
                     chosen.sorted { a, b in // keep the order they appear on the page
                         (hits!.firstIndex { $0.card?.id == a } ?? 0) < (hits!.firstIndex { $0.card?.id == b } ?? 0)
                     }.forEach { store.toggle($0, in: setID) }
@@ -170,7 +176,7 @@ func matchWords(in text: String) -> [ScanHit] {
         if let card = cardByGloss[p] { add(p, card); continue } // "to say", "all, every" as written
         for word in p.split(separator: " ").map(String.init) {
             let key = skeleton(word)
-            if key.count > 1 { add(word, wordCardBySkeleton[key]) } // one-letter bits are OCR noise
+            if key.count > 1 { add(word, cardForHebrew(word)) } // one-letter bits are OCR noise
             else if word.unicodeScalars.contains(where: { (0x4E00...0x9FFF).contains($0.value) }) {
                 // a space-separated chunk is one phrase; only when it is not a gloss itself
                 // are longer glosses looked for inside it — single characters would match anywhere
@@ -201,6 +207,18 @@ let cardByGloss: [String: WordCard] = {
 /// Consonants only — the stable part of a Hebrew word across pointed, unpointed, and scanned forms.
 func skeleton(_ hebrew: String) -> String {
     String(String.UnicodeScalarView(hebrew.unicodeScalars.filter { (0x05D0...0x05EA).contains($0.value) }))
+}
+
+/// The card for a Hebrew form: by consonants, then with one or two leading prefix letters
+/// (ו, ה, ב, כ, ל, מ, ש) peeled off, so הַשָּׁמַיִם finds שָׁמַיִם and וְהָאָרֶץ finds אֶרֶץ.
+func cardForHebrew(_ hebrew: String) -> WordCard? {
+    var key = skeleton(hebrew)
+    for _ in 0 ..< 3 {
+        if let card = wordCardBySkeleton[key] { return card }
+        guard key.count > 2, let first = key.first, "והבכלמש".contains(first) else { return nil }
+        key.removeFirst()
+    }
+    return nil
 }
 
 /// Every form of every card, by consonants; the first (most frequent) card wins a homograph.

@@ -13,7 +13,7 @@ final class Recorder: NSObject, ObservableObject, AVAudioRecorderDelegate, AVAud
 
     static func url(for verse: Verse) -> URL {
         FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("take-\(verse.id).m4a")
+            .appendingPathComponent("\(verse.book)-\(verse.c)-\(verse.v).m4a")
     }
 
     static func hasTake(for verse: Verse) -> Bool {

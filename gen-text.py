@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
-"""Generate Mikra/Texts.json — the reading texts, with per-word glosses and notes.
+"""Generate Mikra/Texts.json (the book index) and Mikra/Texts/<book>.json — the whole
+Tanakh, one file per book, with per-word glosses and notes.
 
 Hebrew and morphology from OSHB/WLC (CC BY 4.0), glosses from Strong's with
-curated overrides, English from the WEB and Chinese from the Union Version
-(和合本, both public domain) remapped to Hebrew versification. Supersedes gen-jonah.py.
+curated overrides, English from the WEB (ebible.org USFX) and Chinese from the
+Union Version (和合本, getbible.net), both public domain, remapped to Hebrew
+versification with the Copenhagen Alliance "eng" mapping. Supersedes gen-jonah.py.
 
-    ./gen-text.py           # write Mikra/Texts.json
+    ./gen-text.py           # write the JSON
     ./gen-text.py --check   # run the self-check only
 """
-import json, os, re, sys, urllib.request
+import io, json, os, re, sys, urllib.request, zipfile
 import xml.etree.ElementTree as ET
 from collections import Counter
 
@@ -16,25 +18,56 @@ NS = "{http://www.bibletechnologies.net/2003/OSIS/namespace}"
 HERE = os.path.dirname(os.path.abspath(__file__))
 CACHE = os.path.join(HERE, ".cache")
 WLC = "https://raw.githubusercontent.com/openscriptures/morphhb/master/wlc/{}.xml"
-WEB = "https://bible-api.com/{}+{}?translation=web"
-CUV = "https://api.getbible.net/v2/cus/{}/{}.json"  # simplified Chinese Union Version
-CUV_BOOK = {"Jonah": 32, "Genesis": 1, "Psalms": 19}
+WEB = "https://ebible.org/Scriptures/engwebp_usfx.zip"  # the APIs drop the psalm titles; the USFX keeps them
+CUV = "https://api.getbible.net/v2/cus/{}.json"  # simplified Chinese Union Version, books numbered in English order
+VRS = ("https://raw.githubusercontent.com/Copenhagen-Alliance/versification-specification/"
+       "master/versification-mappings/standard-mappings/eng.json")
 STRONGS = "https://raw.githubusercontent.com/openscriptures/strongs/master/hebrew/strongs-hebrew-dictionary.js"
 
-# The texts we ship: display name, Hebrew name, morphhb file, chapters, expected verses.
-TEXTS = [
-    ("Jonah", "\u05d9\u05d5\u05b9\u05e0\u05b8\u05d4", "Jonah", [1, 2, 3, 4], 48),
-    ("Genesis", "\u05d1\u05b0\u05bc\u05e8\u05b5\u05d0\u05e9\u05c1\u05b4\u05d9\u05ea \u05d0", "Gen", [1], 31),
-    # five psalms people actually know, and all five happen to need no versification remap
-    ("Psalms", "\u05ea\u05b0\u05bc\u05d4\u05b4\u05dc\u05b4\u05d9\u05dd", "Ps", [1, 23, 91, 100, 121], 41),
+# Every book in Tanakh order: display name, Hebrew name, morphhb file, USFM code, part.
+BOOKS = [
+    ("Genesis", "בְּרֵאשִׁית", "Gen", "GEN", "Torah"),
+    ("Exodus", "שְׁמוֹת", "Exod", "EXO", "Torah"),
+    ("Leviticus", "וַיִּקְרָא", "Lev", "LEV", "Torah"),
+    ("Numbers", "בְּמִדְבַּר", "Num", "NUM", "Torah"),
+    ("Deuteronomy", "דְּבָרִים", "Deut", "DEU", "Torah"),
+    ("Joshua", "יְהוֹשֻׁעַ", "Josh", "JOS", "Prophets"),
+    ("Judges", "שׁוֹפְטִים", "Judg", "JDG", "Prophets"),
+    ("1 Samuel", "שְׁמוּאֵל א", "1Sam", "1SA", "Prophets"),
+    ("2 Samuel", "שְׁמוּאֵל ב", "2Sam", "2SA", "Prophets"),
+    ("1 Kings", "מְלָכִים א", "1Kgs", "1KI", "Prophets"),
+    ("2 Kings", "מְלָכִים ב", "2Kgs", "2KI", "Prophets"),
+    ("Isaiah", "יְשַׁעְיָהוּ", "Isa", "ISA", "Prophets"),
+    ("Jeremiah", "יִרְמְיָהוּ", "Jer", "JER", "Prophets"),
+    ("Ezekiel", "יְחֶזְקֵאל", "Ezek", "EZK", "Prophets"),
+    ("Hosea", "הוֹשֵׁעַ", "Hos", "HOS", "Prophets"),
+    ("Joel", "יוֹאֵל", "Joel", "JOL", "Prophets"),
+    ("Amos", "עָמוֹס", "Amos", "AMO", "Prophets"),
+    ("Obadiah", "עֹבַדְיָה", "Obad", "OBA", "Prophets"),
+    ("Jonah", "יוֹנָה", "Jonah", "JON", "Prophets"),
+    ("Micah", "מִיכָה", "Mic", "MIC", "Prophets"),
+    ("Nahum", "נַחוּם", "Nah", "NAM", "Prophets"),
+    ("Habakkuk", "חֲבַקּוּק", "Hab", "HAB", "Prophets"),
+    ("Zephaniah", "צְפַנְיָה", "Zeph", "ZEP", "Prophets"),
+    ("Haggai", "חַגַּי", "Hag", "HAG", "Prophets"),
+    ("Zechariah", "זְכַרְיָה", "Zech", "ZEC", "Prophets"),
+    ("Malachi", "מַלְאָכִי", "Mal", "MAL", "Prophets"),
+    ("Psalms", "תְּהִלִּים", "Ps", "PSA", "Writings"),
+    ("Proverbs", "מִשְׁלֵי", "Prov", "PRO", "Writings"),
+    ("Job", "אִיּוֹב", "Job", "JOB", "Writings"),
+    ("Song of Songs", "שִׁיר הַשִּׁירִים", "Song", "SNG", "Writings"),
+    ("Ruth", "רוּת", "Ruth", "RUT", "Writings"),
+    ("Lamentations", "אֵיכָה", "Lam", "LAM", "Writings"),
+    ("Ecclesiastes", "קֹהֶלֶת", "Eccl", "ECC", "Writings"),
+    ("Esther", "אֶסְתֵּר", "Esth", "EST", "Writings"),
+    ("Daniel", "דָּנִיֵּאל", "Dan", "DAN", "Writings"),
+    ("Ezra", "עֶזְרָא", "Ezra", "EZR", "Writings"),
+    ("Nehemiah", "נְחֶמְיָה", "Neh", "NEH", "Writings"),
+    ("1 Chronicles", "דִּבְרֵי הַיָּמִים א", "1Chr", "1CH", "Writings"),
+    ("2 Chronicles", "דִּבְרֵי הַיָּמִים ב", "2Chr", "2CH", "Writings"),
 ]
-
-# Hebrew and English versification disagree in places. Map a Hebrew (chapter,
-# verse) onto the English one that carries the same text.
-def remap(book, c, v):
-    if book == "Jonah":              # Hebrew 2:1 is English 1:17, shifting the rest of ch.2
-        return (1, 17) if (c, v) == (2, 1) else ((2, v - 1) if c == 2 else (c, v))
-    return (c, v)
+ENGLISH_ORDER = ("GEN EXO LEV NUM DEU JOS JDG RUT 1SA 2SA 1KI 2KI 1CH 2CH EZR NEH EST JOB PSA PRO "
+                 "ECC SNG ISA JER LAM EZK DAN HOS JOL AMO OBA JON MIC NAM HAB ZEP HAG ZEC MAL").split()
 
 
 def fetch(url, name):
@@ -256,6 +289,7 @@ CURATED.update({
 })
 
 
+
 def strip_cant(s):
     # keep niqqud (05B0-05BC, 05C1, 05C2, 05C7), drop cantillation/meteg/rafe
     out = []
@@ -303,51 +337,110 @@ def gloss_for(lemma, morph):
     return " + ".join(pieces) if len(pieces) > 1 else pieces[0]
 
 
-def english(book, chapters):
-    """WEB text keyed by (chapter, verse), fetched a chapter at a time."""
-    text = {}
-    for c in chapters:
-        path = fetch(WEB.format(book.lower(), c), f"web-{book}-{c}.json")
-        for v in json.load(open(path, encoding="utf-8"))["verses"]:
-            text[(v["chapter"], v["verse"])] = re.sub(r"\s+", " ", v["text"]).strip()
-    return text
+def word(elem, unknown):
+    h = strip_cant("".join(elem.itertext())).replace("/", "")
+    lemma = elem.get("lemma", "") or ""
+    for lp in lemma.split("/"):
+        lp = lp.strip()
+        if not re.match(r"\d", lp) and lp not in PREFIX:
+            unknown[lp] += 1
+    return {"h": h, "g": SURFACE.get(consonants(h)) or gloss_for(lemma, elem.get("morph", "") or "")}
 
 
-def chinese(book, chapters):
+# — English and Chinese, remapped onto the Hebrew verse numbers —
+
+def expand(ref):
+    """'PSA 3:0-8' -> [(3, 0), (3, 1), ... (3, 8)]; no range in the map crosses a chapter."""
+    c, v = ref.split(" ")[1].split(":")
+    a, _, b = v.partition("-")
+    return [(int(c), n) for n in range(int(a), int(b or a) + 1)]
+
+
+def to_english(code):
+    """English (chapter, verse) for each Hebrew verse the English numbers differently.
+    English verse 0 is a psalm title, which Hebrew counts as verse 1 (or 1-2)."""
+    mapping = json.load(open(fetch(VRS, "eng.json"), encoding="utf-8"))["mappedVerses"]
+    out = {(25, 19): (26, 1)} if code == "NUM" else {}  # the map omits it; English folds it into 26:1
+    for eng, heb in mapping.items():
+        if eng.startswith(code + " "):
+            e, h = expand(eng), expand(heb)
+            assert len(e) == len(h), f"ragged mapping {eng} = {heb}"
+            out.update(zip(h, e))
+    return out
+
+
+usfx = None
+
+def web_verses(code):
+    """WEB text keyed by (chapter, verse); a psalm title is verse 0."""
+    global usfx
+    if usfx is None:
+        with zipfile.ZipFile(fetch(WEB, "engwebp_usfx.zip")) as z:
+            usfx = ET.parse(io.BytesIO(z.read("engwebp_usfx.xml"))).getroot()
+    book = next(b for b in usfx.iter("book") if b.get("id") == code)
+    out, cur, buf, chap = {}, None, [], 0
+    def walk(e):
+        nonlocal cur, buf, chap
+        if e.tag == "c":
+            chap = int(e.get("id"))
+        elif e.tag == "v":
+            cur, buf = (chap, int(re.match(r"\d+", e.get("id")).group())), []
+        elif e.tag == "ve" and cur:
+            out[cur], cur = re.sub(r"\s+", " ", "".join(buf)).strip(), None
+        elif e.tag == "d" and cur is None:
+            title = re.sub(r"\s+", " ", "".join(e.itertext())).strip()
+            if not title.isupper():  # Psalm 119's ALEPH, BETH... headings are marked like titles
+                out[(chap, 0)] = title
+        if e.tag == "d" and cur and e.find(".//ve") is not None:  # a stanza heading swallowed the verse end
+            out[cur], cur = re.sub(r"\s+", " ", "".join(buf)).strip(), None
+        if e.tag not in ("f", "x", "d"):  # footnotes and cross-references are not verse text
+            if cur and e.text:
+                buf.append(e.text)
+            for child in e:
+                walk(child)
+        if cur and e.tail:
+            buf.append(e.tail)
+    walk(book)
+    return out
+
+
+def cuv_verses(code):
     """CUV text keyed by (chapter, verse); its verse numbers follow the English ones."""
-    text = {}
-    for c in chapters:
-        path = fetch(CUV.format(CUV_BOOK[book], c), f"cuv-{book}-{c}.json")
-        for v in json.load(open(path, encoding="utf-8"))["verses"]:
-            text[(v["chapter"], v["verse"])] = re.sub(r"\s+", "", v["text"]).strip()
-    return text
+    path = fetch(CUV.format(ENGLISH_ORDER.index(code) + 1), f"cuv-{code}.json")
+    return {(v["chapter"], v["verse"]): re.sub(r"\s+", "", v["text"]).strip()
+            for ch in json.load(open(path, encoding="utf-8"))["chapters"] for v in ch["verses"]}
 
 
-def build_book(name, heb, osis, chapters):
+def chinese(cuv, c, v, titled):
+    """The CUV folds a psalm's title into verse 1 as （...）. Where Hebrew makes the title
+    its own verse, give the title to that verse and the rest to the next."""
+    line = cuv[(c, 1 if v == 0 else v)]
+    if c in titled and v in (0, 1) and line.startswith("（"):
+        title, _, body = line.partition("）")
+        return title + "）" if v == 0 else body
+    return line
+
+
+def build_book(name, heb, osis, code, part):
     tree = ET.parse(fetch(WLC.format(osis), f"{osis}.xml"))
-    web = english(name, chapters)
-    cuv = chinese(name, chapters)
-    verses, unknown, unmatched = [], Counter(), []
+    web, cuv, english = web_verses(code), cuv_verses(code), to_english(code)
+    titled = {h[0] for h, e in english.items() if e[1] == 0}
+    verses, unknown, unmatched, used = [], Counter(), [], set()
     for velem in tree.iter(NS + "verse"):
         _, c, v = velem.get("osisID").split(".")
         c, v = int(c), int(v)
-        if c not in chapters:
-            continue
-        words = []
+        words, ketiv = [], 0
         for child in velem:
             tag = child.tag.replace(NS, "")
-            if tag == "w":
-                raw = "".join(child.itertext())
-                h = strip_cant(raw).replace("/", "")
-                lemma = child.get("lemma", "") or ""
-                for lp in lemma.split("/"):
-                    lp = lp.strip()
-                    if not re.match(r"\d", lp) and lp not in PREFIX:
-                        unknown[lp] += 1
-                g = SURFACE.get(consonants(h)) or gloss_for(lemma, child.get("morph", "") or "")
-                words.append({"h": h, "g": g})
+            if tag == "w" and child.get("type") == "x-ketiv":
+                ketiv += 1  # unpointed as written; the qere in the note that follows is what is read
+            elif tag == "w":
+                words.append(word(child, unknown))
+            elif tag == "note" and child.get("type") == "variant":
+                words += [word(w, unknown) for w in child.iter(NS + "w")]
             elif tag == "seg" and child.get("type") == "x-maqqef" and words:
                 words[-1]["h"] += "־"
+        assert len(words) == sum(1 for _ in velem.iter(NS + "w")) - ketiv, f"{name} {c}:{v} lost a word"
         for (nc, nv, skel, note) in NOTES.get(name, []):
             if (nc, nv) != (c, v):
                 continue
@@ -357,20 +450,35 @@ def build_book(name, heb, osis, chapters):
                 unmatched.append((name, nc, nv, skel))
             else:
                 spot["n"] = note
-        verses.append({"c": c, "v": v, "en": web[remap(name, c, v)], "zh": cuv[remap(name, c, v)],
-                       "words": words})
-    return {"name": name, "heb": heb, "verses": verses}, unknown, unmatched
+        # a Hebrew verse the map leaves alone keeps its number, unless the chapter's
+        # title is split off in Hebrew: then it is (part of) that title
+        e = english.get((c, v)) or ((c, 0) if c in titled else (c, v))
+        en, used = web[e], used | {e}
+        if e == (c, 1) and (c, 0) in web and c not in titled:  # a short title is part of Hebrew verse 1
+            en, used = web[(c, 0)] + " " + en, used | {(c, 0)}
+        verses.append({"c": c, "v": v, "en": en, "zh": chinese(cuv, *e, titled), "words": words})
+    for (bk, e), h in ENGLISH_ONLY.items():
+        if bk == name and h:  # the English second half of a Hebrew verse goes back onto it
+            spot = next(x for x in verses if (x["c"], x["v"]) == h)
+            spot["en"], spot["zh"], used = spot["en"] + " " + web[e], spot["zh"] + cuv[e], used | {e}
+    unused = {(name, e) for e in set(web) - used}
+    return {"name": name, "heb": heb, "verses": verses}, unknown, unmatched, unused
 
 
-def check(books, unknown, unmatched):
+# English verses no Hebrew verse maps to, and the Hebrew verse they are the second half
+# of. Neh 7:68 has none: it is absent from the Leningrad Codex.
+ENGLISH_ONLY = {("Nehemiah", (7, 68)): None, ("Isaiah", (64, 1)): (63, 19), ("Psalms", (13, 6)): (13, 6)}
+
+
+def check(books, unknown, unmatched, unused):
     """Smallest set of assertions that fail if the pipeline breaks."""
     assert not unmatched, f"notes that matched no word: {unmatched}"
     assert not unknown, f"lemma prefixes with no gloss: {dict(unknown)}"
-    expected = {name: n for name, _, _, _, n in TEXTS}
+    orphans = {k for k, h in ENGLISH_ONLY.items() if h is None}
+    assert unused == orphans, f"English verses no Hebrew verse maps to: {sorted(unused ^ orphans)}"
+    assert [b["name"] for b in books] == [b[0] for b in BOOKS], "books out of order"
     for book in books:
         vs = book["verses"]
-        assert len(vs) == expected[book["name"]], \
-            f"{book['name']}: expected {expected[book['name']]} verses, got {len(vs)}"
         assert len({(x["c"], x["v"]) for x in vs}) == len(vs), f"{book['name']}: duplicate verses"
         assert book["heb"].strip(), f"{book['name']}: no Hebrew name"
         for verse in vs:
@@ -381,8 +489,10 @@ def check(books, unknown, unmatched):
             for w in verse["words"]:
                 assert w["h"].strip(), f"{where} has an empty word"
                 assert w["g"].strip(), f"{where}: {w['h']} has no gloss"
-    assert len({b["name"] for b in books}) == len(books), "duplicate book names"
     total = sum(len(b["verses"]) for b in books)
+    assert total == 23213, f"expected 23213 verses in the Tanakh, got {total}"
+    by_name = {b["name"]: b["verses"] for b in books}
+    assert len(by_name["Jonah"]) == 48 and len(by_name["Psalms"]) == 2527, "Jonah or Psalms lost verses"
     words = sum(len(v["words"]) for b in books for v in b["verses"])
     notes = sum(1 for b in books for v in b["verses"] for w in v["words"] if "n" in w)
     print(f"check ok — {len(books)} books, {total} verses, {words} words, {notes} notes")
@@ -397,15 +507,24 @@ def check(books, unknown, unmatched):
 
 
 if __name__ == "__main__":
-    books, unknown, unmatched = [], Counter(), []
-    for name, heb, osis, chapters, _ in TEXTS:
-        book, unk, unm = build_book(name, heb, osis, chapters)
+    books, unknown, unmatched, unused = [], Counter(), [], set()
+    for name, heb, osis, code, part in BOOKS:
+        book, unk, unm, unu = build_book(name, heb, osis, code, part)
         books.append(book)
         unknown.update(unk)
         unmatched += unm
-    check(books, unknown, unmatched)
+        unused |= unu
+    check(books, unknown, unmatched, unused)
     if "--check" not in sys.argv:
-        out = os.path.join(HERE, "Mikra", "Texts.json")
-        with open(out, "w", encoding="utf-8") as f:
-            json.dump(books, f, ensure_ascii=False, indent=0)
-        print(f"wrote {out}")
+        folder = os.path.join(HERE, "Mikra", "Texts")
+        os.makedirs(folder, exist_ok=True)
+        index = []
+        for (name, heb, osis, code, part), book in zip(BOOKS, books):
+            with open(os.path.join(folder, f"{osis}.json"), "w", encoding="utf-8") as f:
+                json.dump(book, f, ensure_ascii=False, separators=(",", ":"))
+            index.append({"name": name, "heb": heb, "file": osis, "part": part,
+                          "count": len(book["verses"]),
+                          "notes": sum(1 for v in book["verses"] for w in v["words"] if "n" in w)})
+        with open(os.path.join(HERE, "Mikra", "Texts.json"), "w", encoding="utf-8") as f:
+            json.dump(index, f, ensure_ascii=False, indent=1)
+        print(f"wrote {folder}/ and Mikra/Texts.json")

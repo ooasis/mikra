@@ -32,6 +32,8 @@ final class Store: ObservableObject {
         var sets: [WordSet]? = nil
         var language: String? = nil
         var verseHelp: String? = nil
+        var recentBooks: [String]? = nil
+        var known: [String]? = nil
     }
 
     @Published private(set) var verses: [String: VerseProgress] = [:]
@@ -45,6 +47,10 @@ final class Store: ObservableObject {
     @Published private(set) var language: Language = .en { didSet { Zh.on = language == .zh } }
     @Published private(set) var verseHelp: VerseHelp = .none
     @Published private(set) var sets: [WordSet] = []
+    /// The last books opened, newest first; the home screen links to the first three.
+    @Published private(set) var recentBooks: [String] = []
+    /// Cards marked Got it: shown like any other, but the listening test skips them.
+    @Published private(set) var known: Set<String> = []
     private var lastVerseDay: Date?
 
     private let url = URL.documentsDirectory.appending(path: "mikra.json")
@@ -62,6 +68,8 @@ final class Store: ObservableObject {
             sets = snap.sets ?? []
             if let saved = snap.language, let l = Language(rawValue: saved) { language = l }
             if let saved = snap.verseHelp, let h = VerseHelp(rawValue: saved) { verseHelp = h }
+            recentBooks = (snap.recentBooks ?? []).filter { name in books.contains { $0.name == name } }
+            known = Set(snap.known ?? [])
         }
         Speech.pace = pace
         Zh.on = language == .zh
@@ -100,6 +108,12 @@ final class Store: ObservableObject {
 
     func setVerseHelp(_ h: VerseHelp) {
         verseHelp = h
+        save()
+    }
+
+    func openedBook(_ name: String) {
+        guard name != phraseBook else { return } // the phrase sets have their own tiles
+        recentBooks = Array(([name] + recentBooks.filter { $0 != name }).prefix(3))
         save()
     }
 
@@ -150,6 +164,12 @@ final class Store: ObservableObject {
         save()
     }
 
+    /// Done is a toggle in the reader: tapping it again takes the verse back out of the read pile.
+    func clearPassive(_ verse: Verse) {
+        verses[verse.id]?.passive = nil
+        save()
+    }
+
     func completeWave(_ verse: Verse) {
         var p = verses[verse.id] ?? VerseProgress()
         p.wave = Date()
@@ -185,6 +205,11 @@ final class Store: ObservableObject {
         save()
     }
 
+    func toggleKnown(_ cardID: String) {
+        if !known.insert(cardID).inserted { known.remove(cardID) }
+        save()
+    }
+
     func deleteSet(_ setID: String) {
         sets.removeAll { $0.id == setID }
         save()
@@ -198,6 +223,7 @@ final class Store: ObservableObject {
         sets = []
         language = .en
         verseHelp = .none
+        known = []
         lastVerseDay = nil
         try? FileManager.default.removeItem(at: url)
     }
@@ -206,7 +232,7 @@ final class Store: ObservableObject {
         let snap = Snapshot(verses: verses, lastVerseDay: lastVerseDay,
                             currentBook: currentBook, pace: pace.rawValue,
                             appearance: appearance.rawValue, sets: sets, language: language.rawValue,
-                            verseHelp: verseHelp.rawValue)
+                            verseHelp: verseHelp.rawValue, recentBooks: recentBooks, known: Array(known).sorted())
         try? JSONEncoder().encode(snap).write(to: url)
     }
 }
