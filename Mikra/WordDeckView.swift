@@ -67,8 +67,8 @@ struct WordDeckView: View {
         .presentationDragIndicator(.visible)
         .safeAreaInset(edge: .bottom) { actionBar }
         .onChange(of: index) {
-            revealed = false
             if listening, index != playing { stopListening() } // you paged: you drive now
+            if !listening { revealed = false } // the test keeps the reveal you started it with
         }
         .onDisappear { stopListening() }
         .alert(ui("New set", "新词集"), isPresented: $namingSet) {
@@ -79,7 +79,12 @@ struct WordDeckView: View {
             Text(ui("Name the set this word starts.", "给这个词开启的新词集起个名字。"))
         }
         #if DEBUG
-        .onAppear { if ProcessInfo.processInfo.arguments.contains("-reveal") { revealed = true } } // UI smoke-test hook
+        .onAppear { // UI smoke-test hooks: -reveal shows the back; -gotIt marks the card after a beat
+            if ProcessInfo.processInfo.arguments.contains("-reveal") { revealed = true }
+            if ProcessInfo.processInfo.arguments.contains("-gotIt") {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { store.toggleKnown(card.id) }
+            }
+        }
         #endif
     }
 

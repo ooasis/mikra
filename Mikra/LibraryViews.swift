@@ -132,7 +132,16 @@ struct WordSetView: View {
     @EnvironmentObject var store: Store
     @Environment(\.dismiss) private var dismiss
     let setID: String
-    @State private var start: DeckGridView.Start? // -1 opens the deck shuffled
+    @State private var play: Play?
+
+    /// What the deck opens with, carried in the sheet item: the deck keeps its own page order, so
+    /// its cards must not change under it when one is marked or removed, and a sheet built from
+    /// the item (not from separate state) never sees a stale value.
+    struct Play: Identifiable {
+        let cards: [WordCard]
+        let i: Int // -1 opens the deck shuffled
+        var id: Int { i }
+    }
     @State private var renaming = false
     @State private var newName = ""
     @State private var confirmingDelete = false
@@ -156,7 +165,7 @@ struct WordSetView: View {
             }
             ForEach(Array(cards.enumerated()), id: \.element.id) { i, card in
                 Button {
-                    start = DeckGridView.Start(i: i)
+                    play = Play(cards: cards, i: i)
                 } label: {
                     HStack {
                         Text(tr(card.g)).foregroundStyle(.secondary)
@@ -180,7 +189,9 @@ struct WordSetView: View {
                 Image(systemName: "plus")
             }
             Button {
-                start = DeckGridView.Start(i: -1)
+                // Play leaves out the words marked Got it; once they all are, play them all again.
+                let todo = cards.filter { !store.known.contains($0.id) }
+                play = Play(cards: todo.isEmpty ? cards : todo, i: -1)
             } label: {
                 Image(systemName: "shuffle")
             }
@@ -213,8 +224,8 @@ struct WordSetView: View {
                 dismiss()
             }
         }
-        .sheet(item: $start) { s in
-            WordDeckView(title: wordSet?.name ?? "", cards: cards, shuffle: s.i < 0, start: max(s.i, 0), setID: setID)
+        .sheet(item: $play) { p in
+            WordDeckView(title: wordSet?.name ?? "", cards: p.cards, shuffle: p.i < 0, start: max(p.i, 0), setID: setID)
         }
         .sheet(item: $adding) { a in
             NavigationStack {
@@ -225,9 +236,14 @@ struct WordSetView: View {
             }
         }
         #if DEBUG
-        .onAppear { // -addWords opens the search sheet for UI smoke tests
+        .onAppear { // -addWords opens the search sheet for UI smoke tests; -playSet opens the set shuffled
             if ProcessInfo.processInfo.arguments.contains("-addWords") {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { adding = .search }
+            }
+            if ProcessInfo.processInfo.arguments.contains("-playSet") {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    play = Play(cards: cards.filter { !store.known.contains($0.id) }, i: -1)
+                }
             }
         }
         #endif

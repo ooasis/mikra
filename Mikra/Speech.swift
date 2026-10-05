@@ -225,6 +225,10 @@ extension Speech {
     static func wedgeTest() {
         let m = SpeechMonitor.shared
         print("wedgeTest: speaking slower, word by word")
+        let session = AVAudioSession.sharedInstance()
+        print("wedgeTest: voice=\(voice?.identifier ?? "nil") quality=\(voice?.quality.rawValue ?? -1)")
+        print("wedgeTest: he voices=\(AVSpeechSynthesisVoice.speechVoices().filter { $0.language == "he-IL" }.map(\.identifier))")
+        print("wedgeTest: category=\(session.category.rawValue) route=\(session.currentRoute.outputs.map { "\($0.portType.rawValue):\($0.portName)" }) volume=\(session.outputVolume)")
         m.onFinish = {
             m.onFinish = nil
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
