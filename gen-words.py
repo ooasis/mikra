@@ -519,6 +519,13 @@ def consonants(s):
     return "".join(c for c in unicodedata.normalize("NFD", s) if "א" <= c <= "ת")
 
 
+def pointed(s):
+    """Letters and vowel points only: no cantillation, meteg, or rafe, so a word as written in
+    the text can be compared with a lexicon's citation form."""
+    return "".join(c for c in unicodedata.normalize("NFD", s)
+                   if not (0x0591 <= ord(c) <= 0x05AF or ord(c) in (0x05BD, 0x05BF, 0x05C0, 0x05C3, 0x05C4, 0x05C5)))
+
+
 def count_lemmas():
     """Lemma -> (occurrences, dominant morph code), plus the set occurring in Jonah,
     plus (lemma, consonantal surface form) counts for the curated decks."""
@@ -555,6 +562,70 @@ def count_lemmas():
                 if book == "Jonah":
                     jonah.add(num)
     return cnt, {k: v.most_common(1)[0][0] for k, v in pos.items()}, jonah, forms, full, plain
+
+
+# The verse on the back of a card. Shortest wins, capped at MAX_VERSE words unless nothing shorter
+# has the word; the dictionary form as written beats an inflection; Psalms and Genesis break ties.
+MAX_VERSE = 12
+BOOK_RANK = {"Ps": 0, "Gen": 1}
+# Strong's -> osisID of the verse to show instead of the rule's pick, when the pick reads badly.
+VERSE_OVERRIDE = {}
+
+
+def index_verses():
+    """Strong's -> every occurrence as ((book, chapter, verse), word index, the word as written),
+    plus each verse's word count. Word indexes count what gen-text.py keeps: no ketiv."""
+    hits, length = defaultdict(list), {}
+    for book in BOOKS:
+        root = ET.parse(fetch(WLC.format(book), f"{book}.xml")).getroot()
+        for velem in root.iter(NS + "verse"):
+            _, c, v = velem.get("osisID").split(".")
+            key = (book, int(c), int(v))
+            words = [w for w in velem.iter(NS + "w") if w.get("type") != "x-ketiv"]
+            length[key] = len(words)
+            for i, w in enumerate(words):
+                if (w.get("morph") or "").startswith("A"):
+                    continue
+                parts = (w.text or "").split("/")
+                for j, part in enumerate((w.get("lemma") or "").split("/")):
+                    m = re.match(r"^[a-z]?\s*(\d+)\s*([a-z])?$", part.strip())
+                    if m:
+                        hits[m.group(1)].append((key, i, pointed(parts[j]) if j < len(parts) else ""))
+    return hits, length
+
+
+def load_texts():
+    """(osis, chapter, verse) -> the bundled verse (gen-text.py), and osis -> book name."""
+    index = json.load(open(os.path.join(HERE, "Mikra", "Texts.json"), encoding="utf-8"))
+    names, verses = {}, {}
+    for b in index:
+        names[b["file"]] = b["name"]
+        for v in json.load(open(os.path.join(HERE, "Mikra", "Texts", b["file"] + ".json"), encoding="utf-8"))["verses"]:
+            verses[(b["file"], v["c"], v["v"])] = v
+    return names, verses
+
+
+def used_in(hits, length, names, verses, strongs, h):
+    form = pointed(h)
+    cands = hits.get(strongs, [])
+    if not cands:
+        return None
+    if strongs in VERSE_OVERRIDE:
+        book, c, v = VERSE_OVERRIDE[strongs].split(".")
+        cands = [x for x in cands if x[0] == (book, int(c), int(v))]
+        assert cands, f"VERSE_OVERRIDE[{strongs}] = {VERSE_OVERRIDE[strongs]} does not contain the word"
+
+    def rank(hit):
+        key, i, written = hit
+        exact, short = written == form, length[key] <= MAX_VERSE
+        tier = 0 if exact and short else 1 if short else 2 if exact else 3
+        return (tier, length[key], BOOK_RANK.get(key[0], 2), key[1], key[2], i)
+    (book, c, v), i, written = min(cands, key=rank)
+    verse = verses[(book, c, v)]
+    assert len(verse["words"]) == length[(book, c, v)], f"{book} {c}:{v}: word count differs from Texts"
+    assert consonants(written) in consonants(verse["words"][i]["h"]), f"{book} {c}:{v} word {i} is not {written}"
+    return {"ref": f"{names[book]} {c}:{v}", "i": i, "h": [w["h"] for w in verse["words"]],
+            "en": verse["en"], "zh": verse.get("zh")}
 
 
 # Curated decks: (deck id, title, deck note, cards). A card is one meaning with all its
@@ -665,12 +736,13 @@ def features(codes, own):
     return None
 
 
-def build_decks(forms, pos, full, plain):
+def build_decks(forms, pos, full, plain, verse):
     def form(fid, strongs, h, label):
         return {"s": fid, "h": h, "g": label, "n": forms[(strongs, consonants(h))], "root": [], "conf": []}
     return [{"id": did, "title": title, "note": note,
              "cards": [{"s": cid, "h": fs[0][2], "g": gloss, "n": sum(form(*f)["n"] for f in fs),
                         "p": part_of_speech(pos.get(fs[0][1], "")), "f": features(full.get(fs[0][1], Counter()), plain.get((fs[0][1], consonants(fs[0][2])), Counter())),
+                        "v": verse(fs[0][1], fs[0][2]),  # the first form stands for the card
                         "root": [], "conf": [], "forms": [form(*f) for f in fs]}
                        for cid, gloss, fs in cards]}
             for did, title, note, cards in DECKS]
@@ -725,11 +797,22 @@ def build():
                 conf[a].append(b)
                 conf[b].append(a)
 
+    hits, length = index_verses()
+    names, verses = load_texts()
+    verse = lambda strongs, h: used_in(hits, length, names, verses, strongs, h)
     cards = [{"s": k, "h": lex["H" + k]["lemma"], "g": GLOSS[k], "n": cnt[k], "p": part_of_speech(pos[k]),
               "f": features(full[k], plain.get((k, consonants(lex["H" + k]["lemma"])), Counter())),
+              "v": verse(k, lex["H" + k]["lemma"]),
               "j": k in jonah, "root": root_of[k], "conf": sorted(conf[k], key=lambda y: index[y])}
              for k in deck]
-    return cards, DROP_LINKS - used_drops, build_decks(forms, pos, full, plain)
+    return cards, DROP_LINKS - used_drops, build_decks(forms, pos, full, plain, verse)
+
+
+def check_verse(c):
+    v = c["v"]
+    assert v, f"{c['s']} has no verse"
+    assert 0 <= v["i"] < len(v["h"]) and v["en"].strip(), f"{c['s']}: bad verse {v['ref']}"
+    assert re.match(r"^.+ \d+:\d+$", v["ref"]), f"{c['s']}: bad ref {v['ref']}"
 
 
 def check_decks(decks):
@@ -738,6 +821,7 @@ def check_decks(decks):
         assert len(set(ids)) == len(ids), f"{deck['id']} has duplicate form ids"
         for c in deck["cards"]:
             assert c["forms"] and c["g"].strip(), f"{deck['id']}: {c['s']} is blank"
+            check_verse(c)
             for f in c["forms"]:
                 assert f["n"] > 0, f"{deck['id']}: {f['h']} never occurs"
                 assert f["g"].strip() and f["h"].strip(), f"{deck['id']}: {f['s']} is blank"
@@ -756,6 +840,7 @@ def check(cards, stale_drops):
         assert c["g"].strip(), f"{c['s']} has no gloss"
         assert c["h"].strip(), f"{c['s']} has no Hebrew"
         assert c["n"] > 0, f"{c['s']} has no occurrences"
+        check_verse(c)
         for ref in c["root"] + c["conf"]:
             assert ref in ids, f"{c['s']} points at {ref}, which is not in the deck"
             assert ref != c["s"], f"{c['s']} points at itself"

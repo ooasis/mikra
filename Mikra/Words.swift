@@ -12,10 +12,33 @@ struct WordCard: Codable, Identifiable {
     var p: String? = nil // part of speech (noun, verb, …); forms carry none
     var f: String? = nil // gender and number ("feminine plural") or the verb stem ("qal")
     var forms: [WordCard]? = nil // curated decks: every gender/number form of this meaning
+    var v: UsedIn? = nil // one short verse the word is used in; forms and lesson examples carry none
 
     var id: String { "w-" + s }
     /// What "Learn this" enrols and the speaker reads: each form, or the word itself.
     var units: [WordCard] { forms ?? [self] }
+}
+
+/// The word in context (gen-words.py): the shortest verse that has it, Psalms and Genesis preferred.
+struct UsedIn: Codable {
+    let ref: String   // "Psalms 23:1"
+    let i: Int        // the card's word, as an index into `h`
+    let h: [String]   // the verse, pointed, one entry per word
+    let en: String
+    var zh: String? = nil
+
+    var text: String { Zh.on ? zh ?? en : en }
+    /// The verse with its vowels coloured and the card's word on a tinted ground.
+    var line: AttributedString {
+        var out = AttributedString()
+        for (j, word) in h.enumerated() {
+            var run = pointed(word)
+            if j == i { run.backgroundColor = Theme.accent800 }
+            out += run
+            if j < h.count - 1 { out += AttributedString(" ") }
+        }
+        return out
+    }
 }
 
 let wordDeck: [WordCard] = {

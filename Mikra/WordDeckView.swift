@@ -213,6 +213,9 @@ struct WordDeckView: View {
                             .font(.caption).foregroundStyle(Theme.neutral500)
                     }
 
+                    if let v = word.v {
+                        usedIn(v).padding(.top, 8)
+                    }
                     if !word.root.isEmpty || !word.conf.isEmpty {
                         seeAlso(word).padding(.top, 8)
                     }
@@ -232,6 +235,33 @@ struct WordDeckView: View {
         .onTapGesture { flip() }
         .padding(.horizontal, 16)
         .padding(.vertical, 14)
+    }
+
+    /// The word inside one short verse, read aloud on tap: hearing it in a sentence is the point.
+    private func usedIn(_ v: UsedIn) -> some View {
+        Button {
+            stopListening()
+            Speech.say(words: v.h)
+        } label: {
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Text(ui("Used in", "用例")).font(.caption.weight(.medium)).foregroundStyle(Theme.neutral400)
+                    Spacer()
+                    Image(systemName: "speaker.wave.2").font(.caption).foregroundStyle(Theme.neutral500)
+                }
+                Text(v.line)
+                    .font(.system(size: 28))
+                    .multilineTextAlignment(.trailing)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                Text(v.text).font(.subheadline).foregroundStyle(Theme.text)
+                Text(v.ref).font(.caption2).foregroundStyle(Theme.neutral500)
+            }
+            .padding(.vertical, 10)
+            .padding(.horizontal, 12)
+            .overlay(RoundedRectangle(cornerRadius: Theme.radius).strokeBorder(Theme.divider))
+            .contentShape(.rect)
+        }
+        .buttonStyle(.plain)
     }
 
     private func seeAlso(_ word: WordCard) -> some View {
