@@ -17,7 +17,7 @@ struct WordDeckView: View {
     @State private var revealed = false
     @State private var namingSet = false
     @State private var newSetName = ""
-    /// Listening test: the deck pages along with the spoken word until the last one or a stop.
+    /// Listening test: the deck pages along with the spoken word, round and round, until a stop.
     @State private var listening = false
     @State private var paused = false
     @State private var playing = 0 // page the test is on, so a swipe elsewhere can be told apart
@@ -103,17 +103,24 @@ struct WordDeckView: View {
         Speech.say(words: card.units.map(\.h))
     }
 
-    /// One word, a pause, the next — a task the buttons cancel, so stop never waits on the synth.
+    /// One word, a pause, the next; after the last, a 10 s breath and the set again, until a stop.
+    /// A task the buttons cancel, so stop never waits on the synth.
     private func listen(from start: Int = 0) {
         listening = true
         paused = false
         run = Task { @MainActor in
-            for i in start ..< order.count where !store.known.contains(cards[order[i]].id) { // Got it: skipped
-                playing = i
-                withAnimation { index = i }
-                await Speech.say(word: cards[order[i]].units.map(\.h).joined(separator: " "))
-                try? await Task.sleep(for: .seconds(listenGap))
+            var from = start
+            while order.contains(where: { !store.known.contains(cards[$0].id) }) { // all Got it: nothing to read
+                for i in from ..< order.count where !store.known.contains(cards[order[i]].id) { // Got it: skipped
+                    playing = i
+                    withAnimation { index = i }
+                    await Speech.say(word: cards[order[i]].units.map(\.h).joined(separator: " "))
+                    try? await Task.sleep(for: .seconds(listenGap))
+                    if Task.isCancelled { return }
+                }
+                try? await Task.sleep(for: .seconds(Speech.loopGap - listenGap)) // the gap already ran: top up to the loop breath
                 if Task.isCancelled { return }
+                from = 0
             }
             listening = false
         }
@@ -133,8 +140,8 @@ struct WordDeckView: View {
         Speech.stop()
     }
 
-    /// Tap to read the whole set aloud with a pause after each word; tap again to pause,
-    /// and again to resume. Hold for the pause length and Stop.
+    /// Tap to read the whole set aloud on a loop, with a pause after each word and a longer one
+    /// between rounds; tap again to pause, and again to resume. Hold for the pause length and Stop.
     private var listenButton: some View {
         Menu {
             if listening { Button(ui("Stop", "停止"), systemImage: "stop.fill", role: .destructive) { stopListening() } }

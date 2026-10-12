@@ -17,6 +17,11 @@ struct VersePickerView: View {
     private var chapters: [(c: Int, verses: [Verse])] {
         Dictionary(grouping: verses, by: \.c).sorted { $0.key < $1.key }.map { (c: $0.key, verses: $0.value) }
     }
+    /// Chapter of the verse marked Done most recently, so the book opens where you left off.
+    private var lastDoneChapter: Int? {
+        verses.compactMap { v in store.verses[v.id]?.passive.map { (c: v.c, at: $0) } }
+            .max { $0.at < $1.at }?.c
+    }
 
     var body: some View {
         ScrollViewReader { proxy in
@@ -58,6 +63,10 @@ struct VersePickerView: View {
                     }
                 }
                 .padding(.horizontal)
+            }
+            .onAppear {
+                guard let c = lastDoneChapter, chapters.count > 1 else { return }
+                DispatchQueue.main.async { proxy.scrollTo(c, anchor: .top) } // once the lazy stack has laid out
             }
         }
         .onAppear { store.openedBook(book) }

@@ -34,9 +34,8 @@ final class SpeechMonitor: NSObject, ObservableObject, AVSpeechSynthesizerDelega
     static let shared = SpeechMonitor()
 
     @Published private(set) var spokenWord: Int?
-    /// A reading is under way (`playing`), and whether it is held (`paused`).
+    /// A reading is under way.
     @Published private(set) var playing = false
-    @Published private(set) var paused = false
 
     /// The utterance being waited on. Keyed by identity: a stale didCancel from an
     /// earlier utterance must not wake the waiter of the next one.
@@ -50,10 +49,9 @@ final class SpeechMonitor: NSObject, ObservableObject, AVSpeechSynthesizerDelega
         }
     }
 
-    fileprivate func set(playing p: Bool, paused h: Bool) {
+    fileprivate func set(playing p: Bool) {
         DispatchQueue.main.async {
             if self.playing != p { self.playing = p }
-            if self.paused != h { self.paused = h }
         }
     }
 
@@ -100,7 +98,8 @@ enum Speech {
     /// sleeps, never the synthesizer's postUtteranceDelay: stopping the synthesizer
     /// inside that delay silently kills every utterance after it until the app restarts.
     private static var reading: Task<Void, Never>?
-    private static var paused = false
+    /// Silence between rounds of a looping reading.
+    static let loopGap: TimeInterval = 10
 
     static func say(_ text: String, pace: Pace = Speech.pace) {
         speak([text], pace: pace)
@@ -116,33 +115,17 @@ enum Speech {
         pace.wordByWord ? verse.words.map(\.h) : [verse.hebrew]
     }
 
-    /// Reads a verse the way the current pace asks for.
-    static func say(verse: Verse, pace: Pace) {
-        speak(chunks(for: verse, pace: pace), pace: pace)
+    /// Reads a verse the way the current pace asks for; `loop` reads it again after a breath, until a stop.
+    static func say(verse: Verse, pace: Pace, loop: Bool = false) {
+        speak(chunks(for: verse, pace: pace), pace: pace, loop: loop)
     }
 
     static func stop() {
         reading?.cancel()
         reading = nil
-        paused = false
         SpeechMonitor.shared.highlight(nil)
-        SpeechMonitor.shared.set(playing: false, paused: false)
+        SpeechMonitor.shared.set(playing: false)
         synth.stopSpeaking(at: .immediate)
-    }
-
-    /// Holds the reading where it is: mid-word the synth pauses, mid-gap the loop waits.
-    static func pause() {
-        guard reading != nil, !paused else { return }
-        paused = true
-        synth.pauseSpeaking(at: .word)
-        SpeechMonitor.shared.set(playing: true, paused: true)
-    }
-
-    static func resume() {
-        guard paused else { return }
-        paused = false
-        synth.continueSpeaking()
-        SpeechMonitor.shared.set(playing: true, paused: false)
     }
 
     /// Speaks one word and returns once it has been heard — or cut off by a stop.
@@ -151,25 +134,30 @@ enum Speech {
         await speakOne(word, pace: pace)
     }
 
-    private static func speak(_ chunks: [String], pace: Pace) {
+    private static func speak(_ chunks: [String], pace: Pace, loop: Bool = false) {
         stop()
         #if DEBUG
         // simulator TTS can hang view presentation; UI smoke tests pass -muteTTS
         if ProcessInfo.processInfo.arguments.contains("-muteTTS") { return }
         #endif
         let wordByWord = pace.wordByWord && chunks.count > 1
-        SpeechMonitor.shared.set(playing: true, paused: false)
+        SpeechMonitor.shared.set(playing: true)
         reading = Task { @MainActor in
-            for (i, chunk) in chunks.enumerated() {
-                if wordByWord { SpeechMonitor.shared.highlight(i) }
-                await speakOne(chunk, pace: pace)
-                if wordByWord { try? await Task.sleep(for: .seconds(pace.gap)) }
-                while paused, !Task.isCancelled { try? await Task.sleep(for: .milliseconds(100)) }
+            repeat {
+                for (i, chunk) in chunks.enumerated() {
+                    if wordByWord { SpeechMonitor.shared.highlight(i) }
+                    await speakOne(chunk, pace: pace)
+                    if wordByWord { try? await Task.sleep(for: .seconds(pace.gap)) }
+                    if Task.isCancelled { return }
+                }
+                guard loop else { break }
+                SpeechMonitor.shared.highlight(nil)
+                try? await Task.sleep(for: .seconds(loopGap))
                 if Task.isCancelled { return }
-            }
+            } while true
             reading = nil
             SpeechMonitor.shared.highlight(nil)
-            SpeechMonitor.shared.set(playing: false, paused: false)
+            SpeechMonitor.shared.set(playing: false)
         }
     }
 

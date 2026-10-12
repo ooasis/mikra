@@ -46,7 +46,7 @@ struct VerseView: View {
         .environment(\.layoutDirection, .rightToLeft) // pages advance right-to-left, like Hebrew
         .background(Theme.ground)
         .onChange(of: index) { Speech.stop(); Recorder.shared.stop() }
-        .onDisappear { Recorder.shared.stop() }
+        .onDisappear { Speech.stop(); Recorder.shared.stop() }
     }
 }
 
@@ -92,7 +92,7 @@ private struct VersePage: View {
         }
         .safeAreaInset(edge: .bottom) { bar }
         #if DEBUG
-        .onAppear { // -tapPlay: play at 1.5 s, pause at 4 s, resume at 6 s
+        .onAppear { // -tapPlay: play at 1.5 s, stop at 4 s, play again at 6 s
             guard position == 0 else { return }
             let args = ProcessInfo.processInfo.arguments
             if args.contains("-tapPlay") {
@@ -321,20 +321,18 @@ private struct VersePage: View {
         .background(Theme.bg)
     }
 
-    /// One tap starts, pauses or resumes the reading; a swipe to another verse stops it.
+    /// One tap starts the reading, which repeats after a breath until the next tap stops it;
+    /// a swipe to another verse stops it too.
     private var playTool: some View {
-        let busy = monitor.playing && !monitor.paused
-        return Button(action: playTapped) {
-            Image(systemName: busy ? "pause.fill" : "play.fill").toolChrome(monitor.playing ? Theme.accent : Theme.neutral400)
+        Button(action: playTapped) {
+            Image(systemName: monitor.playing ? "stop.fill" : "play.fill").toolChrome(monitor.playing ? Theme.accent : Theme.neutral400)
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(busy ? ui("Pause", "暂停") : ui("Read the verse", "朗读整节"))
+        .accessibilityLabel(monitor.playing ? ui("Stop", "停止") : ui("Read the verse", "朗读整节"))
     }
 
     private func playTapped() {
-        if !monitor.playing { Speech.say(verse: verse, pace: store.pace) }
-        else if monitor.paused { Speech.resume() }
-        else { Speech.pause() }
+        if monitor.playing { Speech.stop() } else { Speech.say(verse: verse, pace: store.pace, loop: true) }
     }
 
     private var helpIcon: String {
