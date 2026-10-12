@@ -20,7 +20,7 @@ struct LetterGridView: View {
                     } label: {
                         VStack(spacing: 2) {
                             Text(group.cards.map(\.displayGlyph).joined(separator: " "))
-                                .font(.system(size: kind == .vowel ? 48 : 30))
+                                .font(.hebrew(kind == .vowel ? 48 : 30))
                                 .minimumScaleFactor(0.6)
                                 .lineLimit(1)
                             Text(group.cards.map(\.name).joined(separator: " · "))
@@ -54,8 +54,10 @@ struct LetterGridView: View {
         }
         #if DEBUG
         .onAppear { // UI smoke-test hook
-            guard kind == .vowel, ProcessInfo.processInfo.arguments.contains("-openVowel") else { return }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { selected = vowelGroups[0] }
+            let flag = kind == .vowel ? "-openVowel" : "-openLetter" // "-openLetter=kaf" opens that group
+            guard let arg = ProcessInfo.processInfo.arguments.first(where: { $0.hasPrefix(flag) }) else { return }
+            let id = arg.split(separator: "=").dropFirst().first.map(String.init)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { selected = groups.first { $0.id == id } ?? groups[0] }
         }
         #endif
     }
@@ -80,7 +82,7 @@ struct DeckGridView: View {
                     } label: {
                         VStack(spacing: 2) {
                             Text(pointed(card.h))
-                                .font(.system(size: 40))
+                                .font(.hebrew(40))
                                 .minimumScaleFactor(0.6)
                                 .lineLimit(1)
                             Text(tr(card.g))
@@ -90,7 +92,7 @@ struct DeckGridView: View {
                                 .lineLimit(1)
                             // the other forms, like a letter tile's dagesh/final variants
                             Text(pointed(card.units.dropFirst().map(\.h).joined(separator: " · ")))
-                                .font(.system(size: 18))
+                                .font(.hebrew(18))
                                 .minimumScaleFactor(0.5)
                                 .lineLimit(1)
                         }
@@ -170,7 +172,7 @@ struct WordSetView: View {
                     HStack {
                         Text(tr(card.g)).foregroundStyle(.secondary)
                         Spacer()
-                        Text(pointed(card.h)).font(.system(size: 40))
+                        Text(pointed(card.h)).font(.hebrew(40))
                     }
                 }
                 .buttonStyle(.plain)
@@ -203,6 +205,13 @@ struct WordSetView: View {
                 } label: {
                     Label("Rename", systemImage: "pencil")
                 }
+                let done = cards.filter { store.known.contains($0.id) }
+                Button {
+                    store.forgetKnown(done.map(\.id))
+                } label: {
+                    Label(ui("Reset Got it", "重置已掌握") + " (\(done.count))", systemImage: "arrow.counterclockwise")
+                }
+                .disabled(done.isEmpty)
                 Button(role: .destructive) {
                     confirmingDelete = true
                 } label: {
@@ -280,7 +289,7 @@ struct AddWordsView: View {
                         Image(systemName: present ? "checkmark" : "plus").foregroundStyle(Theme.accent).frame(width: 20)
                         Text(tr(w.g)).foregroundStyle(.secondary)
                         Spacer()
-                        Text(pointed(w.h)).font(.system(size: 32))
+                        Text(pointed(w.h)).font(.hebrew(32))
                     }
                 }
                 .buttonStyle(.plain)
@@ -308,7 +317,7 @@ struct BandsView: View {
                     } label: {
                         VStack(spacing: 3) {
                             Text(pointed(wordDeck[band.start].h))
-                                .font(.system(size: 38))
+                                .font(.hebrew(38))
                                 .minimumScaleFactor(0.6)
                                 .lineLimit(1)
                             Text(band.title).font(.caption2.bold())
@@ -397,7 +406,7 @@ struct LessonView: View {
                     } label: {
                         HStack(alignment: .firstTextBaseline, spacing: 12) {
                             Text(pointed(e.h))
-                                .font(.system(size: 38))
+                                .font(.hebrew(38))
                                 .frame(minWidth: 130, alignment: .trailing)
                             VStack(alignment: .leading, spacing: 1) {
                                 Text(ltr(tr(e.g))).font(.subheadline).foregroundStyle(Theme.text)
@@ -453,7 +462,7 @@ struct LessonView: View {
                     GridRow {
                         ForEach(Array(row.enumerated()), id: \.offset) { i, cell in
                             if cell.unicodeScalars.contains(where: { (0x05D0...0x05EA).contains($0.value) }) {
-                                Text(pointed(ltr(cell))).font(.system(size: 28)).lineSpacing(2)
+                                Text(pointed(ltr(cell))).font(.hebrew(28)).lineSpacing(2)
                             } else {
                                 Text(tr(cell)).font(.subheadline)
                                     .foregroundStyle(i == 0 ? Theme.neutral400 : Theme.text)

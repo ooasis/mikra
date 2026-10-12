@@ -237,7 +237,7 @@ private struct VersePage: View {
                         } label: {
                             VStack(spacing: 2) {
                                 Text(pointed(word.h))
-                                    .font(.system(size: 40 * scale))
+                                    .font(.hebrew(40 * scale))
                                     .foregroundStyle(Theme.text)
                                     .padding(.vertical, 2)
                                     .padding(.horizontal, 3)
@@ -405,7 +405,7 @@ private struct WordSheet: View {
                 Text("\(position + 1) / \(words.count)")
                     .font(.caption2)
                     .foregroundStyle(Theme.neutral500)
-                Text(pointed(word.h)).font(.system(size: 84)).minimumScaleFactor(0.5).lineLimit(1)
+                Text(pointed(word.h)).font(.hebrew(84)).minimumScaleFactor(0.5).lineLimit(1)
                 Text(pronounce(word.h)).font(.subheadline).foregroundStyle(Theme.neutral500)
                 Text(tr(word.g)).font(.title2.weight(.medium)).multilineTextAlignment(.center)
                 if let n = word.n {

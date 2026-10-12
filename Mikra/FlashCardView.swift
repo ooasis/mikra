@@ -121,7 +121,11 @@ struct FlashCardView: View {
                                     VowelGlyph(card: card, size: 60)
                                 } else {
                                     Text(pointed(card.hebrew))
-                                        .font(.system(size: cards.count > 2 ? 80 : 100))
+                                        .font(.hebrew(cards.count > 2 ? 80 : 100))
+                                    if let cursive = card.cursive {
+                                        Image(cursive).frame(height: 80) // sized by the asset, so letters share one scale
+                                        Text(ui("cursive", "手写体")).font(.caption2).foregroundStyle(.tertiary)
+                                    }
                                 }
                                 Text(card.name).font(.headline)
                                 if let pron = card.namePron {
@@ -164,7 +168,7 @@ struct FlashCardView: View {
                                     say(combo.hebrew)
                                 } label: {
                                     VStack(spacing: 2) {
-                                        Text(pointed(combo.hebrew)).font(.system(size: 44))
+                                        Text(pointed(combo.hebrew)).font(.hebrew(44))
                                         Text(combo.caption).font(.caption2).foregroundStyle(.secondary)
                                     }
                                     .frame(maxWidth: .infinity)

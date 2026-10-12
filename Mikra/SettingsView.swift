@@ -30,6 +30,19 @@ struct SettingsView: View {
                 .pickerStyle(.segmented)
             }
             Section {
+                Picker("Hebrew font", selection: Binding(get: { store.hebrewFont },
+                                                         set: { store.setHebrewFont($0) })) {
+                    ForEach(HebrewFont.allCases) { Text($0.label).tag($0) }
+                }
+                .pickerStyle(.segmented)
+                Text(pointed("בְּרֵאשִׁית בָּרָא אֱלֹהִים")).font(.hebrew(32))
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            } header: {
+                Text("Hebrew font")
+            } footer: {
+                Text("Scholar and Serif space the vowel points further from the letters.")
+            }
+            Section {
                 Picker("Meanings", selection: Binding(get: { store.language },
                                                       set: { store.setLanguage($0) })) {
                     ForEach(Language.allCases) { Text($0.label).tag($0) }

@@ -181,7 +181,7 @@ struct WordDeckView: View {
                     VStack(spacing: 10) {
                         ForEach(forms) { f in
                             HStack(alignment: .firstTextBaseline, spacing: 12) {
-                                Text(pointed(f.h)).font(.system(size: 56)).minimumScaleFactor(0.5).lineLimit(1)
+                                Text(pointed(f.h)).font(.hebrew(56)).minimumScaleFactor(0.5).lineLimit(1)
                                 VStack(alignment: .leading, spacing: 1) {
                                     Text(tr(f.g)).font(.subheadline).foregroundStyle(Theme.neutral400)
                                     Text(pronounce(f.h)).font(.caption).foregroundStyle(Theme.neutral500)
@@ -193,7 +193,7 @@ struct WordDeckView: View {
                     .padding(.top, 24)
                 } else {
                     Text(pointed(word.h))
-                        .font(.system(size: 96))
+                        .font(.hebrew(96))
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
                         .padding(.top, 40)
@@ -250,7 +250,7 @@ struct WordDeckView: View {
                     Image(systemName: "speaker.wave.2").font(.caption).foregroundStyle(Theme.neutral500)
                 }
                 Text(v.line)
-                    .font(.system(size: 28))
+                    .font(.hebrew(28))
                     .multilineTextAlignment(.trailing)
                     .frame(maxWidth: .infinity, alignment: .trailing)
                 Text(v.text).font(.subheadline).foregroundStyle(Theme.text)
@@ -281,7 +281,7 @@ struct WordDeckView: View {
             Speech.say(words: [w.h])
         } label: {
             HStack(spacing: 8) {
-                Text(pointed(w.h)).font(.system(size: 32))
+                Text(pointed(w.h)).font(.hebrew(32))
                 VStack(alignment: .leading, spacing: 1) {
                     Text(tr(w.g)).font(.subheadline)
                     Text(pronounce(w.h)).font(.caption).foregroundStyle(Theme.neutral500)

@@ -143,3 +143,33 @@ struct ProgressLine: View {
         .animation(.easeOut(duration: 0.2), value: fraction)
     }
 }
+
+/// Which typeface draws Hebrew. Arial Hebrew Scholar spaces the vowel points out for reading them;
+/// Times New Roman draws them heaviest. Fixed sizes, like the `.system(size:)` calls these replace.
+enum HebrewFont: String, CaseIterable, Identifiable {
+    case system, scholar, serif
+
+    var id: String { rawValue }
+    var label: String {
+        switch self {
+        case .system: return "SF Hebrew"
+        case .scholar: return "Scholar"
+        case .serif: return "Serif"
+        }
+    }
+    /// Set by the Store when the setting changes, like Zh.on.
+    static var current = HebrewFont.system
+
+    func font(_ size: CGFloat) -> Font {
+        switch self {
+        case .system: return .system(size: size)
+        case .scholar: return .custom("ArialHebrewScholar", fixedSize: size)
+        case .serif: return .custom("TimesNewRomanPSMT", fixedSize: size)
+        }
+    }
+}
+
+extension Font {
+    /// Hebrew text in the chosen typeface.
+    static func hebrew(_ size: CGFloat) -> Font { HebrewFont.current.font(size) }
+}

@@ -28,6 +28,12 @@ struct Card: Identifiable {
         return String(String.UnicodeScalarView(marks))
     }
 
+    /// Asset name of the handwritten (cursive) form; dagesh and sin variants share the letter's.
+    var cursive: String? {
+        guard kind == .letter else { return nil }
+        return "cursive-" + (["vet": "bet", "khaf": "kaf", "fe": "pe", "sin": "shin"][id] ?? id)
+    }
+
     /// Display glyph: vowels show just the mark on a dotted circle, no carrier letter.
     var displayGlyph: String {
         kind == .vowel ? "◌" + vowelMark : hebrew

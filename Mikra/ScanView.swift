@@ -43,7 +43,7 @@ struct ScanView: View {
                         HStack {
                             Text(present ? "already in set" : tr(card.g)).foregroundStyle(.secondary)
                             Spacer()
-                            Text(pointed(card.h)).font(.system(size: 32))
+                            Text(pointed(card.h)).font(.hebrew(32))
                         }
                         .opacity(present ? 0.4 : 1)
                     }

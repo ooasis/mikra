@@ -79,7 +79,7 @@ struct PracticeView: View {
         switch item {
         case .word(let w):
             VStack(spacing: 10) {
-                Text(pointed(w.h)).font(.system(size: 96)).minimumScaleFactor(0.5).lineLimit(1)
+                Text(pointed(w.h)).font(.hebrew(96)).minimumScaleFactor(0.5).lineLimit(1)
                 if showBack {
                     Text(tr(w.g)).font(.title2.weight(.medium)).multilineTextAlignment(.center)
                     Text(pronounce(w.h)).font(.callout).foregroundStyle(Theme.neutral500)
@@ -98,7 +98,7 @@ struct PracticeView: View {
                     .font(.caption2).tracking(1).foregroundStyle(Theme.accent)
                 VerseFlow {
                     ForEach(Array(v.words.enumerated()), id: \.offset) { _, word in
-                        Text(pointed(word.h)).font(.system(size: 32))
+                        Text(pointed(word.h)).font(.hebrew(32))
                     }
                 }
                 if showBack {
@@ -123,7 +123,7 @@ struct PracticeView: View {
     private var finished: some View {
         VStack(spacing: 14) {
             Spacer()
-            Text("כָּל הַכָּבוֹד").font(.system(size: 44))
+            Text("כָּל הַכָּבוֹד").font(.hebrew(44))
             Text(ui("That's the run.", "这一轮完成了。")).font(.title3.weight(.medium))
             Button(ui("Another round", "再来一轮")) {
                 items = Self.build(store); index = 0; revealed = false

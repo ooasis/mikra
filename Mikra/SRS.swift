@@ -31,6 +31,7 @@ final class Store: ObservableObject {
         var appearance: String? = nil
         var sets: [WordSet]? = nil
         var language: String? = nil
+        var hebrewFont: String? = nil
         var verseHelp: String? = nil
         var recentBooks: [String]? = nil
         var known: [String]? = nil
@@ -45,6 +46,7 @@ final class Store: ObservableObject {
     @Published private(set) var appearance: Appearance = .system
     /// Which language meanings are shown in; Zh.on mirrors it for the views' `tr`.
     @Published private(set) var language: Language = .en { didSet { Zh.on = language == .zh } }
+    @Published private(set) var hebrewFont: HebrewFont = .system { didSet { HebrewFont.current = hebrewFont } }
     @Published private(set) var verseHelp: VerseHelp = .none
     @Published private(set) var sets: [WordSet] = []
     /// The last books opened, newest first; the home screen links to the first three.
@@ -67,12 +69,14 @@ final class Store: ObservableObject {
             if let saved = snap.appearance, let a = Appearance(rawValue: saved) { appearance = a }
             sets = snap.sets ?? []
             if let saved = snap.language, let l = Language(rawValue: saved) { language = l }
+            if let saved = snap.hebrewFont, let f = HebrewFont(rawValue: saved) { hebrewFont = f }
             if let saved = snap.verseHelp, let h = VerseHelp(rawValue: saved) { verseHelp = h }
             recentBooks = (snap.recentBooks ?? []).filter { name in books.contains { $0.name == name } }
             known = Set(snap.known ?? [])
         }
         Speech.pace = pace
         Zh.on = language == .zh
+        HebrewFont.current = hebrewFont
     }
 
     /// Verse progress used to be keyed "1:3", from when Jonah was the only text.
@@ -103,6 +107,11 @@ final class Store: ObservableObject {
 
     func setLanguage(_ l: Language) {
         language = l
+        save()
+    }
+
+    func setHebrewFont(_ f: HebrewFont) {
+        hebrewFont = f
         save()
     }
 
@@ -210,6 +219,12 @@ final class Store: ObservableObject {
         save()
     }
 
+    /// Clears Got it on these cards, so a set's words all play again.
+    func forgetKnown(_ cardIDs: [String]) {
+        known.subtract(cardIDs)
+        save()
+    }
+
     func deleteSet(_ setID: String) {
         sets.removeAll { $0.id == setID }
         save()
@@ -222,6 +237,7 @@ final class Store: ObservableObject {
         pace = .normal
         sets = []
         language = .en
+        hebrewFont = .system
         verseHelp = .none
         known = []
         lastVerseDay = nil
@@ -231,7 +247,7 @@ final class Store: ObservableObject {
     private func save() {
         let snap = Snapshot(verses: verses, lastVerseDay: lastVerseDay,
                             currentBook: currentBook, pace: pace.rawValue,
-                            appearance: appearance.rawValue, sets: sets, language: language.rawValue,
+                            appearance: appearance.rawValue, sets: sets, language: language.rawValue, hebrewFont: hebrewFont.rawValue,
                             verseHelp: verseHelp.rawValue, recentBooks: recentBooks, known: Array(known).sorted())
         try? JSONEncoder().encode(snap).write(to: url)
     }

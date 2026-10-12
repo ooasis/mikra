@@ -119,7 +119,7 @@ struct PhraseSetView: View {
                 HStack {
                     Text(verse.text).font(.subheadline).foregroundStyle(Theme.neutral400)
                     Spacer()
-                    Text(pointed(verse.hebrew)).font(.title2).multilineTextAlignment(.trailing)
+                    Text(pointed(verse.hebrew)).font(.hebrew(22)).multilineTextAlignment(.trailing)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 .contentShape(.rect)

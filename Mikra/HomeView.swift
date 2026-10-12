@@ -29,7 +29,7 @@ struct HomeView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
-                        Text("מִקְרָא").font(.system(size: 36, weight: .medium))
+                        Text("מִקְרָא").font(.hebrew(36).weight(.medium))
                         Spacer()
                         NavigationLink(value: Route.settings) {
                             Image(systemName: "gearshape").font(.body)
@@ -119,6 +119,8 @@ struct HomeView: View {
                     path.append(Route.bands)
                 } else if args.contains("-openVowel") {
                     path.append(Route.vowels)
+                } else if args.contains(where: { $0.hasPrefix("-openLetter") }) {
+                    path.append(Route.letters)
                 } else if args.contains("-openDeck") {
                     path.append(Route.deck(decks[0].id))
                 } else if args.contains("-openSet"), let set = store.sets.first {
@@ -231,7 +233,7 @@ struct HomeView: View {
                             Text(pronounce(w.h)).font(.caption2).foregroundStyle(Theme.neutral500)
                         }
                         Spacer()
-                        Text(pointed(w.h)).font(.system(size: 40))
+                        Text(pointed(w.h)).font(.hebrew(40))
                     }
                     .padding(.horizontal)
                     .padding(.vertical, 8)
@@ -261,7 +263,7 @@ struct HomeView: View {
                 if let icon {
                     Image(systemName: icon).font(.system(size: 28)).foregroundStyle(Theme.accent)
                 } else if let glyph {
-                    Text(pointed(glyph)).font(.system(size: 34)).minimumScaleFactor(0.5).lineLimit(1)
+                    Text(pointed(glyph)).font(.hebrew(34)).minimumScaleFactor(0.5).lineLimit(1)
                 }
             }
             .frame(height: 40)
